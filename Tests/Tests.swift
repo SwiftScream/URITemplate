@@ -20,4 +20,20 @@ class Tests: XCTestCase {
         XCTAssert(TestFileRunner.runFile("tests"))
     }
 
+    func testSpecExamples() {
+        XCTAssert(TestFileRunner.runFile("spec-examples"))
+    }
+
+    func testSpecExamplesBySection() {
+        XCTAssert(TestFileRunner.runFile("spec-examples-by-section"))
+    }
+
+    func testExtendedTests() {
+        XCTAssert(TestFileRunner.runFile("extended-tests"))
+    }
+
+    func testNegativeTests() {
+        XCTAssert(TestFileRunner.runFile("negative-tests"))
+    }
+
 }
