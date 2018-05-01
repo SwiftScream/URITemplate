@@ -14,5 +14,28 @@
 
 import Foundation
 
-public class URITemplate {
+public struct URITemplate {
+    public enum Error : Swift.Error {
+        case malformedTemplate(position: String.Index, reason: String)
+        case expansionFailure(position: String.Index, reason: String)
+    }
+
+    private let components : [Component]
+
+    public init(string: String) throws {
+        var components : [Component] = []
+        var scanner = Scanner(string: string)
+        while !scanner.isComplete {
+            try components.append(scanner.scanComponent())
+        }
+        self.components = components
+    }
+
+    public func process(variables: [String:String]) throws -> String {
+        var result = ""
+        for component in components {
+            result += try component.expand(variables:variables)
+        }
+        return result
+    }
 }
