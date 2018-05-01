@@ -15,7 +15,7 @@
 import Foundation
 
 internal protocol Component {
-    func expand(variables: [String:String]) throws -> String
+    func expand(variables: [String:VariableValue]) throws -> String
 }
 
 internal struct LiteralComponent : Component {
@@ -24,7 +24,7 @@ internal struct LiteralComponent : Component {
         literal = string
     }
 
-    func expand(variables _: [String:String]) throws -> String {
+    func expand(variables _: [String:VariableValue]) throws -> String {
         let expansion = String(literal)
         guard let encodedExpansion = expansion.addingPercentEncoding(withAllowedCharacters: reservedAndUnreservedCharacterSet) else {
             throw URITemplate.Error.expansionFailure(position: literal.startIndex, reason: "Percent Encoding Failed")
@@ -39,7 +39,7 @@ internal struct LiteralPercentEncodedTripletComponent : Component {
         literal = string
     }
 
-    func expand(variables _: [String:String]) throws -> String {
+    func expand(variables _: [String:VariableValue]) throws -> String {
         return String(literal)
     }
 }
@@ -55,23 +55,27 @@ internal struct ExpressionComponent : Component {
         self.templatePosition = templatePosition
     }
 
-    func expand(variables: [String:String]) throws -> String {
+    func expand(variables: [String:VariableValue]) throws -> String {
         let configuration = expressionOperator.expansionConfiguration()
         let expansions = try variableList.compactMap { variableName -> String? in
             guard let value = variables[String(variableName)] else {
                 return nil;
             }
-            guard let encodedValue = value.addingPercentEncoding(withAllowedCharacters: configuration.percentEncodingAllowedCharacterSet) else {
-                throw URITemplate.Error.expansionFailure(position: templatePosition, reason: "Failed expanding variable \"\(variableName)\": Percent Encoding Failed")
-            }
-            if (configuration.named) {
-                if (encodedValue.isEmpty && configuration.omittOrphanedEquals) {
-                    return String(variableName)
+            do {
+                if let stringValue = value as? String {
+                    return try stringValue.formatForTemplateExpansion(variableName: variableName, expansionConfiguration: configuration)
+                } else if let arrayValue = value as? [String] {
+                    return try arrayValue.formatForTemplateExpansion(variableName: variableName, expansionConfiguration: configuration)
+                } else if let dictionaryValue = value as? [String:String] {
+                    return try dictionaryValue.formatForTemplateExpansion(variableName: variableName, expansionConfiguration: configuration)
+                } else {
+                    throw FormatError.failure(reason: "Invalid Value Type")
                 }
-                return "\(variableName)=\(encodedValue)"
+            } catch FormatError.failure(let reason) {
+                throw URITemplate.Error.expansionFailure(position: templatePosition, reason: "Failed expanding variable \"\(variableName)\": \(reason)")
             }
-            return encodedValue
         }
+
         if (expansions.count == 0) {
             return ""
         }

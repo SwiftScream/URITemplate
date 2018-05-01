@@ -13,6 +13,7 @@
 //   limitations under the License.
 
 import Foundation
+import URITemplate
 
 private typealias TestFile = [String:TestGroupDecodable]
 
@@ -25,7 +26,7 @@ private struct TestGroupDecodable : Decodable {
 public struct TestGroup {
     public let name : String
     public let level : Int?
-    public let variables : [String:String]
+    public let variables : [String:VariableValue]
     public let testcases : [TestCase]
 }
 
@@ -38,7 +39,7 @@ public struct TestCase {
 }
 
 extension JSONValue {
-    func toVariableValue() -> String? {
+    func toVariableValue() -> VariableValue? {
         switch(self) {
         case .int(let int):
             return String(int)
@@ -46,10 +47,25 @@ extension JSONValue {
             return String(double)
         case .string(let string):
             return string
-        case .object:
-            return nil
-        case .array:
-            return nil
+        case .object(let object):
+            return object.mapValues { element -> String? in
+                switch(element) {
+                case .string(let string):
+                    return string
+                default:
+                    return nil
+                }
+                }.filter { $0.value != nil }
+                .mapValues { $0! }
+        case .array(let array):
+            return array.compactMap { element -> String? in
+                switch(element) {
+                case .string(let string):
+                    return string
+                default:
+                    return nil
+                }
+            }
         default:
             return nil
         }
