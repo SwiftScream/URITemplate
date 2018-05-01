@@ -11,5 +11,20 @@
             ["literal%20%21with%20percents%21", "literal%20%21with%20percents%21"],
             ["literal/{hello}", "literal/Hello%20World%21"]
         ]
+    },
+    "Level 2" :
+    {
+        "level": 2,
+        "variables": {
+            "var"   : "value",
+            "hello" : "Hello World!",
+            "path"  : "/foo/bar"
+        },
+        "testcases" : [
+            ["{#var}", "#value"],
+            ["{#hello}", "#Hello%20World!"],
+            ["{#path}/here", "#/foo/bar/here"],
+            ["here?ref={#path}", "here?ref=#/foo/bar"]
+        ]
     }
 }

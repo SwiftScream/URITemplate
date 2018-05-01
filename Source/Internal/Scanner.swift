@@ -55,6 +55,7 @@ internal struct Scanner {
         let expressionStartIndex = currentIndex
         currentIndex = unicodeScalars.index(after:currentIndex)
 
+        let expressionOperator = try scanExpressionOperator()
         let variableName = try scanVariableName()
 
         if (currentIndex == unicodeScalars.endIndex) {
@@ -63,7 +64,21 @@ internal struct Scanner {
             throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Unexpected Character in Expression")
         }
         currentIndex = unicodeScalars.index(after:currentIndex)
-        return ExpressionComponent(variable: variableName, templatePosition: expressionStartIndex)
+        return ExpressionComponent(expressionOperator: expressionOperator, variable: variableName, templatePosition: expressionStartIndex)
+    }
+
+    private mutating func scanExpressionOperator() throws -> ExpressionOperator {
+        let expressionOperator : ExpressionOperator
+        if (expressionOperatorCharacterSet.contains(unicodeScalars[currentIndex])) {
+            guard let op = ExpressionOperator(rawValue:unicodeScalars[currentIndex]) else {
+                throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Unsupported Operator")
+            }
+            expressionOperator = op
+            currentIndex = unicodeScalars.index(after:currentIndex)
+        } else {
+            expressionOperator = .simple
+        }
+        return expressionOperator
     }
 
     private mutating func scanVariableName() throws -> Substring {

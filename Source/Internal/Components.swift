@@ -45,19 +45,25 @@ internal struct LiteralPercentEncodedTripletComponent : Component {
 }
 
 internal struct ExpressionComponent : Component {
+    let expressionOperator: ExpressionOperator
     let variable: Substring
     let templatePosition: String.Index
 
-    init (variable: Substring, templatePosition: String.Index) {
+    init (expressionOperator: ExpressionOperator, variable: Substring, templatePosition: String.Index) {
+        self.expressionOperator = expressionOperator
         self.variable = variable
         self.templatePosition = templatePosition
     }
 
     func expand(variables: [String:String]) throws -> String {
+        let configuration = expressionOperator.expansionConfiguration()
         let variableName = String(variable)
         let expansion = variables[variableName] ?? ""
-        guard let encodedExpansion = expansion.addingPercentEncoding(withAllowedCharacters: unreservedCharacterSet) else {
+        guard let encodedExpansion = expansion.addingPercentEncoding(withAllowedCharacters: configuration.percentEncodingAllowedCharacterSet) else {
             throw URITemplate.Error.expansionFailure(position: templatePosition, reason: "Failed expanding variable \"\(variableName)\": Percent Encoding Failed")
+        }
+        if let prefix = configuration.prefix {
+            return prefix + encodedExpansion
         }
         return encodedExpansion;
     }
