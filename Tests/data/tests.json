@@ -1,4 +1,32 @@
 {
+    "Errors" :
+    {
+        "variables": {
+            "var"   : "value",
+            "hello" : "Hello World!",
+            "list"  : ["A","B","C"]
+        },
+        "testcases" : [
+            ["literal/{var}/lit^eral", false, 17, "Unexpected character"],
+            ["{@var}", false, 1, "Unsupported Operator"],
+            ["{var", false, 4, "Unterminated Expression"],
+            ["{v!ar}", false, 2, "Unexpected Character in Expression"],
+            ["{}", false, 1, "Empty Variable Name"],
+            ["{var,,hello}", false, 5, "Empty Variable Name"],
+            ["{#.var}", false, 2, "Variable Name Cannot Begin With '.'"],
+            ["{var,.hello}", false, 5, "Variable Name Cannot Begin With '.'"],
+            ["{hel%lo}", false, 1, "% must be percent-encoded in variable name"],
+            ["{var,hel%lo}", false, 5, "% must be percent-encoded in variable name"],
+            ["literalli%eral", false, 9, "% must be percent-encoded in literal"],
+            ["{var:}", false, 5, "Prefix length not specified"],
+            ["{var:10000}", false, 5, "Prefix modifier length too large"],
+            ["{var:0123}", false, 5, "Prefix length cannot begin with 0"],
+            ["{var:0}", false, 5, "Prefix length cannot begin with 0"],
+            ["{var:1", false, 6, "Unterminated Expression"],
+            ["{var*", false, 5, "Unterminated Expression"],
+            ["{list:8}", false, 0, "Failed expanding variable \"list\": Prefix operator can only be applied to string"]
+        ]
+    },
     "Level 1" :
     {
         "level": 1,
