@@ -49,6 +49,24 @@
 		958812CC20973B1C0080D3D4 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812CA20973B1C0080D3D4 /* Scanner.swift */; };
 		958812CD20973B1C0080D3D4 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812CA20973B1C0080D3D4 /* Scanner.swift */; };
 		958812CE20973B1C0080D3D4 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812CA20973B1C0080D3D4 /* Scanner.swift */; };
+		958812D7209745FE0080D3D4 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812D6209745FE0080D3D4 /* Tests.swift */; };
+		958812D9209745FE0080D3D4 /* libURITemplate-mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 958812982096E8EB0080D3D4 /* libURITemplate-mac.a */; };
+		958812E02097488F0080D3D4 /* TestModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812DF2097488F0080D3D4 /* TestModels.swift */; };
+		958812E2209748C80080D3D4 /* JSONValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812E1209748C80080D3D4 /* JSONValue.swift */; };
+		958812E4209749FD0080D3D4 /* TestFileRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812E3209749FD0080D3D4 /* TestFileRunner.swift */; };
+		958812E620974B6D0080D3D4 /* tests.json in Resources */ = {isa = PBXBuildFile; fileRef = 958812E520974B6D0080D3D4 /* tests.json */; };
+		958812F12097F3090080D3D4 /* libURITemplate-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95C591721F6F7A1100C4405A /* libURITemplate-ios.a */; };
+		958812F72097F32D0080D3D4 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812D6209745FE0080D3D4 /* Tests.swift */; };
+		958812F82097F32D0080D3D4 /* JSONValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812E1209748C80080D3D4 /* JSONValue.swift */; };
+		958812F92097F32D0080D3D4 /* TestModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812DF2097488F0080D3D4 /* TestModels.swift */; };
+		958812FA2097F32D0080D3D4 /* TestFileRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812E3209749FD0080D3D4 /* TestFileRunner.swift */; };
+		958812FB2097F32D0080D3D4 /* tests.json in Resources */ = {isa = PBXBuildFile; fileRef = 958812E520974B6D0080D3D4 /* tests.json */; };
+		958813062097F8B70080D3D4 /* libURITemplate-tv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95AE3DD62092FC0F004D6773 /* libURITemplate-tv.a */; };
+		9588130C2097F8CB0080D3D4 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812D6209745FE0080D3D4 /* Tests.swift */; };
+		9588130D2097F8CB0080D3D4 /* JSONValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812E1209748C80080D3D4 /* JSONValue.swift */; };
+		9588130E2097F8CB0080D3D4 /* TestModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812DF2097488F0080D3D4 /* TestModels.swift */; };
+		9588130F2097F8CB0080D3D4 /* TestFileRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812E3209749FD0080D3D4 /* TestFileRunner.swift */; };
+		958813102097F8CB0080D3D4 /* tests.json in Resources */ = {isa = PBXBuildFile; fileRef = 958812E520974B6D0080D3D4 /* tests.json */; };
 		95AE3DDD2092FC2F004D6773 /* URITemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BAAD651F720CB3005F3D08 /* URITemplate.swift */; };
 		95BAAD661F720D04005F3D08 /* URITemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BAAD651F720CB3005F3D08 /* URITemplate.swift */; };
 		95C591891F6F7C1200C4405A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C591881F6F7C1200C4405A /* AppDelegate.swift */; };
@@ -120,6 +138,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = 958812972096E8EB0080D3D4;
 			remoteInfo = "URITemplate-mac";
+		};
+		958812DA209745FE0080D3D4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 95C5916A1F6F7A1100C4405A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 958812972096E8EB0080D3D4;
+			remoteInfo = "URITemplate-mac";
+		};
+		958812F22097F3090080D3D4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 95C5916A1F6F7A1100C4405A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 95C591711F6F7A1100C4405A;
+			remoteInfo = "URITemplate-ios";
+		};
+		958813072097F8B70080D3D4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 95C5916A1F6F7A1100C4405A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 95AE3DD52092FC0F004D6773;
+			remoteInfo = "URITemplate-tv";
 		};
 		95BAAD631F70EE4B005F3D08 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -220,6 +259,18 @@
 		958812C02097333B0080D3D4 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		958812C520973AD60080D3D4 /* CharacterSets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSets.swift; sourceTree = "<group>"; };
 		958812CA20973B1C0080D3D4 /* Scanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
+		958812D4209745FE0080D3D4 /* Tests-mac.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests-mac.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		958812D6209745FE0080D3D4 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		958812D8209745FE0080D3D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		958812DF2097488F0080D3D4 /* TestModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModels.swift; sourceTree = "<group>"; };
+		958812E1209748C80080D3D4 /* JSONValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONValue.swift; sourceTree = "<group>"; };
+		958812E3209749FD0080D3D4 /* TestFileRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFileRunner.swift; sourceTree = "<group>"; };
+		958812E520974B6D0080D3D4 /* tests.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tests.json; sourceTree = "<group>"; };
+		958812E72097D88D0080D3D4 /* TestTarget-mac.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "TestTarget-mac.xcconfig"; sourceTree = "<group>"; };
+		958812EC2097F3090080D3D4 /* Tests-ios.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests-ios.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		958812FC2097F5470080D3D4 /* TestTarget-ios.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "TestTarget-ios.xcconfig"; sourceTree = "<group>"; };
+		958813012097F8B70080D3D4 /* Tests-tv.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests-tv.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		958813112097FB130080D3D4 /* TestTarget-tv.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "TestTarget-tv.xcconfig"; sourceTree = "<group>"; };
 		95AE3DD62092FC0F004D6773 /* libURITemplate-tv.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libURITemplate-tv.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95BAAD651F720CB3005F3D08 /* URITemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URITemplate.swift; sourceTree = "<group>"; };
 		95C591721F6F7A1100C4405A /* libURITemplate-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libURITemplate-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -270,6 +321,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		958812D1209745FE0080D3D4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				958812D9209745FE0080D3D4 /* libURITemplate-mac.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		958812E92097F3090080D3D4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				958812F12097F3090080D3D4 /* libURITemplate-ios.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		958812FE2097F8B70080D3D4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				958813062097F8B70080D3D4 /* libURITemplate-tv.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,6 +430,19 @@
 			path = Internal;
 			sourceTree = "<group>";
 		};
+		958812D5209745FE0080D3D4 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				958812D6209745FE0080D3D4 /* Tests.swift */,
+				958812E1209748C80080D3D4 /* JSONValue.swift */,
+				958812DF2097488F0080D3D4 /* TestModels.swift */,
+				958812E3209749FD0080D3D4 /* TestFileRunner.swift */,
+				958812D8209745FE0080D3D4 /* Info.plist */,
+				958812E520974B6D0080D3D4 /* tests.json */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		95C591691F6F7A1100C4405A = {
 			isa = PBXGroup;
 			children = (
@@ -364,6 +452,7 @@
 				958812442096A0980080D3D4 /* Example-tv */,
 				958812672096C7190080D3D4 /* Example-watch */,
 				95C5919E1F6F833F00C4405A /* Configuration */,
+				958812D5209745FE0080D3D4 /* Tests */,
 				95C591731F6F7A1100C4405A /* Products */,
 				958812BD2096ED700080D3D4 /* Frameworks */,
 			);
@@ -381,6 +470,9 @@
 				958812722096C7190080D3D4 /* URITemplateExample-watch Extension.appex */,
 				958812982096E8EB0080D3D4 /* libURITemplate-mac.a */,
 				958812B42096ED160080D3D4 /* URITemplateExample-mac */,
+				958812D4209745FE0080D3D4 /* Tests-mac.xctest */,
+				958812EC2097F3090080D3D4 /* Tests-ios.xctest */,
+				958813012097F8B70080D3D4 /* Tests-tv.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -416,6 +508,9 @@
 				958812A42096E9CD0080D3D4 /* StaticLibTarget-mac.xcconfig */,
 				9588123420934F150080D3D4 /* StaticLibTarget-tv.xcconfig */,
 				958812632096C4A10080D3D4 /* StaticLibTarget-watch.xcconfig */,
+				958812FC2097F5470080D3D4 /* TestTarget-ios.xcconfig */,
+				958812E72097D88D0080D3D4 /* TestTarget-mac.xcconfig */,
+				958813112097FB130080D3D4 /* TestTarget-tv.xcconfig */,
 				95C591A21F6F8B3C00C4405A /* ExampleTarget-ios.xcconfig */,
 				958812BF2096EDBE0080D3D4 /* ExampleTarget-mac.xcconfig */,
 				958812542096A6900080D3D4 /* ExampleTarget-tv.xcconfig */,
@@ -544,6 +639,60 @@
 			productReference = 958812B42096ED160080D3D4 /* URITemplateExample-mac */;
 			productType = "com.apple.product-type.tool";
 		};
+		958812D3209745FE0080D3D4 /* Tests-mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 958812DC209745FE0080D3D4 /* Build configuration list for PBXNativeTarget "Tests-mac" */;
+			buildPhases = (
+				958812D0209745FE0080D3D4 /* Sources */,
+				958812D1209745FE0080D3D4 /* Frameworks */,
+				958812D2209745FE0080D3D4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				958812DB209745FE0080D3D4 /* PBXTargetDependency */,
+			);
+			name = "Tests-mac";
+			productName = "Tests-mac";
+			productReference = 958812D4209745FE0080D3D4 /* Tests-mac.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		958812EB2097F3090080D3D4 /* Tests-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 958812F42097F3090080D3D4 /* Build configuration list for PBXNativeTarget "Tests-ios" */;
+			buildPhases = (
+				958812E82097F3090080D3D4 /* Sources */,
+				958812E92097F3090080D3D4 /* Frameworks */,
+				958812EA2097F3090080D3D4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				958812F32097F3090080D3D4 /* PBXTargetDependency */,
+			);
+			name = "Tests-ios";
+			productName = "Tests-ios";
+			productReference = 958812EC2097F3090080D3D4 /* Tests-ios.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		958813002097F8B70080D3D4 /* Tests-tv */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 958813092097F8B70080D3D4 /* Build configuration list for PBXNativeTarget "Tests-tv" */;
+			buildPhases = (
+				958812FD2097F8B70080D3D4 /* Sources */,
+				958812FE2097F8B70080D3D4 /* Frameworks */,
+				958812FF2097F8B70080D3D4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				958813082097F8B70080D3D4 /* PBXTargetDependency */,
+			);
+			name = "Tests-tv";
+			productName = "Tests-tv";
+			productReference = 958813012097F8B70080D3D4 /* Tests-tv.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		95AE3DD52092FC0F004D6773 /* URITemplate-tv */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 95AE3DDA2092FC0F004D6773 /* Build configuration list for PBXNativeTarget "URITemplate-tv" */;
@@ -633,6 +782,15 @@
 					958812B32096ED160080D3D4 = {
 						CreatedOnToolsVersion = 9.3;
 					};
+					958812D3209745FE0080D3D4 = {
+						CreatedOnToolsVersion = 9.3;
+					};
+					958812EB2097F3090080D3D4 = {
+						CreatedOnToolsVersion = 9.3;
+					};
+					958813002097F8B70080D3D4 = {
+						CreatedOnToolsVersion = 9.3;
+					};
 					95AE3DD52092FC0F004D6773 = {
 						CreatedOnToolsVersion = 9.3;
 						ProvisioningStyle = Automatic;
@@ -671,6 +829,9 @@
 				958812652096C7190080D3D4 /* URITemplateExample-watch */,
 				958812712096C7190080D3D4 /* URITemplateExample-watch Extension */,
 				958812B32096ED160080D3D4 /* URITemplateExample-mac */,
+				958812D3209745FE0080D3D4 /* Tests-mac */,
+				958812EB2097F3090080D3D4 /* Tests-ios */,
+				958813002097F8B70080D3D4 /* Tests-tv */,
 			);
 		};
 /* End PBXProject section */
@@ -698,6 +859,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				9588127C2096C71A0080D3D4 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		958812D2209745FE0080D3D4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				958812E620974B6D0080D3D4 /* tests.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		958812EA2097F3090080D3D4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				958812FB2097F32D0080D3D4 /* tests.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		958812FF2097F8B70080D3D4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				958813102097F8CB0080D3D4 /* tests.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -758,6 +943,39 @@
 			buildActionMask = 2147483647;
 			files = (
 				958812B72096ED170080D3D4 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		958812D0209745FE0080D3D4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				958812E2209748C80080D3D4 /* JSONValue.swift in Sources */,
+				958812E4209749FD0080D3D4 /* TestFileRunner.swift in Sources */,
+				958812D7209745FE0080D3D4 /* Tests.swift in Sources */,
+				958812E02097488F0080D3D4 /* TestModels.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		958812E82097F3090080D3D4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				958812FA2097F32D0080D3D4 /* TestFileRunner.swift in Sources */,
+				958812F82097F32D0080D3D4 /* JSONValue.swift in Sources */,
+				958812F72097F32D0080D3D4 /* Tests.swift in Sources */,
+				958812F92097F32D0080D3D4 /* TestModels.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		958812FD2097F8B70080D3D4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9588130F2097F8CB0080D3D4 /* TestFileRunner.swift in Sources */,
+				9588130D2097F8CB0080D3D4 /* JSONValue.swift in Sources */,
+				9588130C2097F8CB0080D3D4 /* Tests.swift in Sources */,
+				9588130E2097F8CB0080D3D4 /* TestModels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -839,6 +1057,21 @@
 			isa = PBXTargetDependency;
 			target = 958812972096E8EB0080D3D4 /* URITemplate-mac */;
 			targetProxy = 958812BB2096ED650080D3D4 /* PBXContainerItemProxy */;
+		};
+		958812DB209745FE0080D3D4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 958812972096E8EB0080D3D4 /* URITemplate-mac */;
+			targetProxy = 958812DA209745FE0080D3D4 /* PBXContainerItemProxy */;
+		};
+		958812F32097F3090080D3D4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 95C591711F6F7A1100C4405A /* URITemplate-ios */;
+			targetProxy = 958812F22097F3090080D3D4 /* PBXContainerItemProxy */;
+		};
+		958813082097F8B70080D3D4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 95AE3DD52092FC0F004D6773 /* URITemplate-tv */;
+			targetProxy = 958813072097F8B70080D3D4 /* PBXContainerItemProxy */;
 		};
 		95BAAD641F70EE4B005F3D08 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -967,6 +1200,48 @@
 			};
 			name = Release;
 		};
+		958812DD209745FE0080D3D4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 958812E72097D88D0080D3D4 /* TestTarget-mac.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		958812DE209745FE0080D3D4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 958812E72097D88D0080D3D4 /* TestTarget-mac.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		958812F52097F3090080D3D4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 958812FC2097F5470080D3D4 /* TestTarget-ios.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		958812F62097F3090080D3D4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 958812FC2097F5470080D3D4 /* TestTarget-ios.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		9588130A2097F8B70080D3D4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 958813112097FB130080D3D4 /* TestTarget-tv.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		9588130B2097F8B70080D3D4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 958813112097FB130080D3D4 /* TestTarget-tv.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
 		95AE3DDB2092FC0F004D6773 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9588123420934F150080D3D4 /* StaticLibTarget-tv.xcconfig */;
@@ -1085,6 +1360,33 @@
 			buildConfigurations = (
 				958812B82096ED170080D3D4 /* Debug */,
 				958812B92096ED170080D3D4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		958812DC209745FE0080D3D4 /* Build configuration list for PBXNativeTarget "Tests-mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				958812DD209745FE0080D3D4 /* Debug */,
+				958812DE209745FE0080D3D4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		958812F42097F3090080D3D4 /* Build configuration list for PBXNativeTarget "Tests-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				958812F52097F3090080D3D4 /* Debug */,
+				958812F62097F3090080D3D4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		958813092097F8B70080D3D4 /* Build configuration list for PBXNativeTarget "Tests-tv" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9588130A2097F8B70080D3D4 /* Debug */,
+				9588130B2097F8B70080D3D4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

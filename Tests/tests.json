@@ -1,0 +1,15 @@
+{
+    "Level 1" :
+    {
+        "level": 1,
+        "variables": {
+           "var"   : "value",
+           "hello" : "Hello World!"
+        },
+        "testcases" : [
+            ["literal", "literal"],
+            ["literal%20%21with%20percents%21", "literal%20%21with%20percents%21"],
+            ["literal/{hello}", "literal/Hello%20World%21"]
+        ]
+    }
+}

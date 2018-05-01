@@ -1,0 +1,9 @@
+SDKROOT = iphoneos
+IPHONEOS_DEPLOYMENT_TARGET = 10.0
+TARGETED_DEVICE_FAMILY = 1,2
+
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks @loader_path/Frameworks
+
+INFOPLIST_FILE = Tests/Info.plist
+PRODUCT_BUNDLE_IDENTIFIER = com.swiftscream.URITemplate.Tests-ios
+PRODUCT_NAME = $(TARGET_NAME)
