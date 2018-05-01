@@ -46,5 +46,22 @@
             ["{undef1,undef2,empty,undef3}", ""],
             ["{undef1,empty,undef2,empty,undef3}", ","]
         ]
+    },
+    "Level 4" :
+    {
+        "level": 4,
+        "variables": {
+            "list"   : [""],
+            "empty"  : {},
+            "dict"   : {"a":""}
+        },
+        "testcases" : [
+            ["{;list}", ";list"],
+            ["{;list*}", ";list"],
+            ["{;empty}", ""],
+            ["{;empty*}", ""],
+            ["{;dict}", ";dict=a,"],
+            ["{;dict*}", ";dict"]
+        ]
     }
 }

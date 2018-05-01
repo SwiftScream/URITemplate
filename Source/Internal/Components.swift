@@ -46,10 +46,10 @@ internal struct LiteralPercentEncodedTripletComponent : Component {
 
 internal struct ExpressionComponent : Component {
     let expressionOperator: ExpressionOperator
-    let variableList: [Substring]
+    let variableList: [VariableSpec]
     let templatePosition: String.Index
 
-    init (expressionOperator: ExpressionOperator, variableList: [Substring], templatePosition: String.Index) {
+    init (expressionOperator: ExpressionOperator, variableList: [VariableSpec], templatePosition: String.Index) {
         self.expressionOperator = expressionOperator
         self.variableList = variableList
         self.templatePosition = templatePosition
@@ -57,22 +57,36 @@ internal struct ExpressionComponent : Component {
 
     func expand(variables: [String:VariableValue]) throws -> String {
         let configuration = expressionOperator.expansionConfiguration()
-        let expansions = try variableList.compactMap { variableName -> String? in
-            guard let value = variables[String(variableName)] else {
+        let expansions = try variableList.compactMap { variableSpec -> String? in
+            guard let value = variables[String(variableSpec.name)] else {
                 return nil;
             }
             do {
                 if let stringValue = value as? String {
-                    return try stringValue.formatForTemplateExpansion(variableName: variableName, expansionConfiguration: configuration)
+                    return try stringValue.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
                 } else if let arrayValue = value as? [String] {
-                    return try arrayValue.formatForTemplateExpansion(variableName: variableName, expansionConfiguration: configuration)
+                    switch variableSpec.modifier {
+                    case .prefix:
+                        throw FormatError.failure(reason: "Prefix operator can only be applied to string")
+                    case .explode:
+                        return try arrayValue.explodeForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
+                    case .none:
+                        return try arrayValue.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
+                    }
                 } else if let dictionaryValue = value as? [String:String] {
-                    return try dictionaryValue.formatForTemplateExpansion(variableName: variableName, expansionConfiguration: configuration)
+                    switch variableSpec.modifier {
+                    case .prefix:
+                        throw FormatError.failure(reason: "Prefix operator can only be applied to string")
+                    case .explode:
+                        return try dictionaryValue.explodeForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
+                    case .none:
+                        return try dictionaryValue.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
+                    }
                 } else {
                     throw FormatError.failure(reason: "Invalid Value Type")
                 }
             } catch FormatError.failure(let reason) {
-                throw URITemplate.Error.expansionFailure(position: templatePosition, reason: "Failed expanding variable \"\(variableName)\": \(reason)")
+                throw URITemplate.Error.expansionFailure(position: templatePosition, reason: "Failed expanding variable \"\(variableSpec.name)\": \(reason)")
             }
         }
 

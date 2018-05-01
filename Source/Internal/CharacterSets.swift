@@ -25,3 +25,4 @@ internal let hexCharacterSet = CharacterSet(charactersIn:"0123456789abcdefABCDEF
 internal let varnameCharacterSet = CharacterSet.alphanumerics.union(CharacterSet(charactersIn:"_%."))
 internal let invertedVarnameCharacterSet = varnameCharacterSet.inverted
 internal let expressionOperatorCharacterSet = CharacterSet(charactersIn:"+#./;?&=,!@|")
+internal let invertedDecimalDigitsCharacterSet = CharacterSet.decimalDigits.inverted

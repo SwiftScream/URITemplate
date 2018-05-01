@@ -75,8 +75,8 @@ internal struct Scanner {
         return expressionOperator
     }
 
-    private mutating func scanVariableList() throws -> [Substring] {
-        var variableList: [Substring] = []
+    private mutating func scanVariableList() throws -> [VariableSpec] {
+        var variableList: [VariableSpec] = []
 
         var complete = false
         while (!complete) {
@@ -86,7 +86,13 @@ internal struct Scanner {
                 throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Unterminated Expression")
             }
 
-            variableList.append(variableName)
+            let modifier = try scanVariableModifier()
+
+            if (currentIndex == unicodeScalars.endIndex) {
+                throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Unterminated Expression")
+            }
+
+            variableList.append(VariableSpec(name:variableName, modifier:modifier))
 
             switch unicodeScalars[currentIndex] {
             case ",":
@@ -123,6 +129,34 @@ internal struct Scanner {
         }
         currentIndex = endIndex
         return variableName
+    }
+
+    private mutating func scanVariableModifier() throws -> VariableSpec.Modifier {
+        switch unicodeScalars[currentIndex] {
+        case "*":
+            currentIndex = unicodeScalars.index(after: currentIndex)
+            return .explode
+        case ":":
+            currentIndex = unicodeScalars.index(after: currentIndex)
+            let endIndex = scanUpTo(characterSet: invertedDecimalDigitsCharacterSet)
+            let lengthString = string[currentIndex..<endIndex]
+            if lengthString.isEmpty {
+                throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Prefix length not specified")
+            }
+            if lengthString.first == "0" {
+                throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Prefix length cannot begin with 0")
+            }
+            if lengthString.count > 4 {
+                throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Prefix modifier length too large")
+            }
+            guard let length = Int(lengthString) else {
+                throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Cannot parse prefix modifier length")
+            }
+            currentIndex = endIndex
+            return .prefix(length:length)
+        default:
+            return .none
+        }
     }
 
     private mutating func scanLiteralComponent() throws -> Component {

@@ -19,23 +19,28 @@ internal enum FormatError: Error {
 }
 
 internal extension StringProtocol {
-    internal func formatForTemplateExpansion(variableName: Substring, expansionConfiguration: ExpansionConfiguration) throws -> String {
-        let value = String(self)
-        guard let encodedExpansion = value.addingPercentEncoding(withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet) else {
+    internal func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String {
+        let modifiedValue : String
+        if let l = variableSpec.prefixLength() {
+            modifiedValue = String(self.prefix(l))
+        } else {
+            modifiedValue = String(self)
+        }
+        guard let encodedExpansion = modifiedValue.addingPercentEncoding(withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet) else {
             throw FormatError.failure(reason:"Percent Encoding Failed")
         }
         if (expansionConfiguration.named) {
             if (encodedExpansion.isEmpty && expansionConfiguration.omittOrphanedEquals) {
-                return String(variableName)
+                return String(variableSpec.name)
             }
-            return "\(variableName)=\(encodedExpansion)"
+            return "\(variableSpec.name)=\(encodedExpansion)"
         }
         return encodedExpansion
     }
 }
 
 internal extension Array where Element: StringProtocol {
-    internal func formatForTemplateExpansion(variableName: Substring, expansionConfiguration: ExpansionConfiguration) throws -> String? {
+    internal func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String? {
         let separator = ","
         let encodedExpansions = try self.map { element -> String in
             guard let encodedElement = String(element).addingPercentEncoding(withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet) else {
@@ -49,16 +54,36 @@ internal extension Array where Element: StringProtocol {
         let expansion = encodedExpansions.joined(separator:separator)
         if (expansionConfiguration.named) {
             if (expansion.isEmpty && expansionConfiguration.omittOrphanedEquals) {
-                return String(variableName)
+                return String(variableSpec.name)
             }
-            return "\(variableName)=\(expansion)"
+            return "\(variableSpec.name)=\(expansion)"
         }
         return expansion
+    }
+
+    internal func explodeForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String? {
+        let separator = expansionConfiguration.separator
+        let encodedExpansions = try self.map { element -> String in
+            guard let encodedElement = String(element).addingPercentEncoding(withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet) else {
+                throw FormatError.failure(reason:"Percent Encoding Failed")
+            }
+            if (expansionConfiguration.named) {
+                if (encodedElement.isEmpty && expansionConfiguration.omittOrphanedEquals) {
+                    return String(variableSpec.name)
+                }
+                return "\(variableSpec.name)=\(encodedElement)"
+            }
+            return encodedElement
+        }
+        if encodedExpansions.count == 0 {
+            return nil
+        }
+        return encodedExpansions.joined(separator:separator)
     }
 }
 
 internal extension Dictionary where Key: StringProtocol, Value: StringProtocol {
-    internal func formatForTemplateExpansion(variableName: Substring, expansionConfiguration: ExpansionConfiguration) throws -> String? {
+    internal func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String? {
         let encodedExpansions = try self.map { key, value -> String in
             guard let encodedKey = String(key).addingPercentEncoding(withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet) else {
                 throw FormatError.failure(reason:"Percent Encoding Failed")
@@ -73,8 +98,28 @@ internal extension Dictionary where Key: StringProtocol, Value: StringProtocol {
         }
         let expansion = encodedExpansions.joined(separator:",")
         if (expansionConfiguration.named) {
-            return "\(variableName)=\(expansion)"
+            return "\(variableSpec.name)=\(expansion)"
         }
         return expansion
+    }
+
+    internal func explodeForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String? {
+        let separator = expansionConfiguration.separator
+        let encodedExpansions = try self.map { key, value -> String in
+            guard let encodedKey = String(key).addingPercentEncoding(withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet) else {
+                throw FormatError.failure(reason:"Percent Encoding Failed")
+            }
+            guard let encodedValue = String(value).addingPercentEncoding(withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet) else {
+                throw FormatError.failure(reason:"Percent Encoding Failed")
+            }
+            if (expansionConfiguration.named && encodedValue.isEmpty && expansionConfiguration.omittOrphanedEquals) {
+                return String(variableSpec.name)
+            }
+            return "\(encodedKey)=\(encodedValue)"
+        }
+        if encodedExpansions.count == 0 {
+            return nil
+        }
+        return encodedExpansions.joined(separator:separator)
     }
 }

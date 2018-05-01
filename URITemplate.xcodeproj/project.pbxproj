@@ -91,6 +91,10 @@
 		9588133720981E190080D3D4 /* ValueFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588133520981E190080D3D4 /* ValueFormatting.swift */; };
 		9588133820981E190080D3D4 /* ValueFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588133520981E190080D3D4 /* ValueFormatting.swift */; };
 		9588133920981E190080D3D4 /* ValueFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588133520981E190080D3D4 /* ValueFormatting.swift */; };
+		9588133B209820B60080D3D4 /* VariableSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588133A209820B60080D3D4 /* VariableSpec.swift */; };
+		9588133C209820B60080D3D4 /* VariableSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588133A209820B60080D3D4 /* VariableSpec.swift */; };
+		9588133D209820B60080D3D4 /* VariableSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588133A209820B60080D3D4 /* VariableSpec.swift */; };
+		9588133E209820B60080D3D4 /* VariableSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588133A209820B60080D3D4 /* VariableSpec.swift */; };
 		95AE3DDD2092FC2F004D6773 /* URITemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BAAD651F720CB3005F3D08 /* URITemplate.swift */; };
 		95BAAD661F720D04005F3D08 /* URITemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BAAD651F720CB3005F3D08 /* URITemplate.swift */; };
 		95C591891F6F7C1200C4405A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C591881F6F7C1200C4405A /* AppDelegate.swift */; };
@@ -302,6 +306,7 @@
 		9588132B209811DD0080D3D4 /* ExpressionOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionOperator.swift; sourceTree = "<group>"; };
 		95881330209812050080D3D4 /* ExpansionConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpansionConfiguration.swift; sourceTree = "<group>"; };
 		9588133520981E190080D3D4 /* ValueFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueFormatting.swift; sourceTree = "<group>"; };
+		9588133A209820B60080D3D4 /* VariableSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableSpec.swift; sourceTree = "<group>"; };
 		95AE3DD62092FC0F004D6773 /* libURITemplate-tv.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libURITemplate-tv.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95BAAD651F720CB3005F3D08 /* URITemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URITemplate.swift; sourceTree = "<group>"; };
 		95C591721F6F7A1100C4405A /* libURITemplate-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libURITemplate-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -460,6 +465,7 @@
 				9588132B209811DD0080D3D4 /* ExpressionOperator.swift */,
 				958812CA20973B1C0080D3D4 /* Scanner.swift */,
 				9588133520981E190080D3D4 /* ValueFormatting.swift */,
+				9588133A209820B60080D3D4 /* VariableSpec.swift */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
@@ -983,6 +989,7 @@
 				958812CE20973B1C0080D3D4 /* Scanner.swift in Sources */,
 				958812C42097333B0080D3D4 /* Components.swift in Sources */,
 				95881334209812050080D3D4 /* ExpansionConfiguration.swift in Sources */,
+				9588133E209820B60080D3D4 /* VariableSpec.swift in Sources */,
 				9588132F209811DD0080D3D4 /* ExpressionOperator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1006,6 +1013,7 @@
 				958812CC20973B1C0080D3D4 /* Scanner.swift in Sources */,
 				958812C22097333B0080D3D4 /* Components.swift in Sources */,
 				95881332209812050080D3D4 /* ExpansionConfiguration.swift in Sources */,
+				9588133C209820B60080D3D4 /* VariableSpec.swift in Sources */,
 				9588132D209811DD0080D3D4 /* ExpressionOperator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1061,6 +1069,7 @@
 				958812CD20973B1C0080D3D4 /* Scanner.swift in Sources */,
 				958812C32097333B0080D3D4 /* Components.swift in Sources */,
 				95881333209812050080D3D4 /* ExpansionConfiguration.swift in Sources */,
+				9588133D209820B60080D3D4 /* VariableSpec.swift in Sources */,
 				9588132E209811DD0080D3D4 /* ExpressionOperator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1075,6 +1084,7 @@
 				958812CB20973B1C0080D3D4 /* Scanner.swift in Sources */,
 				958812C12097333B0080D3D4 /* Components.swift in Sources */,
 				95881331209812050080D3D4 /* ExpansionConfiguration.swift in Sources */,
+				9588133B209820B60080D3D4 /* VariableSpec.swift in Sources */,
 				9588132C209811DD0080D3D4 /* ExpressionOperator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
