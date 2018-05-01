@@ -56,15 +56,9 @@ internal struct Scanner {
         currentIndex = unicodeScalars.index(after:currentIndex)
 
         let expressionOperator = try scanExpressionOperator()
-        let variableName = try scanVariableName()
+        let variableList = try scanVariableList()
 
-        if (currentIndex == unicodeScalars.endIndex) {
-            throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Unterminated Expression")
-        } else if (unicodeScalars[currentIndex] != "}") {
-            throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Unexpected Character in Expression")
-        }
-        currentIndex = unicodeScalars.index(after:currentIndex)
-        return ExpressionComponent(expressionOperator: expressionOperator, variable: variableName, templatePosition: expressionStartIndex)
+        return ExpressionComponent(expressionOperator: expressionOperator, variableList: variableList, templatePosition: expressionStartIndex)
     }
 
     private mutating func scanExpressionOperator() throws -> ExpressionOperator {
@@ -79,6 +73,33 @@ internal struct Scanner {
             expressionOperator = .simple
         }
         return expressionOperator
+    }
+
+    private mutating func scanVariableList() throws -> [Substring] {
+        var variableList: [Substring] = []
+
+        var complete = false
+        while (!complete) {
+            let variableName = try scanVariableName()
+
+            if (currentIndex == unicodeScalars.endIndex) {
+                throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Unterminated Expression")
+            }
+
+            variableList.append(variableName)
+
+            switch unicodeScalars[currentIndex] {
+            case ",":
+                currentIndex = unicodeScalars.index(after: currentIndex)
+            case "}":
+                currentIndex = unicodeScalars.index(after: currentIndex)
+                complete = true
+            default:
+                throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Unexpected Character in Expression")
+            }
+        }
+
+        return variableList
     }
 
     private mutating func scanVariableName() throws -> Substring {

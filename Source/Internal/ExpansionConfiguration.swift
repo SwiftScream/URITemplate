@@ -17,4 +17,5 @@ import Foundation
 internal struct ExpansionConfiguration {
     let percentEncodingAllowedCharacterSet: CharacterSet
     let prefix: String?
+    let separator: String
 }

@@ -46,25 +46,34 @@ internal struct LiteralPercentEncodedTripletComponent : Component {
 
 internal struct ExpressionComponent : Component {
     let expressionOperator: ExpressionOperator
-    let variable: Substring
+    let variableList: [Substring]
     let templatePosition: String.Index
 
-    init (expressionOperator: ExpressionOperator, variable: Substring, templatePosition: String.Index) {
+    init (expressionOperator: ExpressionOperator, variableList: [Substring], templatePosition: String.Index) {
         self.expressionOperator = expressionOperator
-        self.variable = variable
+        self.variableList = variableList
         self.templatePosition = templatePosition
     }
 
     func expand(variables: [String:String]) throws -> String {
         let configuration = expressionOperator.expansionConfiguration()
-        let variableName = String(variable)
-        let expansion = variables[variableName] ?? ""
-        guard let encodedExpansion = expansion.addingPercentEncoding(withAllowedCharacters: configuration.percentEncodingAllowedCharacterSet) else {
-            throw URITemplate.Error.expansionFailure(position: templatePosition, reason: "Failed expanding variable \"\(variableName)\": Percent Encoding Failed")
+        let expansions = try variableList.compactMap { variableName -> String? in
+            guard let value = variables[String(variableName)] else {
+                return nil;
+            }
+            guard let encodedValue = value.addingPercentEncoding(withAllowedCharacters: configuration.percentEncodingAllowedCharacterSet) else {
+                throw URITemplate.Error.expansionFailure(position: templatePosition, reason: "Failed expanding variable \"\(variableName)\": Percent Encoding Failed")
+            }
+            return encodedValue
         }
+        if (expansions.count == 0) {
+            return ""
+        }
+
+        let joinedExpansions = expansions.joined(separator:configuration.separator)
         if let prefix = configuration.prefix {
-            return prefix + encodedExpansion
+            return prefix + joinedExpansions
         }
-        return encodedExpansion;
+        return joinedExpansions;
     }
 }

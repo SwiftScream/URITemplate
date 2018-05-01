@@ -23,13 +23,16 @@ internal enum ExpressionOperator : Unicode.Scalar {
         switch self {
         case .simple:
             return ExpansionConfiguration(percentEncodingAllowedCharacterSet:unreservedCharacterSet,
-                                          prefix:nil)
+                                          prefix:nil,
+                                          separator:",")
         case .reserved:
             return ExpansionConfiguration(percentEncodingAllowedCharacterSet:reservedAndUnreservedCharacterSet,
-                                          prefix:nil)
+                                          prefix:nil,
+                                          separator:",")
         case .fragment:
             return ExpansionConfiguration(percentEncodingAllowedCharacterSet:reservedAndUnreservedCharacterSet,
-                                          prefix:"#")
+                                          prefix:"#",
+                                          separator:",")
         }
     }
 }
