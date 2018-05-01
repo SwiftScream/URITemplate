@@ -18,21 +18,62 @@ internal enum ExpressionOperator : Unicode.Scalar {
     case simple = "\0"
     case reserved = "+"
     case fragment = "#"
+    case label = "."
+    case pathSegment = "/"
+    case pathStyle = ";"
+    case query = "?"
+    case queryContinuation = "&"
 
     func expansionConfiguration() -> ExpansionConfiguration {
         switch self {
         case .simple:
             return ExpansionConfiguration(percentEncodingAllowedCharacterSet:unreservedCharacterSet,
                                           prefix:nil,
-                                          separator:",")
+                                          separator:",",
+                                          named:false,
+                                          omittOrphanedEquals:false)
         case .reserved:
             return ExpansionConfiguration(percentEncodingAllowedCharacterSet:reservedAndUnreservedCharacterSet,
                                           prefix:nil,
-                                          separator:",")
+                                          separator:",",
+                                          named:false,
+                                          omittOrphanedEquals:false)
         case .fragment:
             return ExpansionConfiguration(percentEncodingAllowedCharacterSet:reservedAndUnreservedCharacterSet,
                                           prefix:"#",
-                                          separator:",")
+                                          separator:",",
+                                          named:false,
+                                          omittOrphanedEquals:false)
+        case .label:
+            return ExpansionConfiguration(percentEncodingAllowedCharacterSet:unreservedCharacterSet,
+                                          prefix:".",
+                                          separator:".",
+                                          named:false,
+                                          omittOrphanedEquals:false)
+        case .pathSegment:
+            return ExpansionConfiguration(percentEncodingAllowedCharacterSet:unreservedCharacterSet,
+                                          prefix:"/",
+                                          separator:"/",
+                                          named:false,
+                                          omittOrphanedEquals:false)
+        case .pathStyle:
+            return ExpansionConfiguration(percentEncodingAllowedCharacterSet:unreservedCharacterSet,
+                                          prefix:";",
+                                          separator:";",
+                                          named:true,
+                                          omittOrphanedEquals:true)
+        case .query:
+            return ExpansionConfiguration(percentEncodingAllowedCharacterSet:unreservedCharacterSet,
+                                          prefix:"?",
+                                          separator:"&",
+                                          named:true,
+                                          omittOrphanedEquals:false)
+        case .queryContinuation:
+            return ExpansionConfiguration(percentEncodingAllowedCharacterSet:unreservedCharacterSet,
+                                          prefix:"&",
+                                          separator:"&",
+                                          named:true,
+                                          omittOrphanedEquals:false)
         }
     }
 }

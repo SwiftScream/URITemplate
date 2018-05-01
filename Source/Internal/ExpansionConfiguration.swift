@@ -18,4 +18,6 @@ internal struct ExpansionConfiguration {
     let percentEncodingAllowedCharacterSet: CharacterSet
     let prefix: String?
     let separator: String
+    let named: Bool
+    let omittOrphanedEquals: Bool
 }

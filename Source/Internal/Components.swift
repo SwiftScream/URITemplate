@@ -64,6 +64,12 @@ internal struct ExpressionComponent : Component {
             guard let encodedValue = value.addingPercentEncoding(withAllowedCharacters: configuration.percentEncodingAllowedCharacterSet) else {
                 throw URITemplate.Error.expansionFailure(position: templatePosition, reason: "Failed expanding variable \"\(variableName)\": Percent Encoding Failed")
             }
+            if (configuration.named) {
+                if (encodedValue.isEmpty && configuration.omittOrphanedEquals) {
+                    return String(variableName)
+                }
+                return "\(variableName)=\(encodedValue)"
+            }
             return encodedValue
         }
         if (expansions.count == 0) {
