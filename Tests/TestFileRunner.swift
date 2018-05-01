@@ -15,7 +15,7 @@
 import Foundation
 import URITemplate
 
-let maxSupportedLevel = 2
+let maxSupportedLevel = 3
 
 internal class TestFileRunner {
 

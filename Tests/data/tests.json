@@ -26,5 +26,25 @@
             ["{#path}/here", "#/foo/bar/here"],
             ["here?ref={#path}", "here?ref=#/foo/bar"]
         ]
+    },
+    "Level 3" :
+    {
+        "level": 3,
+        "variables": {
+            "var"   : "value",
+            "hello" : "Hello World!",
+            "path"  : "/foo/bar",
+            "x"     : "1024",
+            "y"     : "768",
+            "p%20e" : "percent encoded",
+            "empty" : ""
+        },
+        "testcases" : [
+            ["{x,p%20e}/here", "1024,percent%20encoded/here"],
+            ["{x,empty,y,undef}", "1024,,768"],
+            ["{undef1,undef2,undef3}", ""],
+            ["{undef1,undef2,empty,undef3}", ""],
+            ["{undef1,empty,undef2,empty,undef3}", ","]
+        ]
     }
 }
