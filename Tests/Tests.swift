@@ -37,6 +37,13 @@ class Tests: XCTestCase {
         XCTAssert(TestFileRunner.runFile("negative-tests"))
     }
 
+    func testVariableNames() {
+        let template = try! URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
+        let variableNames = template.variableNames
+        let expected = ["owner", "repo", "username"]
+        XCTAssertEqual(variableNames, expected)
+    }
+
     func testInitPerformance() {
         self.measure {
             for _ in 1...5000 {

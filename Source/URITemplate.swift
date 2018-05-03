@@ -43,4 +43,10 @@ public struct URITemplate {
         }
         return result
     }
+
+    public var variableNames: [String] {
+        return components.flatMap { component in
+            return component.variableNames
+        }
+    }
 }

@@ -16,6 +16,13 @@ import Foundation
 
 internal protocol Component {
     func expand(variables: [String:VariableValue]) throws -> String
+    var variableNames : [String] { get }
+}
+
+extension Component {
+    var variableNames : [String] {
+        return []
+    }
 }
 
 internal struct LiteralComponent : Component {
@@ -99,5 +106,11 @@ internal struct ExpressionComponent : Component {
             return prefix + joinedExpansions
         }
         return joinedExpansions;
+    }
+
+    var variableNames : [String] {
+        return variableList.map { variableSpec in
+            return String(variableSpec.name)
+        }
     }
 }
