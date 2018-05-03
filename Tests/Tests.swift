@@ -13,6 +13,7 @@
 //   limitations under the License.
 
 import XCTest
+import URITemplate
 
 class Tests: XCTestCase {
     
@@ -34,6 +35,27 @@ class Tests: XCTestCase {
 
     func testNegativeTests() {
         XCTAssert(TestFileRunner.runFile("negative-tests"))
+    }
+
+    func testInitPerformance() {
+        self.measure {
+            for _ in 1...5000 {
+                _ = try! URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
+            }
+        }
+    }
+
+    func testProcessPerformance() {
+        let template = try! URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
+        let variables = ["owner": "SwiftScream",
+                         "repo": "URITemplate",
+                         "username": "alexdeem"]
+
+        self.measure {
+            for _ in 1...5000 {
+                _ = try! template.process(variables: variables)
+            }
+        }
     }
 
 }
