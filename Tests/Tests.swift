@@ -37,6 +37,36 @@ class Tests: XCTestCase {
         XCTAssert(TestFileRunner.runFile("negative-tests"))
     }
 
+    func testCustomStringConvertible() {
+        let template = try! URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
+        XCTAssertEqual(template.description, "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
+    }
+
+    func testExpressibleByStringLiteral() {
+        let templateA : URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
+        let templateB = try! URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
+        XCTAssertEqual(templateA, templateB)
+    }
+
+    func testEquatable() {
+        let templateA = try! URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
+        let templateB = try! URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
+        XCTAssertEqual(templateA, templateB)
+        let templateC = try! URITemplate(string: "https://api.github.com/repos/{owner}")
+        XCTAssertNotEqual(templateB, templateC)
+        let templateD = templateC
+        XCTAssertEqual(templateC, templateD)
+        XCTAssertEqual(templateC, templateC)
+    }
+
+    func testHashable() {
+        let templateA = try! URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
+        let templateB = try! URITemplate(string: "https://api.github.com/repos/{owner}")
+        let dictionary = [templateA : "A", templateB : "B"]
+        XCTAssertEqual(dictionary[templateA], "A")
+        XCTAssertEqual(dictionary[templateB], "B")
+    }
+
     func testVariableNames() {
         let template = try! URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
         let variableNames = template.variableNames

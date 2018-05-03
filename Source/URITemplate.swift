@@ -25,6 +25,7 @@ public struct URITemplate {
         case expansionFailure(position: String.Index, reason: String)
     }
 
+    private let string: String
     private let components : [Component]
 
     public init(string: String) throws {
@@ -33,6 +34,7 @@ public struct URITemplate {
         while !scanner.isComplete {
             try components.append(scanner.scanComponent())
         }
+        self.string = string
         self.components = components
     }
 
@@ -48,5 +50,29 @@ public struct URITemplate {
         return components.flatMap { component in
             return component.variableNames
         }
+    }
+}
+
+extension URITemplate : CustomStringConvertible {
+    public var description: String {
+        return string
+    }
+}
+
+extension URITemplate : ExpressibleByStringLiteral {
+    public init(stringLiteral value: StaticString) {
+        try! self.init(string:"\(value)")
+    }
+}
+
+extension URITemplate : Equatable {
+    public static func == (lhs: URITemplate, rhs: URITemplate) -> Bool {
+        return lhs.string == rhs.string
+    }
+}
+
+extension URITemplate : Hashable {
+    public var hashValue: Int {
+        return string.hashValue
     }
 }
