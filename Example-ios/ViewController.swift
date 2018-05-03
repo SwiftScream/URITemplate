@@ -21,6 +21,17 @@ class ViewController: UIViewController {
     override func loadView() {
         let view = UIView(frame: UIScreen.main.bounds)
         self.view = view
+
+        let template = try! URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
+        let variables = ["owner": "SwiftScream",
+                         "repo": "URITemplate",
+                         "username": "alexdeem"]
+
+        let urlString = try! template.process(variables: variables)
+
+        let url = URL(string:urlString)!
+        print("Expanding \(template)\n     with \(variables):\n")
+        print(url.absoluteString)
     }
 
 }
