@@ -32,12 +32,14 @@
         "level": 1,
         "variables": {
            "var"   : "value",
-           "hello" : "Hello World!"
+           "hello" : "Hello World!",
+           "dbl"   : 1.23
         },
         "testcases" : [
             ["literal", "literal"],
             ["literal%20%21with%20percents%21", "literal%20%21with%20percents%21"],
-            ["literal/{hello}", "literal/Hello%20World%21"]
+            ["literal/{hello}", "literal/Hello%20World%21"],
+            ["{dbl}", "1.23"]
         ]
     },
     "Level 2" :
@@ -63,7 +65,7 @@
             "hello" : "Hello World!",
             "path"  : "/foo/bar",
             "x"     : "1024",
-            "y"     : "768",
+            "y"     : 768,
             "p%20e" : "percent encoded",
             "empty" : ""
         },
