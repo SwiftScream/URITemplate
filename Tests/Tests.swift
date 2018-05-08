@@ -17,26 +17,6 @@ import URITemplate
 
 class Tests: XCTestCase {
     
-    func testCustom() {
-        XCTAssert(TestFileRunner.runFile("tests"))
-    }
-
-    func testSpecExamples() {
-        XCTAssert(TestFileRunner.runFile("spec-examples"))
-    }
-
-    func testSpecExamplesBySection() {
-        XCTAssert(TestFileRunner.runFile("spec-examples-by-section"))
-    }
-
-    func testExtendedTests() {
-        XCTAssert(TestFileRunner.runFile("extended-tests"))
-    }
-
-    func testNegativeTests() {
-        XCTAssert(TestFileRunner.runFile("negative-tests"))
-    }
-
     func testCustomStringConvertible() {
         let template = try! URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
         XCTAssertEqual(template.description, "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
