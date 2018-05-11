@@ -3,3 +3,4 @@ xcuserdata/
 *.xccheckout
 *.xcscmblueprint
 .build
+Carthage/Build
