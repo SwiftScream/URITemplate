@@ -14,3 +14,11 @@ jobs:
       - xcodebuild test -project URITemplate.xcodeproj -scheme URITemplate-tv -destination "platform=tvOS Simulator,name=Apple TV 4K"  | xcpretty -c && exit ${PIPESTATUS[0]}
     - script:
       - xcodebuild build -project URITemplate.xcodeproj -scheme URITemplate-watch | xcpretty -c && exit ${PIPESTATUS[0]}
+    - script:
+      - xcodebuild build -project URITemplate.xcodeproj -scheme URITemplate-ios-d | xcpretty -c && exit ${PIPESTATUS[0]}
+    - script:
+      - xcodebuild build -project URITemplate.xcodeproj -scheme URITemplate-mac-d | xcpretty -c && exit ${PIPESTATUS[0]}
+    - script:
+      - xcodebuild build -project URITemplate.xcodeproj -scheme URITemplate-tv-d | xcpretty -c && exit ${PIPESTATUS[0]}
+    - script:
+      - xcodebuild build -project URITemplate.xcodeproj -scheme URITemplate-watch-d | xcpretty -c && exit ${PIPESTATUS[0]}
