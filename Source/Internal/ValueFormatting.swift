@@ -18,6 +18,13 @@ internal enum FormatError: Error {
     case failure(reason: String)
 }
 
+internal func percentEncode(string: String, withAllowedCharacters allowedCharacterSet: CharacterSet) throws -> String {
+    guard let encoded = string.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) else {
+        throw FormatError.failure(reason:"Percent Encoding Failed")
+    }
+    return encoded
+}
+
 internal extension StringProtocol {
     internal func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String {
         let modifiedValue : String
@@ -26,9 +33,7 @@ internal extension StringProtocol {
         } else {
             modifiedValue = String(self)
         }
-        guard let encodedExpansion = modifiedValue.addingPercentEncoding(withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet) else {
-            throw FormatError.failure(reason:"Percent Encoding Failed")
-        }
+        let encodedExpansion = try percentEncode(string: modifiedValue, withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet)
         if (expansionConfiguration.named) {
             if (encodedExpansion.isEmpty && expansionConfiguration.omittOrphanedEquals) {
                 return String(variableSpec.name)
@@ -43,10 +48,7 @@ internal extension Array where Element: StringProtocol {
     internal func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String? {
         let separator = ","
         let encodedExpansions = try self.map { element -> String in
-            guard let encodedElement = String(element).addingPercentEncoding(withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet) else {
-                throw FormatError.failure(reason:"Percent Encoding Failed")
-            }
-            return encodedElement
+            return try percentEncode(string: String(element), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet)
         }
         if encodedExpansions.count == 0 {
             return nil
@@ -64,9 +66,7 @@ internal extension Array where Element: StringProtocol {
     internal func explodeForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String? {
         let separator = expansionConfiguration.separator
         let encodedExpansions = try self.map { element -> String in
-            guard let encodedElement = String(element).addingPercentEncoding(withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet) else {
-                throw FormatError.failure(reason:"Percent Encoding Failed")
-            }
+            let encodedElement = try percentEncode(string: String(element), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet)
             if (expansionConfiguration.named) {
                 if (encodedElement.isEmpty && expansionConfiguration.omittOrphanedEquals) {
                     return String(variableSpec.name)
@@ -85,12 +85,8 @@ internal extension Array where Element: StringProtocol {
 internal extension Dictionary where Key: StringProtocol, Value: StringProtocol {
     internal func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String? {
         let encodedExpansions = try self.map { key, value -> String in
-            guard let encodedKey = String(key).addingPercentEncoding(withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet) else {
-                throw FormatError.failure(reason:"Percent Encoding Failed")
-            }
-            guard let encodedValue = String(value).addingPercentEncoding(withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet) else {
-                throw FormatError.failure(reason:"Percent Encoding Failed")
-            }
+            let encodedKey = try percentEncode(string: String(key), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet)
+            let encodedValue = try percentEncode(string: String(value), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet)
             return "\(encodedKey),\(encodedValue)"
         }
         if encodedExpansions.count == 0 {
@@ -106,12 +102,8 @@ internal extension Dictionary where Key: StringProtocol, Value: StringProtocol {
     internal func explodeForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String? {
         let separator = expansionConfiguration.separator
         let encodedExpansions = try self.map { key, value -> String in
-            guard let encodedKey = String(key).addingPercentEncoding(withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet) else {
-                throw FormatError.failure(reason:"Percent Encoding Failed")
-            }
-            guard let encodedValue = String(value).addingPercentEncoding(withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet) else {
-                throw FormatError.failure(reason:"Percent Encoding Failed")
-            }
+            let encodedKey = try percentEncode(string: String(key), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet)
+            let encodedValue = try percentEncode(string: String(value), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet)
             if (expansionConfiguration.named && encodedValue.isEmpty && expansionConfiguration.omittOrphanedEquals) {
                 return String(variableSpec.name)
             }
