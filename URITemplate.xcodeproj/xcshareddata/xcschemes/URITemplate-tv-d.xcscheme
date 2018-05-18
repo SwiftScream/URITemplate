@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "95D06B7320AAB08E005D6947"
-               BuildableName = "URITemplate_tv_d.framework"
+               BuildableName = "URITemplate.framework"
                BlueprintName = "URITemplate-tv-d"
                ReferencedContainer = "container:URITemplate.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "95D06B7320AAB08E005D6947"
-            BuildableName = "URITemplate_tv_d.framework"
+            BuildableName = "URITemplate.framework"
             BlueprintName = "URITemplate-tv-d"
             ReferencedContainer = "container:URITemplate.xcodeproj">
          </BuildableReference>
@@ -64,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "95D06B7320AAB08E005D6947"
-            BuildableName = "URITemplate_tv_d.framework"
+            BuildableName = "URITemplate.framework"
             BlueprintName = "URITemplate-tv-d"
             ReferencedContainer = "container:URITemplate.xcodeproj">
          </BuildableReference>
