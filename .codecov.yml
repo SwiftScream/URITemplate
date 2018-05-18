@@ -1,6 +1,7 @@
 ignore:
   - "Tests/.*"
 coverage:
+  round: nearest
   status:
     project:
       default:
