@@ -54,6 +54,23 @@ class Tests: XCTestCase {
         XCTAssertEqual(variableNames, expected)
     }
 
+    func testEncoding() {
+        let templateString = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
+        let template = try! URITemplate(string: templateString)
+        let jsonData = try! JSONEncoder().encode(["a":template])
+        let expectedData = try! JSONEncoder().encode(["a":templateString])
+        XCTAssertEqual(jsonData, expectedData)
+    }
+
+    func testDecoding() {
+        let templateString = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
+        let jsonString = "{\"a\":\"\(templateString)\"}"
+        let jsonData = jsonString.data(using: .utf8)!
+        let object = try! JSONDecoder().decode([String:URITemplate].self, from: jsonData)
+        let expectedTemplate = try! URITemplate(string:templateString)
+        XCTAssertEqual(object["a"], expectedTemplate)
+    }
+
     func testInitPerformance() {
         self.measure {
             for _ in 1...5000 {
