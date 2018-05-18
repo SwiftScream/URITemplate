@@ -7,21 +7,21 @@ install: gem install xcpretty
 jobs:
   include:
     - script:
-      - xcodebuild test -project URITemplate.xcodeproj -scheme URITemplate-ios -destination "platform=iOS Simulator,name=iPhone X"  | xcpretty -c
+      - set -o pipefail && xcodebuild test -project URITemplate.xcodeproj -scheme URITemplate-ios -destination "platform=iOS Simulator,name=iPhone X"  | xcpretty -c
       - bash <(curl -s https://codecov.io/bash) -J Tests-ios -F ios
     - script:
-      - xcodebuild test -project URITemplate.xcodeproj -scheme URITemplate-mac -destination "platform=macos"  | xcpretty -c
+      - set -o pipefail && xcodebuild test -project URITemplate.xcodeproj -scheme URITemplate-mac -destination "platform=macos"  | xcpretty -c
       - bash <(curl -s https://codecov.io/bash) -J Tests-mac -F mac
     - script:
-      - xcodebuild test -project URITemplate.xcodeproj -scheme URITemplate-tv -destination "platform=tvOS Simulator,name=Apple TV 4K"  | xcpretty -c
+      - set -o pipefail && xcodebuild test -project URITemplate.xcodeproj -scheme URITemplate-tv -destination "platform=tvOS Simulator,name=Apple TV 4K"  | xcpretty -c
       - bash <(curl -s https://codecov.io/bash) -J Tests-tv -F tv
     - script:
-      - xcodebuild build -project URITemplate.xcodeproj -scheme URITemplate-watch | xcpretty -c
+      - set -o pipefail && xcodebuild build -project URITemplate.xcodeproj -scheme URITemplate-watch | xcpretty -c
     - script:
-      - xcodebuild build -project URITemplate.xcodeproj -scheme URITemplate-ios-d | xcpretty -c
+      - set -o pipefail && xcodebuild build -project URITemplate.xcodeproj -scheme URITemplate-ios-d | xcpretty -c
     - script:
-      - xcodebuild build -project URITemplate.xcodeproj -scheme URITemplate-mac-d | xcpretty -c
+      - set -o pipefail && xcodebuild build -project URITemplate.xcodeproj -scheme URITemplate-mac-d | xcpretty -c
     - script:
-      - xcodebuild build -project URITemplate.xcodeproj -scheme URITemplate-tv-d | xcpretty -c
+      - set -o pipefail && xcodebuild build -project URITemplate.xcodeproj -scheme URITemplate-tv-d | xcpretty -c
     - script:
-      - xcodebuild build -project URITemplate.xcodeproj -scheme URITemplate-watch-d | xcpretty -c
+      - set -o pipefail && xcodebuild build -project URITemplate.xcodeproj -scheme URITemplate-watch-d | xcpretty -c
