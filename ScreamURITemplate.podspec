@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "ScreamURITemplate"
-  s.version = "1.0.0"
+  s.version = "1.1.0"
   s.summary = "Robust and performant Swift implementation of RFC6570 URI Template"
   s.homepage = "https://github.com/SwiftScream/URITemplate"
   s.license = { :type => "Apache License, Version 2.0", :file => "LICENSE" }
