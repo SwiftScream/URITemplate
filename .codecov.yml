@@ -1,0 +1,15 @@
+ignore:
+  - "Tests/.*"
+coverage:
+  round: nearest
+  status:
+    project:
+      default:
+        target: auto
+        threshold: 1
+        base: auto
+    patch:
+      default:
+        target: auto
+        threshold: 10
+        base: auto
