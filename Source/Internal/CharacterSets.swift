@@ -14,15 +14,15 @@
 
 import Foundation
 
-internal let unreservedCharacterSet = CharacterSet.alphanumerics.union(CharacterSet(charactersIn:"-._~"))
-private let genDelimsCharacterSet = CharacterSet(charactersIn:":/?#[]@")
-private let subDelimsCharacterSet = CharacterSet(charactersIn:"!$&'()*+,;=")
+internal let unreservedCharacterSet = CharacterSet.alphanumerics.union(CharacterSet(charactersIn: "-._~"))
+private let genDelimsCharacterSet = CharacterSet(charactersIn: ":/?#[]@")
+private let subDelimsCharacterSet = CharacterSet(charactersIn: "!$&'()*+,;=")
 internal let reservedCharacterSet = genDelimsCharacterSet.union(subDelimsCharacterSet)
 internal let reservedAndUnreservedCharacterSet = reservedCharacterSet.union(unreservedCharacterSet)
-internal let invertedLiteralCharacterSet = CharacterSet.illegalCharacters.union(CharacterSet.controlCharacters).union(CharacterSet(charactersIn:" \"'%<>\\^`{|}"))
+internal let invertedLiteralCharacterSet = CharacterSet.illegalCharacters.union(CharacterSet.controlCharacters).union(CharacterSet(charactersIn: " \"'%<>\\^`{|}"))
 internal let literalCharacterSet = invertedLiteralCharacterSet.inverted
-internal let hexCharacterSet = CharacterSet(charactersIn:"0123456789abcdefABCDEF")
-internal let varnameCharacterSet = CharacterSet.alphanumerics.union(CharacterSet(charactersIn:"_%."))
+internal let hexCharacterSet = CharacterSet(charactersIn: "0123456789abcdefABCDEF")
+internal let varnameCharacterSet = CharacterSet.alphanumerics.union(CharacterSet(charactersIn: "_%."))
 internal let invertedVarnameCharacterSet = varnameCharacterSet.inverted
-internal let expressionOperatorCharacterSet = CharacterSet(charactersIn:"+#./;?&=,!@|")
+internal let expressionOperatorCharacterSet = CharacterSet(charactersIn: "+#./;?&=,!@|")
 internal let invertedDecimalDigitsCharacterSet = CharacterSet.decimalDigits.inverted

@@ -21,16 +21,24 @@ class InterfaceController: WKInterfaceController {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
 
-        let template = try! URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
-        let variables = ["owner": "SwiftScream",
-                         "repo": "URITemplate",
-                         "username": "alexdeem"]
+        do {
+            let template = try URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
+            let variables = ["owner": "SwiftScream",
+                             "repo": "URITemplate",
+                             "username": "alexdeem"]
 
-        let urlString = try! template.process(variables: variables)
+            let urlString = try template.process(variables: variables)
 
-        let url = URL(string:urlString)!
-        print("Expanding \(template)\n     with \(variables):\n")
-        print(url.absoluteString)
+            let url = URL(string: urlString)!
+            print("Expanding \(template)\n     with \(variables):\n")
+            print(url.absoluteString)
+        } catch URITemplate.Error.malformedTemplate(let position, let reason) {
+            print("Failed parsing template (\(reason))")
+        } catch URITemplate.Error.expansionFailure(let position, let reason) {
+            print("Failed expanding template (\(reason))")
+        } catch {
+            print("Unexpected Failure")
+        }
     }
 
 }

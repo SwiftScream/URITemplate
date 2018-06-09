@@ -15,27 +15,28 @@
 import Foundation
 
 internal enum FormatError: Error {
+    //swiftlint:disable:next identifier_name superfluous_disable_command
     case failure(reason: String)
 }
 
 internal func percentEncode(string: String, withAllowedCharacters allowedCharacterSet: CharacterSet) throws -> String {
     guard let encoded = string.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) else {
-        throw FormatError.failure(reason:"Percent Encoding Failed")
+        throw FormatError.failure(reason: "Percent Encoding Failed")
     }
     return encoded
 }
 
 internal extension StringProtocol {
     internal func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String {
-        let modifiedValue : String
-        if let l = variableSpec.prefixLength() {
-            modifiedValue = String(self.prefix(l))
+        let modifiedValue: String
+        if let prefixLength = variableSpec.prefixLength() {
+            modifiedValue = String(self.prefix(prefixLength))
         } else {
             modifiedValue = String(self)
         }
         let encodedExpansion = try percentEncode(string: modifiedValue, withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet)
-        if (expansionConfiguration.named) {
-            if (encodedExpansion.isEmpty && expansionConfiguration.omittOrphanedEquals) {
+        if expansionConfiguration.named {
+            if encodedExpansion.isEmpty && expansionConfiguration.omittOrphanedEquals {
                 return String(variableSpec.name)
             }
             return "\(variableSpec.name)=\(encodedExpansion)"
@@ -53,9 +54,9 @@ internal extension Array where Element: StringProtocol {
         if encodedExpansions.count == 0 {
             return nil
         }
-        let expansion = encodedExpansions.joined(separator:separator)
-        if (expansionConfiguration.named) {
-            if (expansion.isEmpty && expansionConfiguration.omittOrphanedEquals) {
+        let expansion = encodedExpansions.joined(separator: separator)
+        if expansionConfiguration.named {
+            if expansion.isEmpty && expansionConfiguration.omittOrphanedEquals {
                 return String(variableSpec.name)
             }
             return "\(variableSpec.name)=\(expansion)"
@@ -67,8 +68,8 @@ internal extension Array where Element: StringProtocol {
         let separator = expansionConfiguration.separator
         let encodedExpansions = try self.map { element -> String in
             let encodedElement = try percentEncode(string: String(element), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet)
-            if (expansionConfiguration.named) {
-                if (encodedElement.isEmpty && expansionConfiguration.omittOrphanedEquals) {
+            if expansionConfiguration.named {
+                if encodedElement.isEmpty && expansionConfiguration.omittOrphanedEquals {
                     return String(variableSpec.name)
                 }
                 return "\(variableSpec.name)=\(encodedElement)"
@@ -78,7 +79,7 @@ internal extension Array where Element: StringProtocol {
         if encodedExpansions.count == 0 {
             return nil
         }
-        return encodedExpansions.joined(separator:separator)
+        return encodedExpansions.joined(separator: separator)
     }
 }
 
@@ -92,8 +93,8 @@ internal extension Dictionary where Key: StringProtocol, Value: StringProtocol {
         if encodedExpansions.count == 0 {
             return nil
         }
-        let expansion = encodedExpansions.joined(separator:",")
-        if (expansionConfiguration.named) {
+        let expansion = encodedExpansions.joined(separator: ",")
+        if expansionConfiguration.named {
             return "\(variableSpec.name)=\(expansion)"
         }
         return expansion
@@ -104,7 +105,7 @@ internal extension Dictionary where Key: StringProtocol, Value: StringProtocol {
         let encodedExpansions = try self.map { key, value -> String in
             let encodedKey = try percentEncode(string: String(key), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet)
             let encodedValue = try percentEncode(string: String(value), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet)
-            if (expansionConfiguration.named && encodedValue.isEmpty && expansionConfiguration.omittOrphanedEquals) {
+            if expansionConfiguration.named && encodedValue.isEmpty && expansionConfiguration.omittOrphanedEquals {
                 return String(variableSpec.name)
             }
             return "\(encodedKey)=\(encodedValue)"
@@ -112,6 +113,6 @@ internal extension Dictionary where Key: StringProtocol, Value: StringProtocol {
         if encodedExpansions.count == 0 {
             return nil
         }
-        return encodedExpansions.joined(separator:separator)
+        return encodedExpansions.joined(separator: separator)
     }
 }
