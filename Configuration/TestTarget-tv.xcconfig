@@ -1,5 +1,5 @@
 SDKROOT = appletvos
-TVOS_DEPLOYMENT_TARGET = 10.0
+TVOS_DEPLOYMENT_TARGET = 9.0
 TARGETED_DEVICE_FAMILY = 3
 
 LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks @loader_path/Frameworks
