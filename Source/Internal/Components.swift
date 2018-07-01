@@ -15,43 +15,43 @@
 import Foundation
 
 internal protocol Component {
-    func expand(variables: [String:VariableValue]) throws -> String
-    var variableNames : [String] { get }
+    func expand(variables: [String: VariableValue]) throws -> String
+    var variableNames: [String] { get }
 }
 
 extension Component {
-    var variableNames : [String] {
+    var variableNames: [String] {
         return []
     }
 }
 
-internal struct LiteralComponent : Component {
+internal struct LiteralComponent: Component {
     let literal: Substring
     init (_ string: Substring) {
         literal = string
     }
 
-    func expand(variables _: [String:VariableValue]) throws -> String {
+    func expand(variables _: [String: VariableValue]) throws -> String {
         let expansion = String(literal)
         guard let encodedExpansion = expansion.addingPercentEncoding(withAllowedCharacters: reservedAndUnreservedCharacterSet) else {
             throw URITemplate.Error.expansionFailure(position: literal.startIndex, reason: "Percent Encoding Failed")
         }
-        return encodedExpansion;
+        return encodedExpansion
     }
 }
 
-internal struct LiteralPercentEncodedTripletComponent : Component {
+internal struct LiteralPercentEncodedTripletComponent: Component {
     let literal: Substring
     init (_ string: Substring) {
         literal = string
     }
 
-    func expand(variables _: [String:VariableValue]) throws -> String {
+    func expand(variables _: [String: VariableValue]) throws -> String {
         return String(literal)
     }
 }
 
-internal struct ExpressionComponent : Component {
+internal struct ExpressionComponent: Component {
     let expressionOperator: ExpressionOperator
     let variableList: [VariableSpec]
     let templatePosition: String.Index
@@ -62,11 +62,11 @@ internal struct ExpressionComponent : Component {
         self.templatePosition = templatePosition
     }
 
-    func expand(variables: [String:VariableValue]) throws -> String {
+    func expand(variables: [String: VariableValue]) throws -> String {
         let configuration = expressionOperator.expansionConfiguration()
         let expansions = try variableList.compactMap { variableSpec -> String? in
             guard let value = variables[String(variableSpec.name)] else {
-                return nil;
+                return nil
             }
             do {
                 if let stringValue = value as? String {
@@ -80,7 +80,7 @@ internal struct ExpressionComponent : Component {
                     case .none:
                         return try arrayValue.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
                     }
-                } else if let dictionaryValue = value as? [String:String] {
+                } else if let dictionaryValue = value as? [String: String] {
                     switch variableSpec.modifier {
                     case .prefix:
                         throw FormatError.failure(reason: "Prefix operator can only be applied to string")
@@ -97,18 +97,18 @@ internal struct ExpressionComponent : Component {
             }
         }
 
-        if (expansions.count == 0) {
+        if expansions.count == 0 {
             return ""
         }
 
-        let joinedExpansions = expansions.joined(separator:configuration.separator)
+        let joinedExpansions = expansions.joined(separator: configuration.separator)
         if let prefix = configuration.prefix {
             return prefix + joinedExpansions
         }
-        return joinedExpansions;
+        return joinedExpansions
     }
 
-    var variableNames : [String] {
+    var variableNames: [String] {
         return variableList.map { variableSpec in
             return String(variableSpec.name)
         }

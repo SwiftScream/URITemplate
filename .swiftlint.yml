@@ -1,0 +1,17 @@
+disabled_rules:
+  - line_length
+  - function_body_length
+  - trailing_comma
+
+opt_in_rules:
+
+included:
+
+excluded:
+  
+identifier_name:
+  min_length: 1
+
+cyclomatic_complexity:
+  warning: 12
+  error: 20

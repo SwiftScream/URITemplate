@@ -15,21 +15,23 @@
 import Foundation
 
 public protocol VariableValue {}
-extension String : VariableValue {}
-extension Array : VariableValue where Element: StringProtocol {}
-extension Dictionary : VariableValue where Key: StringProtocol, Value: StringProtocol {}
+extension String: VariableValue {}
+extension Array: VariableValue where Element: StringProtocol {}
+extension Dictionary: VariableValue where Key: StringProtocol, Value: StringProtocol {}
 
 public struct URITemplate {
-    public enum Error : Swift.Error {
+    public enum Error: Swift.Error {
+        // swiftlint:disable identifier_name superfluous_disable_command
         case malformedTemplate(position: String.Index, reason: String)
         case expansionFailure(position: String.Index, reason: String)
+        // swiftlint:enable identifier_name superfluous_disable_command
     }
 
     private let string: String
-    private let components : [Component]
+    private let components: [Component]
 
     public init(string: String) throws {
-        var components : [Component] = []
+        var components: [Component] = []
         var scanner = Scanner(string: string)
         while !scanner.isComplete {
             try components.append(scanner.scanComponent())
@@ -38,10 +40,10 @@ public struct URITemplate {
         self.components = components
     }
 
-    public func process(variables: [String:VariableValue]) throws -> String {
+    public func process(variables: [String: VariableValue]) throws -> String {
         var result = ""
         for component in components {
-            result += try component.expand(variables:variables)
+            result += try component.expand(variables: variables)
         }
         return result
     }
@@ -53,35 +55,36 @@ public struct URITemplate {
     }
 }
 
-extension URITemplate : CustomStringConvertible {
+extension URITemplate: CustomStringConvertible {
     public var description: String {
         return string
     }
 }
 
-extension URITemplate : ExpressibleByStringLiteral {
+extension URITemplate: ExpressibleByStringLiteral {
     public init(stringLiteral value: StaticString) {
-        try! self.init(string:"\(value)")
+        //swiftlint:disable:next force_try
+        try! self.init(string: "\(value)")
     }
 }
 
-extension URITemplate : Equatable {
+extension URITemplate: Equatable {
     public static func == (lhs: URITemplate, rhs: URITemplate) -> Bool {
         return lhs.string == rhs.string
     }
 }
 
-extension URITemplate : Hashable {
+extension URITemplate: Hashable {
     public var hashValue: Int {
         return string.hashValue
     }
 }
 
-extension URITemplate : Codable {
+extension URITemplate: Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         let string = try container.decode(String.self)
-        try self.init(string:string)
+        try self.init(string: string)
     }
 
     public func encode(to encoder: Encoder) throws {

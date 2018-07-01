@@ -15,32 +15,32 @@
 import Foundation
 import URITemplate
 
-private typealias TestFile = [String:TestGroupDecodable]
+private typealias TestFile = [String: TestGroupDecodable]
 
-private struct TestGroupDecodable : Decodable {
-    let level : Int?
-    let variables : [String:JSONValue]
-    let testcases : [[JSONValue]]
+private struct TestGroupDecodable: Decodable {
+    let level: Int?
+    let variables: [String: JSONValue]
+    let testcases: [[JSONValue]]
 }
 
 public struct TestGroup {
-    public let name : String
-    public let level : Int?
-    public let variables : [String:VariableValue]
-    public let testcases : [TestCase]
+    public let name: String
+    public let level: Int?
+    public let variables: [String: VariableValue]
+    public let testcases: [TestCase]
 }
 
 public struct TestCase {
-    public let template : String
-    public let acceptableExpansions : [String]
-    public let shouldFail : Bool
-    public let failPosition : Int?
-    public let failReason : String?
+    public let template: String
+    public let acceptableExpansions: [String]
+    public let shouldFail: Bool
+    public let failPosition: Int?
+    public let failReason: String?
 }
 
 extension JSONValue {
     func toVariableValue() -> VariableValue? {
-        switch(self) {
+        switch self {
         case .int(let int):
             return String(int)
         case .double(let double):
@@ -49,7 +49,7 @@ extension JSONValue {
             return string
         case .object(let object):
             return object.mapValues { element -> String? in
-                switch(element) {
+                switch element {
                 case .string(let string):
                     return string
                 default:
@@ -59,7 +59,7 @@ extension JSONValue {
                 .mapValues { $0! }
         case .array(let array):
             return array.compactMap { element -> String? in
-                switch(element) {
+                switch element {
                 case .string(let string):
                     return string
                 default:
@@ -73,13 +73,13 @@ extension JSONValue {
 }
 
 extension TestCase {
-    init?(_ data : [JSONValue]) {
-        if (data.count < 2) {
+    init?(_ data: [JSONValue]) {
+        if data.count < 2 {
             return nil
         }
 
         guard let first = data.first, case .string(let template) = first else {
-            return nil;
+            return nil
         }
 
         let expansionsData = data[1]
@@ -91,7 +91,7 @@ extension TestCase {
             acceptableExpansions = array.compactMap { value in
                 switch value {
                 case .string(let string):
-                    return string;
+                    return string
                 default:
                     return nil
                 }
@@ -104,15 +104,15 @@ extension TestCase {
 
         self.template = template
 
-        var failPosition : Int? = nil
-        if (data.count > 2) {
+        var failPosition: Int? = nil
+        if data.count > 2 {
             if case .int(let position) = data[2] {
                 failPosition = position
             }
         }
 
-        var failReason : String? = nil
-        if (data.count > 3) {
+        var failReason: String? = nil
+        if data.count > 3 {
             if case .string(let reason) = data[3] {
                 failReason = reason
             }
@@ -123,12 +123,13 @@ extension TestCase {
     }
 }
 
-public func parseTestFile(URL:URL) -> [TestGroup] {
-    guard let testData = try? Data(contentsOf: URL) else {
+public func parseTestFile(URL: URL) -> [TestGroup] {
+    guard let testData = try? Data(contentsOf: URL),
+          let testCollection = try? JSONDecoder().decode(TestFile.self, from: testData) else {
+        print("Failed to decode test file \(URL)")
         return []
     }
 
-    let testCollection = try! JSONDecoder().decode(TestFile.self, from: testData)
     return testCollection.map { (testGroupName, testGroupData) in
         let variables = testGroupData.variables.mapValues { element in
             return element.toVariableValue()
@@ -139,6 +140,6 @@ public func parseTestFile(URL:URL) -> [TestGroup] {
             return TestCase(element)
         }
 
-        return TestGroup(name: testGroupName, level: testGroupData.level, variables:variables, testcases:testcases)
+        return TestGroup(name: testGroupName, level: testGroupData.level, variables: variables, testcases: testcases)
     }
 }

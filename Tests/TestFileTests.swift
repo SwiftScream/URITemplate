@@ -18,13 +18,13 @@ import URITemplate
 class TestFileTests: XCTestCase {
 
     private var templateString: String!
-    private var variables: [String:VariableValue]!
+    private var variables: [String: VariableValue]!
     private var acceptableExpansions: [String]!
     private var failPosition: Int?
     private var failReason: String?
 
     func testFileParseFailed() {
-        XCTFail()
+        XCTFail("Test File Parse Failed")
     }
 
     func testSuccessfulProcess() {
@@ -33,7 +33,7 @@ class TestFileTests: XCTestCase {
             let result = try template.process(variables: variables)
             XCTAssertTrue(acceptableExpansions.contains(result))
         } catch {
-            XCTFail()
+            XCTFail("Unexpected Throw")
         }
     }
 
@@ -41,25 +41,25 @@ class TestFileTests: XCTestCase {
         do {
             let template = try URITemplate(string: templateString)
             _ = try template.process(variables: variables)
-            XCTFail()
+            XCTFail("Did not throw")
         } catch URITemplate.Error.malformedTemplate(let position, let reason) {
-            if (failReason != nil) {
+            if failReason != nil {
                 XCTAssertEqual(failReason, reason)
             }
-            if (failPosition != nil) {
+            if failPosition != nil {
                 let characters = templateString[..<position].count
                 XCTAssertEqual(failPosition, characters)
             }
         } catch URITemplate.Error.expansionFailure(let position, let reason) {
-            if (failReason != nil) {
+            if failReason != nil {
                 XCTAssertEqual(failReason, reason)
             }
-            if (failPosition != nil) {
+            if failPosition != nil {
                 let characters = templateString[..<position].count
                 XCTAssertEqual(failPosition, characters)
             }
         } catch {
-            XCTFail()
+            XCTFail("Threw an unexpected error")
         }
     }
 

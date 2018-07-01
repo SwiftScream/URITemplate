@@ -19,9 +19,9 @@ private func ~= (lhs: CharacterSet, rhs: Unicode.Scalar) -> Bool {
 }
 
 internal struct Scanner {
-    let string : String
-    let unicodeScalars : String.UnicodeScalarView
-    var currentIndex : String.Index
+    let string: String
+    let unicodeScalars: String.UnicodeScalarView
+    var currentIndex: String.Index
 
     public init(string: String) {
         self.string = string
@@ -29,10 +29,8 @@ internal struct Scanner {
         self.currentIndex = string.startIndex
     }
 
-    public var isComplete : Bool {
-        get {
-            return currentIndex >= unicodeScalars.endIndex
-        }
+    public var isComplete: Bool {
+        return currentIndex >= unicodeScalars.endIndex
     }
 
     public mutating func scanComponent() throws -> Component {
@@ -53,7 +51,7 @@ internal struct Scanner {
     private mutating func scanExpressionComponent() throws -> Component {
         assert(unicodeScalars[currentIndex] == "{")
         let expressionStartIndex = currentIndex
-        currentIndex = unicodeScalars.index(after:currentIndex)
+        currentIndex = unicodeScalars.index(after: currentIndex)
 
         let expressionOperator = try scanExpressionOperator()
         let variableList = try scanVariableList()
@@ -62,13 +60,13 @@ internal struct Scanner {
     }
 
     private mutating func scanExpressionOperator() throws -> ExpressionOperator {
-        let expressionOperator : ExpressionOperator
-        if (expressionOperatorCharacterSet.contains(unicodeScalars[currentIndex])) {
-            guard let op = ExpressionOperator(rawValue:unicodeScalars[currentIndex]) else {
+        let expressionOperator: ExpressionOperator
+        if expressionOperatorCharacterSet.contains(unicodeScalars[currentIndex]) {
+            guard let op = ExpressionOperator(rawValue: unicodeScalars[currentIndex]) else {
                 throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Unsupported Operator")
             }
             expressionOperator = op
-            currentIndex = unicodeScalars.index(after:currentIndex)
+            currentIndex = unicodeScalars.index(after: currentIndex)
         } else {
             expressionOperator = .simple
         }
@@ -79,20 +77,20 @@ internal struct Scanner {
         var variableList: [VariableSpec] = []
 
         var complete = false
-        while (!complete) {
+        while !complete {
             let variableName = try scanVariableName()
 
-            if (currentIndex == unicodeScalars.endIndex) {
+            if currentIndex == unicodeScalars.endIndex {
                 throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Unterminated Expression")
             }
 
             let modifier = try scanVariableModifier()
 
-            if (currentIndex == unicodeScalars.endIndex) {
+            if currentIndex == unicodeScalars.endIndex {
                 throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Unterminated Expression")
             }
 
-            variableList.append(VariableSpec(name:variableName, modifier:modifier))
+            variableList.append(VariableSpec(name: variableName, modifier: modifier))
 
             switch unicodeScalars[currentIndex] {
             case ",":
@@ -111,20 +109,20 @@ internal struct Scanner {
     private mutating func scanVariableName() throws -> Substring {
         let endIndex = scanUpTo(characterSet: invertedVarnameCharacterSet)
         let variableName = string[currentIndex..<endIndex]
-        if (variableName.isEmpty) {
+        if variableName.isEmpty {
             throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Empty Variable Name")
-        } else if (variableName.starts(with:".")) {
+        } else if variableName.starts(with: ".") {
             throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Variable Name Cannot Begin With '.'")
         }
         var remainingVariableName = variableName
-        while let index = remainingVariableName.index(of:"%") {
-            let secondIndex = remainingVariableName.index(after:index)
-            let thirdIndex = remainingVariableName.index(after:secondIndex)
-            if (!hexCharacterSet.contains(unicodeScalars[secondIndex]) ||
-                !hexCharacterSet.contains(unicodeScalars[thirdIndex])) {
+        while let index = remainingVariableName.index(of: "%") {
+            let secondIndex = remainingVariableName.index(after: index)
+            let thirdIndex = remainingVariableName.index(after: secondIndex)
+            if !hexCharacterSet.contains(unicodeScalars[secondIndex]) ||
+               !hexCharacterSet.contains(unicodeScalars[thirdIndex]) {
                 throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "% must be percent-encoded in variable name")
             }
-            let nextIndex = remainingVariableName.index(after:thirdIndex)
+            let nextIndex = remainingVariableName.index(after: thirdIndex)
             remainingVariableName = remainingVariableName[nextIndex...]
         }
         currentIndex = endIndex
@@ -172,15 +170,15 @@ internal struct Scanner {
         assert(unicodeScalars[currentIndex] == "%")
 
         let startIndex = currentIndex
-        let secondIndex = unicodeScalars.index(after:startIndex)
-        let thirdIndex = unicodeScalars.index(after:secondIndex)
+        let secondIndex = unicodeScalars.index(after: startIndex)
+        let thirdIndex = unicodeScalars.index(after: secondIndex)
 
-        if (!hexCharacterSet.contains(unicodeScalars[secondIndex]) ||
-            !hexCharacterSet.contains(unicodeScalars[thirdIndex])) {
+        if !hexCharacterSet.contains(unicodeScalars[secondIndex]) ||
+           !hexCharacterSet.contains(unicodeScalars[thirdIndex]) {
             throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "% must be percent-encoded in literal")
         }
 
-        currentIndex = unicodeScalars.index(after:thirdIndex)
+        currentIndex = unicodeScalars.index(after: thirdIndex)
         return LiteralPercentEncodedTripletComponent(string[startIndex...thirdIndex])
     }
 
@@ -188,10 +186,10 @@ internal struct Scanner {
         var index = currentIndex
         while index < unicodeScalars.endIndex {
             let scalar = unicodeScalars[index]
-            if (characterSet.contains(scalar)) {
-                break;
+            if characterSet.contains(scalar) {
+                break
             }
-            index = unicodeScalars.index(after:index)
+            index = unicodeScalars.index(after: index)
         }
         return index
     }

@@ -22,7 +22,6 @@ let variables = ["owner": "SwiftScream",
 
 let urlString = try template.process(variables: variables)
 
-let url = URL(string:urlString)!
+let url = URL(string: urlString)!
 print("Expanding \(template)\n     with \(variables):\n")
 print(url.absoluteString)
-

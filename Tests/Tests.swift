@@ -16,23 +16,26 @@ import XCTest
 import URITemplate
 
 class Tests: XCTestCase {
-    
+
     func testCustomStringConvertible() {
-        let template = try! URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
+        let template: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
         XCTAssertEqual(template.description, "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
     }
 
     func testExpressibleByStringLiteral() {
-        let templateA : URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
-        let templateB = try! URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
+        let templateA: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
+        guard let templateB = try? URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}") else {
+            XCTFail("invalid template")
+            return
+        }
         XCTAssertEqual(templateA, templateB)
     }
 
     func testEquatable() {
-        let templateA = try! URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
-        let templateB = try! URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
+        let templateA: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
+        let templateB: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
         XCTAssertEqual(templateA, templateB)
-        let templateC = try! URITemplate(string: "https://api.github.com/repos/{owner}")
+        let templateC: URITemplate = "https://api.github.com/repos/{owner}"
         XCTAssertNotEqual(templateB, templateC)
         let templateD = templateC
         XCTAssertEqual(templateC, templateD)
@@ -40,54 +43,62 @@ class Tests: XCTestCase {
     }
 
     func testHashable() {
-        let templateA = try! URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
-        let templateB = try! URITemplate(string: "https://api.github.com/repos/{owner}")
-        let dictionary = [templateA : "A", templateB : "B"]
+        let templateA: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
+        let templateB: URITemplate = "https://api.github.com/repos/{owner}"
+        let dictionary = [templateA: "A", templateB: "B"]
         XCTAssertEqual(dictionary[templateA], "A")
         XCTAssertEqual(dictionary[templateB], "B")
     }
 
     func testVariableNames() {
-        let template = try! URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
+        let template: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
         let variableNames = template.variableNames
         let expected = ["owner", "repo", "username"]
         XCTAssertEqual(variableNames, expected)
     }
 
     func testEncoding() {
-        let templateString = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
-        let template = try! URITemplate(string: templateString)
-        let jsonData = try! JSONEncoder().encode(["a":template])
-        let expectedData = try! JSONEncoder().encode(["a":templateString])
-        XCTAssertEqual(jsonData, expectedData)
+        do {
+            let templateString = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
+            let template = try URITemplate(string: templateString)
+            let jsonData = try JSONEncoder().encode(["a": template])
+            let expectedData = try JSONEncoder().encode(["a": templateString])
+            XCTAssertEqual(jsonData, expectedData)
+        } catch {
+            XCTFail("unexpected throw")
+        }
     }
 
     func testDecoding() {
-        let templateString = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
-        let jsonString = "{\"a\":\"\(templateString)\"}"
-        let jsonData = jsonString.data(using: .utf8)!
-        let object = try! JSONDecoder().decode([String:URITemplate].self, from: jsonData)
-        let expectedTemplate = try! URITemplate(string:templateString)
-        XCTAssertEqual(object["a"], expectedTemplate)
+        do {
+            let templateString = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
+            let jsonString = "{\"a\":\"\(templateString)\"}"
+            let jsonData = jsonString.data(using: .utf8)!
+            let object = try JSONDecoder().decode([String: URITemplate].self, from: jsonData)
+            let expectedTemplate = try URITemplate(string: templateString)
+            XCTAssertEqual(object["a"], expectedTemplate)
+        } catch {
+            XCTFail("unexpected throw")
+        }
     }
 
     func testInitPerformance() {
         self.measure {
             for _ in 1...5000 {
-                _ = try! URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
+                _ = try? URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
             }
         }
     }
 
     func testProcessPerformance() {
-        let template = try! URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
+        let template: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
         let variables = ["owner": "SwiftScream",
                          "repo": "URITemplate",
                          "username": "alexdeem"]
 
         self.measure {
             for _ in 1...5000 {
-                _ = try! template.process(variables: variables)
+                _ = try? template.process(variables: variables)
             }
         }
     }
