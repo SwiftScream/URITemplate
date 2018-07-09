@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/SwiftScream/URITemplate/compare/1.1.1...2.0.0) (2018-07-09)
+
+- Provide Static Framework Targets
+- Remove Static Library and Dynamic Framework Targets
+
+
 <a name="1.1.1"></a>
 # [1.1.1](https://github.com/SwiftScream/URITemplate/compare/1.1.0...1.1.1) (2018-07-01)
 
