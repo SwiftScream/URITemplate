@@ -33,9 +33,9 @@ class ViewController: UIViewController {
             let url = URL(string: urlString)!
             print("Expanding \(template)\n     with \(variables):\n")
             print(url.absoluteString)
-        } catch URITemplate.Error.malformedTemplate(let position, let reason) {
+        } catch URITemplate.Error.malformedTemplate(_, let reason) {
             print("Failed parsing template (\(reason))")
-        } catch URITemplate.Error.expansionFailure(let position, let reason) {
+        } catch URITemplate.Error.expansionFailure(_, let reason) {
             print("Failed expanding template (\(reason))")
         } catch {
             print("Unexpected Failure")
