@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "958812972096E8EB0080D3D4"
-               BuildableName = "libURITemplate-mac.a"
+               BlueprintIdentifier = "9549658C20A4230500BD6E16"
+               BuildableName = "URITemplate.framework"
                BlueprintName = "URITemplate-mac"
                ReferencedContainer = "container:URITemplate.xcodeproj">
             </BuildableReference>
@@ -43,8 +43,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "958812972096E8EB0080D3D4"
-            BuildableName = "libURITemplate-mac.a"
+            BlueprintIdentifier = "9549658C20A4230500BD6E16"
+            BuildableName = "URITemplate.framework"
             BlueprintName = "URITemplate-mac"
             ReferencedContainer = "container:URITemplate.xcodeproj">
          </BuildableReference>
@@ -65,8 +65,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "958812972096E8EB0080D3D4"
-            BuildableName = "libURITemplate-mac.a"
+            BlueprintIdentifier = "9549658C20A4230500BD6E16"
+            BuildableName = "URITemplate.framework"
             BlueprintName = "URITemplate-mac"
             ReferencedContainer = "container:URITemplate.xcodeproj">
          </BuildableReference>
@@ -83,8 +83,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "958812972096E8EB0080D3D4"
-            BuildableName = "libURITemplate-mac.a"
+            BlueprintIdentifier = "9549658C20A4230500BD6E16"
+            BuildableName = "URITemplate.framework"
             BlueprintName = "URITemplate-mac"
             ReferencedContainer = "container:URITemplate.xcodeproj">
          </BuildableReference>

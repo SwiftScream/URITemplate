@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "95C591711F6F7A1100C4405A"
-               BuildableName = "libURITemplate-ios.a"
+               BlueprintIdentifier = "9549657A20A41AAD00BD6E16"
+               BuildableName = "URITemplate.framework"
                BlueprintName = "URITemplate-ios"
                ReferencedContainer = "container:URITemplate.xcodeproj">
             </BuildableReference>
@@ -43,8 +43,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "95C591711F6F7A1100C4405A"
-            BuildableName = "libURITemplate-ios.a"
+            BlueprintIdentifier = "9549657A20A41AAD00BD6E16"
+            BuildableName = "URITemplate.framework"
             BlueprintName = "URITemplate-ios"
             ReferencedContainer = "container:URITemplate.xcodeproj">
          </BuildableReference>
@@ -65,8 +65,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "95C591711F6F7A1100C4405A"
-            BuildableName = "libURITemplate-ios.a"
+            BlueprintIdentifier = "9549657A20A41AAD00BD6E16"
+            BuildableName = "URITemplate.framework"
             BlueprintName = "URITemplate-ios"
             ReferencedContainer = "container:URITemplate.xcodeproj">
          </BuildableReference>
@@ -83,8 +83,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "95C591711F6F7A1100C4405A"
-            BuildableName = "libURITemplate-ios.a"
+            BlueprintIdentifier = "9549657A20A41AAD00BD6E16"
+            BuildableName = "URITemplate.framework"
             BlueprintName = "URITemplate-ios"
             ReferencedContainer = "container:URITemplate.xcodeproj">
          </BuildableReference>

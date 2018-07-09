@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "958812582096C3820080D3D4"
-               BuildableName = "libURITemplate-watch.a"
+               BlueprintIdentifier = "95D06B8020AAB126005D6947"
+               BuildableName = "URITemplate.framework"
                BlueprintName = "URITemplate-watch"
                ReferencedContainer = "container:URITemplate.xcodeproj">
             </BuildableReference>
@@ -45,8 +45,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "958812582096C3820080D3D4"
-            BuildableName = "libURITemplate-watch.a"
+            BlueprintIdentifier = "95D06B8020AAB126005D6947"
+            BuildableName = "URITemplate.framework"
             BlueprintName = "URITemplate-watch"
             ReferencedContainer = "container:URITemplate.xcodeproj">
          </BuildableReference>
@@ -63,8 +63,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "958812582096C3820080D3D4"
-            BuildableName = "libURITemplate-watch.a"
+            BlueprintIdentifier = "95D06B8020AAB126005D6947"
+            BuildableName = "URITemplate.framework"
             BlueprintName = "URITemplate-watch"
             ReferencedContainer = "container:URITemplate.xcodeproj">
          </BuildableReference>

@@ -9,7 +9,7 @@ INFOPLIST_FILE = Example-watch/Extension/Info.plist
 PRODUCT_BUNDLE_IDENTIFIER = com.swiftscream.URITemplateExample.watchkitapp.watchkitextension
 PRODUCT_NAME = $(TARGET_NAME)
 
-OTHER_LDFLAGS = -lURITemplate-watch
+OTHER_LDFLAGS = -framework URITemplate
 
 CODE_SIGN_IDENTITY = iOS Developer
 CODE_SIGN_STYLE = Automatic

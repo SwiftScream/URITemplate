@@ -13,10 +13,6 @@
 			buildPhases = (
 			);
 			dependencies = (
-				9588123A209354DC0080D3D4 /* PBXTargetDependency */,
-				958812A32096E9120080D3D4 /* PBXTargetDependency */,
-				9588123C209354DC0080D3D4 /* PBXTargetDependency */,
-				958812622096C3C00080D3D4 /* PBXTargetDependency */,
 				95D06B8A20AAB13A005D6947 /* PBXTargetDependency */,
 				95D06B8C20AAB13A005D6947 /* PBXTargetDependency */,
 				95D06B8E20AAB13A005D6947 /* PBXTargetDependency */,
@@ -28,6 +24,9 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		9533E14920F384B200ADECFD /* URITemplate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9549657B20A41AAD00BD6E16 /* URITemplate.framework */; };
+		9533E14C20F3855900ADECFD /* URITemplate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9549658D20A4230500BD6E16 /* URITemplate.framework */; };
+		9533E14F20F3858700ADECFD /* URITemplate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95D06B7420AAB08E005D6947 /* URITemplate.framework */; };
 		9549657320A1230400BD6E16 /* TestFileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9549657220A1230400BD6E16 /* TestFileTests.swift */; };
 		9549657420A1230400BD6E16 /* TestFileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9549657220A1230400BD6E16 /* TestFileTests.swift */; };
 		9549657520A1230400BD6E16 /* TestFileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9549657220A1230400BD6E16 /* TestFileTests.swift */; };
@@ -50,7 +49,6 @@
 		958812462096A0980080D3D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812452096A0980080D3D4 /* AppDelegate.swift */; };
 		958812482096A0980080D3D4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812472096A0980080D3D4 /* ViewController.swift */; };
 		9588124D2096A09A0080D3D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9588124C2096A09A0080D3D4 /* Assets.xcassets */; };
-		958812602096C39E0080D3D4 /* URITemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BAAD651F720CB3005F3D08 /* URITemplate.swift */; };
 		9588126A2096C7190080D3D4 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 958812682096C7190080D3D4 /* Interface.storyboard */; };
 		9588126C2096C7190080D3D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9588126B2096C7190080D3D4 /* Assets.xcassets */; };
 		958812732096C7190080D3D4 /* URITemplateExample-watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 958812722096C7190080D3D4 /* URITemplateExample-watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -58,29 +56,13 @@
 		9588127A2096C7190080D3D4 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812792096C7190080D3D4 /* ExtensionDelegate.swift */; };
 		9588127C2096C71A0080D3D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9588127B2096C71A0080D3D4 /* Assets.xcassets */; };
 		958812802096C71A0080D3D4 /* URITemplateExample-watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 958812662096C7190080D3D4 /* URITemplateExample-watch.app */; };
-		958812A12096E8FF0080D3D4 /* URITemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BAAD651F720CB3005F3D08 /* URITemplate.swift */; };
 		958812B72096ED170080D3D4 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812B62096ED170080D3D4 /* main.swift */; };
-		958812C12097333B0080D3D4 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812C02097333B0080D3D4 /* Components.swift */; };
-		958812C22097333B0080D3D4 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812C02097333B0080D3D4 /* Components.swift */; };
-		958812C32097333B0080D3D4 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812C02097333B0080D3D4 /* Components.swift */; };
-		958812C42097333B0080D3D4 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812C02097333B0080D3D4 /* Components.swift */; };
-		958812C620973AD60080D3D4 /* CharacterSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812C520973AD60080D3D4 /* CharacterSets.swift */; };
-		958812C720973AD60080D3D4 /* CharacterSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812C520973AD60080D3D4 /* CharacterSets.swift */; };
-		958812C820973AD60080D3D4 /* CharacterSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812C520973AD60080D3D4 /* CharacterSets.swift */; };
-		958812C920973AD60080D3D4 /* CharacterSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812C520973AD60080D3D4 /* CharacterSets.swift */; };
-		958812CB20973B1C0080D3D4 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812CA20973B1C0080D3D4 /* Scanner.swift */; };
-		958812CC20973B1C0080D3D4 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812CA20973B1C0080D3D4 /* Scanner.swift */; };
-		958812CD20973B1C0080D3D4 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812CA20973B1C0080D3D4 /* Scanner.swift */; };
-		958812CE20973B1C0080D3D4 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812CA20973B1C0080D3D4 /* Scanner.swift */; };
 		958812D7209745FE0080D3D4 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812D6209745FE0080D3D4 /* Tests.swift */; };
-		958812D9209745FE0080D3D4 /* libURITemplate-mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 958812982096E8EB0080D3D4 /* libURITemplate-mac.a */; };
 		958812E02097488F0080D3D4 /* TestModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812DF2097488F0080D3D4 /* TestModels.swift */; };
 		958812E2209748C80080D3D4 /* JSONValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812E1209748C80080D3D4 /* JSONValue.swift */; };
-		958812F12097F3090080D3D4 /* libURITemplate-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95C591721F6F7A1100C4405A /* libURITemplate-ios.a */; };
 		958812F72097F32D0080D3D4 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812D6209745FE0080D3D4 /* Tests.swift */; };
 		958812F82097F32D0080D3D4 /* JSONValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812E1209748C80080D3D4 /* JSONValue.swift */; };
 		958812F92097F32D0080D3D4 /* TestModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812DF2097488F0080D3D4 /* TestModels.swift */; };
-		958813062097F8B70080D3D4 /* libURITemplate-tv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95AE3DD62092FC0F004D6773 /* libURITemplate-tv.a */; };
 		9588130C2097F8CB0080D3D4 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812D6209745FE0080D3D4 /* Tests.swift */; };
 		9588130D2097F8CB0080D3D4 /* JSONValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812E1209748C80080D3D4 /* JSONValue.swift */; };
 		9588130E2097F8CB0080D3D4 /* TestModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958812DF2097488F0080D3D4 /* TestModels.swift */; };
@@ -99,24 +81,6 @@
 		958813282097FF0F0080D3D4 /* spec-examples-by-section.json in Resources */ = {isa = PBXBuildFile; fileRef = 958813162097FEF60080D3D4 /* spec-examples-by-section.json */; };
 		958813292097FF0F0080D3D4 /* extended-tests.json in Resources */ = {isa = PBXBuildFile; fileRef = 958813182097FEF60080D3D4 /* extended-tests.json */; };
 		9588132A2097FF0F0080D3D4 /* negative-tests.json in Resources */ = {isa = PBXBuildFile; fileRef = 9588131B2097FEF60080D3D4 /* negative-tests.json */; };
-		9588132C209811DD0080D3D4 /* ExpressionOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588132B209811DD0080D3D4 /* ExpressionOperator.swift */; };
-		9588132D209811DD0080D3D4 /* ExpressionOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588132B209811DD0080D3D4 /* ExpressionOperator.swift */; };
-		9588132E209811DD0080D3D4 /* ExpressionOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588132B209811DD0080D3D4 /* ExpressionOperator.swift */; };
-		9588132F209811DD0080D3D4 /* ExpressionOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588132B209811DD0080D3D4 /* ExpressionOperator.swift */; };
-		95881331209812050080D3D4 /* ExpansionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95881330209812050080D3D4 /* ExpansionConfiguration.swift */; };
-		95881332209812050080D3D4 /* ExpansionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95881330209812050080D3D4 /* ExpansionConfiguration.swift */; };
-		95881333209812050080D3D4 /* ExpansionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95881330209812050080D3D4 /* ExpansionConfiguration.swift */; };
-		95881334209812050080D3D4 /* ExpansionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95881330209812050080D3D4 /* ExpansionConfiguration.swift */; };
-		9588133620981E190080D3D4 /* ValueFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588133520981E190080D3D4 /* ValueFormatting.swift */; };
-		9588133720981E190080D3D4 /* ValueFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588133520981E190080D3D4 /* ValueFormatting.swift */; };
-		9588133820981E190080D3D4 /* ValueFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588133520981E190080D3D4 /* ValueFormatting.swift */; };
-		9588133920981E190080D3D4 /* ValueFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588133520981E190080D3D4 /* ValueFormatting.swift */; };
-		9588133B209820B60080D3D4 /* VariableSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588133A209820B60080D3D4 /* VariableSpec.swift */; };
-		9588133C209820B60080D3D4 /* VariableSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588133A209820B60080D3D4 /* VariableSpec.swift */; };
-		9588133D209820B60080D3D4 /* VariableSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588133A209820B60080D3D4 /* VariableSpec.swift */; };
-		9588133E209820B60080D3D4 /* VariableSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588133A209820B60080D3D4 /* VariableSpec.swift */; };
-		95AE3DDD2092FC2F004D6773 /* URITemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BAAD651F720CB3005F3D08 /* URITemplate.swift */; };
-		95BAAD661F720D04005F3D08 /* URITemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BAAD651F720CB3005F3D08 /* URITemplate.swift */; };
 		95C591891F6F7C1200C4405A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C591881F6F7C1200C4405A /* AppDelegate.swift */; };
 		95C5918B1F6F7C1200C4405A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C5918A1F6F7C1200C4405A /* ViewController.swift */; };
 		95C591901F6F7C1200C4405A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95C5918F1F6F7C1200C4405A /* Assets.xcassets */; };
@@ -140,33 +104,54 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		95881239209354DC0080D3D4 /* PBXContainerItemProxy */ = {
+		9533E14720F384A400ADECFD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 95C5916A1F6F7A1100C4405A /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 95C591711F6F7A1100C4405A;
-			remoteInfo = "URITemplate-ios";
+			remoteGlobalIDString = 9549657A20A41AAD00BD6E16;
+			remoteInfo = "URITemplate-ios-d";
 		};
-		9588123B209354DC0080D3D4 /* PBXContainerItemProxy */ = {
+		9533E14A20F3855400ADECFD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 95C5916A1F6F7A1100C4405A /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 95AE3DD52092FC0F004D6773;
-			remoteInfo = "URITemplate-tv";
+			remoteGlobalIDString = 9549658C20A4230500BD6E16;
+			remoteInfo = "URITemplate-mac-d";
 		};
-		958812522096A20C0080D3D4 /* PBXContainerItemProxy */ = {
+		9533E14D20F3858300ADECFD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 95C5916A1F6F7A1100C4405A /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 95AE3DD52092FC0F004D6773;
-			remoteInfo = "URITemplate-tv";
+			remoteGlobalIDString = 95D06B7320AAB08E005D6947;
+			remoteInfo = "URITemplate-tv-d";
 		};
-		958812612096C3C00080D3D4 /* PBXContainerItemProxy */ = {
+		9533E15020F3863000ADECFD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 95C5916A1F6F7A1100C4405A /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 958812582096C3820080D3D4;
-			remoteInfo = "URITemplate-watch";
+			remoteGlobalIDString = 9549657A20A41AAD00BD6E16;
+			remoteInfo = "URITemplate-ios-d";
+		};
+		9533E15220F386C300ADECFD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 95C5916A1F6F7A1100C4405A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 95D06B7320AAB08E005D6947;
+			remoteInfo = "URITemplate-tv-d";
+		};
+		9533E15420F3872200ADECFD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 95C5916A1F6F7A1100C4405A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 95D06B8020AAB126005D6947;
+			remoteInfo = "URITemplate-watch-d";
+		};
+		9533E15620F3876400ADECFD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 95C5916A1F6F7A1100C4405A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9549658C20A4230500BD6E16;
+			remoteInfo = "URITemplate-mac-d";
 		};
 		958812742096C7190080D3D4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -181,55 +166,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 958812652096C7190080D3D4;
 			remoteInfo = "URITemplateExample-watch";
-		};
-		958812892096CA340080D3D4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 95C5916A1F6F7A1100C4405A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 958812582096C3820080D3D4;
-			remoteInfo = "URITemplate-watch";
-		};
-		958812A22096E9120080D3D4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 95C5916A1F6F7A1100C4405A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 958812972096E8EB0080D3D4;
-			remoteInfo = "URITemplate-mac";
-		};
-		958812BB2096ED650080D3D4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 95C5916A1F6F7A1100C4405A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 958812972096E8EB0080D3D4;
-			remoteInfo = "URITemplate-mac";
-		};
-		958812DA209745FE0080D3D4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 95C5916A1F6F7A1100C4405A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 958812972096E8EB0080D3D4;
-			remoteInfo = "URITemplate-mac";
-		};
-		958812F22097F3090080D3D4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 95C5916A1F6F7A1100C4405A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 95C591711F6F7A1100C4405A;
-			remoteInfo = "URITemplate-ios";
-		};
-		958813072097F8B70080D3D4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 95C5916A1F6F7A1100C4405A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 95AE3DD52092FC0F004D6773;
-			remoteInfo = "URITemplate-tv";
-		};
-		95BAAD631F70EE4B005F3D08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 95C5916A1F6F7A1100C4405A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 95C591711F6F7A1100C4405A;
-			remoteInfo = URITemplate;
 		};
 		95D06B8920AAB13A005D6947 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -262,15 +198,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		958812572096C3820080D3D4 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		958812842096C71A0080D3D4 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -302,43 +229,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
-		95AE3DD42092FC0F004D6773 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		95C591701F6F7A1100C4405A /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		9549657220A1230400BD6E16 /* TestFileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFileTests.swift; sourceTree = "<group>"; };
 		9549657B20A41AAD00BD6E16 /* URITemplate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = URITemplate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9549658D20A4230500BD6E16 /* URITemplate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = URITemplate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		954965D220AAA5B900BD6E16 /* DynamicLibTarget-ios.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "DynamicLibTarget-ios.xcconfig"; sourceTree = "<group>"; };
-		954965D320AAA5B900BD6E16 /* DynamicLibTarget-mac.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "DynamicLibTarget-mac.xcconfig"; sourceTree = "<group>"; };
-		954965D420AAA5B900BD6E16 /* DynamicLibTarget-tv.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "DynamicLibTarget-tv.xcconfig"; sourceTree = "<group>"; };
-		954965D520AAA5B900BD6E16 /* DynamicLibTarget-watch.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "DynamicLibTarget-watch.xcconfig"; sourceTree = "<group>"; };
-		9588123420934F150080D3D4 /* StaticLibTarget-tv.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "StaticLibTarget-tv.xcconfig"; sourceTree = "<group>"; };
+		954965D220AAA5B900BD6E16 /* FrameworkTarget-ios.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "FrameworkTarget-ios.xcconfig"; sourceTree = "<group>"; };
+		954965D320AAA5B900BD6E16 /* FrameworkTarget-mac.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "FrameworkTarget-mac.xcconfig"; sourceTree = "<group>"; };
+		954965D420AAA5B900BD6E16 /* FrameworkTarget-tv.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "FrameworkTarget-tv.xcconfig"; sourceTree = "<group>"; };
+		954965D520AAA5B900BD6E16 /* FrameworkTarget-watch.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "FrameworkTarget-watch.xcconfig"; sourceTree = "<group>"; };
 		958812432096A0980080D3D4 /* URITemplateExample-tv.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "URITemplateExample-tv.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		958812452096A0980080D3D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		958812472096A0980080D3D4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9588124C2096A09A0080D3D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9588124E2096A09A0080D3D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		958812542096A6900080D3D4 /* ExampleTarget-tv.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ExampleTarget-tv.xcconfig"; sourceTree = "<group>"; };
-		958812592096C3820080D3D4 /* libURITemplate-watch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libURITemplate-watch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		958812632096C4A10080D3D4 /* StaticLibTarget-watch.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "StaticLibTarget-watch.xcconfig"; sourceTree = "<group>"; };
 		958812662096C7190080D3D4 /* URITemplateExample-watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "URITemplateExample-watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		958812692096C7190080D3D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		9588126B2096C7190080D3D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -350,8 +256,6 @@
 		9588127D2096C71A0080D3D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		958812922096DAED0080D3D4 /* ExampleTarget-watch.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ExampleTarget-watch.xcconfig"; sourceTree = "<group>"; };
 		958812932096DAED0080D3D4 /* ExampleTarget-watch-ext.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ExampleTarget-watch-ext.xcconfig"; sourceTree = "<group>"; };
-		958812982096E8EB0080D3D4 /* libURITemplate-mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libURITemplate-mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		958812A42096E9CD0080D3D4 /* StaticLibTarget-mac.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "StaticLibTarget-mac.xcconfig"; sourceTree = "<group>"; };
 		958812B42096ED160080D3D4 /* URITemplateExample-mac */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "URITemplateExample-mac"; sourceTree = BUILT_PRODUCTS_DIR; };
 		958812B62096ED170080D3D4 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		958812BF2096EDBE0080D3D4 /* ExampleTarget-mac.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ExampleTarget-mac.xcconfig"; sourceTree = "<group>"; };
@@ -377,9 +281,7 @@
 		95881330209812050080D3D4 /* ExpansionConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpansionConfiguration.swift; sourceTree = "<group>"; };
 		9588133520981E190080D3D4 /* ValueFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueFormatting.swift; sourceTree = "<group>"; };
 		9588133A209820B60080D3D4 /* VariableSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableSpec.swift; sourceTree = "<group>"; };
-		95AE3DD62092FC0F004D6773 /* libURITemplate-tv.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libURITemplate-tv.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95BAAD651F720CB3005F3D08 /* URITemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URITemplate.swift; sourceTree = "<group>"; };
-		95C591721F6F7A1100C4405A /* libURITemplate-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libURITemplate-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95C591861F6F7C1200C4405A /* URITemplateExample-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "URITemplateExample-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95C591881F6F7C1200C4405A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		95C5918A1F6F7C1200C4405A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -388,13 +290,12 @@
 		95C591941F6F7C1200C4405A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		95C5919F1F6F83B200C4405A /* Project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
 		95C591A01F6F85F400C4405A /* Warnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Warnings.xcconfig; sourceTree = "<group>"; };
-		95C591A11F6F873D00C4405A /* StaticLibTarget-ios.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "StaticLibTarget-ios.xcconfig"; sourceTree = "<group>"; };
 		95C591A21F6F8B3C00C4405A /* ExampleTarget-ios.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ExampleTarget-ios.xcconfig"; sourceTree = "<group>"; };
 		95C591A31F6F907300C4405A /* Project-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Release.xcconfig"; sourceTree = "<group>"; };
 		95C591A41F6F909500C4405A /* Project-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Debug.xcconfig"; sourceTree = "<group>"; };
 		95D06B7420AAB08E005D6947 /* URITemplate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = URITemplate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95D06B8120AAB126005D6947 /* URITemplate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = URITemplate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		95D06BA120AAB407005D6947 /* DynamicFrameworkInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DynamicFrameworkInfo.plist; sourceTree = "<group>"; };
+		95D06BA120AAB407005D6947 /* FrameworkInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = FrameworkInfo.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -419,21 +320,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		958812562096C3820080D3D4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9588126F2096C7190080D3D4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		958812952096E8EB0080D3D4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -451,7 +338,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				958812D9209745FE0080D3D4 /* libURITemplate-mac.a in Frameworks */,
+				9533E14C20F3855900ADECFD /* URITemplate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,7 +346,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				958812F12097F3090080D3D4 /* libURITemplate-ios.a in Frameworks */,
+				9533E14920F384B200ADECFD /* URITemplate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,21 +354,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				958813062097F8B70080D3D4 /* libURITemplate-tv.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		95AE3DD32092FC0F004D6773 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		95C5916F1F6F7A1100C4405A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				9533E14F20F3858700ADECFD /* URITemplate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -622,14 +495,10 @@
 		95C591731F6F7A1100C4405A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				95C591721F6F7A1100C4405A /* libURITemplate-ios.a */,
 				95C591861F6F7C1200C4405A /* URITemplateExample-ios.app */,
-				95AE3DD62092FC0F004D6773 /* libURITemplate-tv.a */,
 				958812432096A0980080D3D4 /* URITemplateExample-tv.app */,
-				958812592096C3820080D3D4 /* libURITemplate-watch.a */,
 				958812662096C7190080D3D4 /* URITemplateExample-watch.app */,
 				958812722096C7190080D3D4 /* URITemplateExample-watch Extension.appex */,
-				958812982096E8EB0080D3D4 /* libURITemplate-mac.a */,
 				958812B42096ED160080D3D4 /* URITemplateExample-mac */,
 				958812D4209745FE0080D3D4 /* Tests-mac.xctest */,
 				958812EC2097F3090080D3D4 /* Tests-ios.xctest */,
@@ -647,7 +516,7 @@
 			children = (
 				95BAAD651F720CB3005F3D08 /* URITemplate.swift */,
 				958812CF20973B610080D3D4 /* Internal */,
-				95D06BA120AAB407005D6947 /* DynamicFrameworkInfo.plist */,
+				95D06BA120AAB407005D6947 /* FrameworkInfo.plist */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -670,14 +539,10 @@
 				95C5919F1F6F83B200C4405A /* Project.xcconfig */,
 				95C591A31F6F907300C4405A /* Project-Release.xcconfig */,
 				95C591A41F6F909500C4405A /* Project-Debug.xcconfig */,
-				95C591A11F6F873D00C4405A /* StaticLibTarget-ios.xcconfig */,
-				958812A42096E9CD0080D3D4 /* StaticLibTarget-mac.xcconfig */,
-				9588123420934F150080D3D4 /* StaticLibTarget-tv.xcconfig */,
-				958812632096C4A10080D3D4 /* StaticLibTarget-watch.xcconfig */,
-				954965D220AAA5B900BD6E16 /* DynamicLibTarget-ios.xcconfig */,
-				954965D320AAA5B900BD6E16 /* DynamicLibTarget-mac.xcconfig */,
-				954965D420AAA5B900BD6E16 /* DynamicLibTarget-tv.xcconfig */,
-				954965D520AAA5B900BD6E16 /* DynamicLibTarget-watch.xcconfig */,
+				954965D220AAA5B900BD6E16 /* FrameworkTarget-ios.xcconfig */,
+				954965D320AAA5B900BD6E16 /* FrameworkTarget-mac.xcconfig */,
+				954965D420AAA5B900BD6E16 /* FrameworkTarget-tv.xcconfig */,
+				954965D520AAA5B900BD6E16 /* FrameworkTarget-watch.xcconfig */,
 				958812FC2097F5470080D3D4 /* TestTarget-ios.xcconfig */,
 				958812E72097D88D0080D3D4 /* TestTarget-mac.xcconfig */,
 				958813112097FB130080D3D4 /* TestTarget-tv.xcconfig */,
@@ -708,13 +573,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		958812962096E8EB0080D3D4 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		95D06B7120AAB08E005D6947 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -732,9 +590,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		9549657A20A41AAD00BD6E16 /* URITemplate-ios-d */ = {
+		9549657A20A41AAD00BD6E16 /* URITemplate-ios */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9549658020A41AAD00BD6E16 /* Build configuration list for PBXNativeTarget "URITemplate-ios-d" */;
+			buildConfigurationList = 9549658020A41AAD00BD6E16 /* Build configuration list for PBXNativeTarget "URITemplate-ios" */;
 			buildPhases = (
 				9549657620A41AAD00BD6E16 /* Sources */,
 				9549657720A41AAD00BD6E16 /* Frameworks */,
@@ -745,14 +603,14 @@
 			);
 			dependencies = (
 			);
-			name = "URITemplate-ios-d";
+			name = "URITemplate-ios";
 			productName = "URITemplate-ios-dylib";
 			productReference = 9549657B20A41AAD00BD6E16 /* URITemplate.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		9549658C20A4230500BD6E16 /* URITemplate-mac-d */ = {
+		9549658C20A4230500BD6E16 /* URITemplate-mac */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9549659220A4230500BD6E16 /* Build configuration list for PBXNativeTarget "URITemplate-mac-d" */;
+			buildConfigurationList = 9549659220A4230500BD6E16 /* Build configuration list for PBXNativeTarget "URITemplate-mac" */;
 			buildPhases = (
 				9549658820A4230500BD6E16 /* Sources */,
 				9549658920A4230500BD6E16 /* Frameworks */,
@@ -763,7 +621,7 @@
 			);
 			dependencies = (
 			);
-			name = "URITemplate-mac-d";
+			name = "URITemplate-mac";
 			productName = "URITemplate-mac-dylib";
 			productReference = 9549658D20A4230500BD6E16 /* URITemplate.framework */;
 			productType = "com.apple.product-type.framework";
@@ -779,30 +637,12 @@
 			buildRules = (
 			);
 			dependencies = (
-				958812532096A20C0080D3D4 /* PBXTargetDependency */,
+				9533E15320F386C300ADECFD /* PBXTargetDependency */,
 			);
 			name = "URITemplateExample-tv";
 			productName = "URITemplateExample-tv";
 			productReference = 958812432096A0980080D3D4 /* URITemplateExample-tv.app */;
 			productType = "com.apple.product-type.application";
-		};
-		958812582096C3820080D3D4 /* URITemplate-watch */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9588125F2096C3820080D3D4 /* Build configuration list for PBXNativeTarget "URITemplate-watch" */;
-			buildPhases = (
-				958812552096C3820080D3D4 /* Sources */,
-				958812562096C3820080D3D4 /* Frameworks */,
-				958812572096C3820080D3D4 /* CopyFiles */,
-				95DC57B820CA587E0007C182 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "URITemplate-watch";
-			productName = "URITemplate-watch";
-			productReference = 958812592096C3820080D3D4 /* libURITemplate-watch.a */;
-			productType = "com.apple.product-type.library.static";
 		};
 		958812652096C7190080D3D4 /* URITemplateExample-watch */ = {
 			isa = PBXNativeTarget;
@@ -832,30 +672,12 @@
 			buildRules = (
 			);
 			dependencies = (
-				9588128A2096CA340080D3D4 /* PBXTargetDependency */,
+				9533E15520F3872200ADECFD /* PBXTargetDependency */,
 			);
 			name = "URITemplateExample-watch Extension";
 			productName = "URITemplateExample-watch Extension";
 			productReference = 958812722096C7190080D3D4 /* URITemplateExample-watch Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
-		};
-		958812972096E8EB0080D3D4 /* URITemplate-mac */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9588129E2096E8EB0080D3D4 /* Build configuration list for PBXNativeTarget "URITemplate-mac" */;
-			buildPhases = (
-				958812942096E8EB0080D3D4 /* Sources */,
-				958812952096E8EB0080D3D4 /* Frameworks */,
-				958812962096E8EB0080D3D4 /* Headers */,
-				95DC57B620CA586D0007C182 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "URITemplate-mac";
-			productName = "URITemplate-mac";
-			productReference = 958812982096E8EB0080D3D4 /* libURITemplate-mac.a */;
-			productType = "com.apple.product-type.library.static";
 		};
 		958812B32096ED160080D3D4 /* URITemplateExample-mac */ = {
 			isa = PBXNativeTarget;
@@ -868,7 +690,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				958812BC2096ED650080D3D4 /* PBXTargetDependency */,
+				9533E15720F3876400ADECFD /* PBXTargetDependency */,
 			);
 			name = "URITemplateExample-mac";
 			productName = "URITemplateExample-mac";
@@ -886,7 +708,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				958812DB209745FE0080D3D4 /* PBXTargetDependency */,
+				9533E14B20F3855400ADECFD /* PBXTargetDependency */,
 			);
 			name = "Tests-mac";
 			productName = "Tests-mac";
@@ -904,7 +726,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				958812F32097F3090080D3D4 /* PBXTargetDependency */,
+				9533E14820F384A400ADECFD /* PBXTargetDependency */,
 			);
 			name = "Tests-ios";
 			productName = "Tests-ios";
@@ -922,48 +744,12 @@
 			buildRules = (
 			);
 			dependencies = (
-				958813082097F8B70080D3D4 /* PBXTargetDependency */,
+				9533E14E20F3858300ADECFD /* PBXTargetDependency */,
 			);
 			name = "Tests-tv";
 			productName = "Tests-tv";
 			productReference = 958813012097F8B70080D3D4 /* Tests-tv.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		95AE3DD52092FC0F004D6773 /* URITemplate-tv */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 95AE3DDA2092FC0F004D6773 /* Build configuration list for PBXNativeTarget "URITemplate-tv" */;
-			buildPhases = (
-				95AE3DD22092FC0F004D6773 /* Sources */,
-				95AE3DD32092FC0F004D6773 /* Frameworks */,
-				95AE3DD42092FC0F004D6773 /* CopyFiles */,
-				95DC57B720CA58770007C182 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "URITemplate-tv";
-			productName = "URITemplate-tv";
-			productReference = 95AE3DD62092FC0F004D6773 /* libURITemplate-tv.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		95C591711F6F7A1100C4405A /* URITemplate-ios */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 95C5917B1F6F7A1100C4405A /* Build configuration list for PBXNativeTarget "URITemplate-ios" */;
-			buildPhases = (
-				95C5916E1F6F7A1100C4405A /* Sources */,
-				95C5916F1F6F7A1100C4405A /* Frameworks */,
-				95C591701F6F7A1100C4405A /* CopyFiles */,
-				95DC57B520CA58500007C182 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "URITemplate-ios";
-			productName = URITemplate;
-			productReference = 95C591721F6F7A1100C4405A /* libURITemplate-ios.a */;
-			productType = "com.apple.product-type.library.static";
 		};
 		95C591851F6F7C1200C4405A /* URITemplateExample-ios */ = {
 			isa = PBXNativeTarget;
@@ -977,7 +763,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				95BAAD641F70EE4B005F3D08 /* PBXTargetDependency */,
+				9533E15120F3863000ADECFD /* PBXTargetDependency */,
 				9588127F2096C71A0080D3D4 /* PBXTargetDependency */,
 			);
 			name = "URITemplateExample-ios";
@@ -985,9 +771,9 @@
 			productReference = 95C591861F6F7C1200C4405A /* URITemplateExample-ios.app */;
 			productType = "com.apple.product-type.application";
 		};
-		95D06B7320AAB08E005D6947 /* URITemplate-tv-d */ = {
+		95D06B7320AAB08E005D6947 /* URITemplate-tv */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 95D06B7B20AAB08E005D6947 /* Build configuration list for PBXNativeTarget "URITemplate-tv-d" */;
+			buildConfigurationList = 95D06B7B20AAB08E005D6947 /* Build configuration list for PBXNativeTarget "URITemplate-tv" */;
 			buildPhases = (
 				95D06B6F20AAB08E005D6947 /* Sources */,
 				95D06B7020AAB08E005D6947 /* Frameworks */,
@@ -998,14 +784,14 @@
 			);
 			dependencies = (
 			);
-			name = "URITemplate-tv-d";
+			name = "URITemplate-tv";
 			productName = "URITemplate-tv-d";
 			productReference = 95D06B7420AAB08E005D6947 /* URITemplate.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		95D06B8020AAB126005D6947 /* URITemplate-watch-d */ = {
+		95D06B8020AAB126005D6947 /* URITemplate-watch */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 95D06B8620AAB126005D6947 /* Build configuration list for PBXNativeTarget "URITemplate-watch-d" */;
+			buildConfigurationList = 95D06B8620AAB126005D6947 /* Build configuration list for PBXNativeTarget "URITemplate-watch" */;
 			buildPhases = (
 				95D06B7C20AAB126005D6947 /* Sources */,
 				95D06B7D20AAB126005D6947 /* Frameworks */,
@@ -1016,7 +802,7 @@
 			);
 			dependencies = (
 			);
-			name = "URITemplate-watch-d";
+			name = "URITemplate-watch";
 			productName = "URITemplate-watch-d";
 			productReference = 95D06B8120AAB126005D6947 /* URITemplate.framework */;
 			productType = "com.apple.product-type.framework";
@@ -1046,9 +832,6 @@
 						CreatedOnToolsVersion = 9.3;
 						ProvisioningStyle = Automatic;
 					};
-					958812582096C3820080D3D4 = {
-						CreatedOnToolsVersion = 9.3;
-					};
 					958812652096C7190080D3D4 = {
 						CreatedOnToolsVersion = 9.3;
 						ProvisioningStyle = Automatic;
@@ -1056,9 +839,6 @@
 					958812712096C7190080D3D4 = {
 						CreatedOnToolsVersion = 9.3;
 						ProvisioningStyle = Automatic;
-					};
-					958812972096E8EB0080D3D4 = {
-						CreatedOnToolsVersion = 9.3;
 					};
 					958812B32096ED160080D3D4 = {
 						CreatedOnToolsVersion = 9.3;
@@ -1071,15 +851,6 @@
 					};
 					958813002097F8B70080D3D4 = {
 						CreatedOnToolsVersion = 9.3;
-					};
-					95AE3DD52092FC0F004D6773 = {
-						CreatedOnToolsVersion = 9.3;
-						ProvisioningStyle = Automatic;
-					};
-					95C591711F6F7A1100C4405A = {
-						CreatedOnToolsVersion = 9.0;
-						LastSwiftMigration = 0900;
-						ProvisioningStyle = Automatic;
 					};
 					95C591851F6F7C1200C4405A = {
 						CreatedOnToolsVersion = 9.0;
@@ -1106,14 +877,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				95C591711F6F7A1100C4405A /* URITemplate-ios */,
-				958812972096E8EB0080D3D4 /* URITemplate-mac */,
-				95AE3DD52092FC0F004D6773 /* URITemplate-tv */,
-				958812582096C3820080D3D4 /* URITemplate-watch */,
-				9549657A20A41AAD00BD6E16 /* URITemplate-ios-d */,
-				9549658C20A4230500BD6E16 /* URITemplate-mac-d */,
-				95D06B7320AAB08E005D6947 /* URITemplate-tv-d */,
-				95D06B8020AAB126005D6947 /* URITemplate-watch-d */,
+				9549657A20A41AAD00BD6E16 /* URITemplate-ios */,
+				9549658C20A4230500BD6E16 /* URITemplate-mac */,
+				95D06B7320AAB08E005D6947 /* URITemplate-tv */,
+				95D06B8020AAB126005D6947 /* URITemplate-watch */,
 				958812352093549E0080D3D4 /* All */,
 				95C591851F6F7C1200C4405A /* URITemplateExample-ios */,
 				958812422096A0980080D3D4 /* URITemplateExample-tv */,
@@ -1228,77 +995,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		95DC57B520CA58500007C182 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		95DC57B620CA586D0007C182 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		95DC57B720CA58770007C182 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		95DC57B820CA587E0007C182 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		9549657620A41AAD00BD6E16 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -1339,42 +1035,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		958812552096C3820080D3D4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				958812602096C39E0080D3D4 /* URITemplate.swift in Sources */,
-				9588133920981E190080D3D4 /* ValueFormatting.swift in Sources */,
-				958812C920973AD60080D3D4 /* CharacterSets.swift in Sources */,
-				958812CE20973B1C0080D3D4 /* Scanner.swift in Sources */,
-				958812C42097333B0080D3D4 /* Components.swift in Sources */,
-				95881334209812050080D3D4 /* ExpansionConfiguration.swift in Sources */,
-				9588133E209820B60080D3D4 /* VariableSpec.swift in Sources */,
-				9588132F209811DD0080D3D4 /* ExpressionOperator.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9588126E2096C7190080D3D4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				9588127A2096C7190080D3D4 /* ExtensionDelegate.swift in Sources */,
 				958812782096C7190080D3D4 /* InterfaceController.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		958812942096E8EB0080D3D4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				958812A12096E8FF0080D3D4 /* URITemplate.swift in Sources */,
-				9588133720981E190080D3D4 /* ValueFormatting.swift in Sources */,
-				958812C720973AD60080D3D4 /* CharacterSets.swift in Sources */,
-				958812CC20973B1C0080D3D4 /* Scanner.swift in Sources */,
-				958812C22097333B0080D3D4 /* Components.swift in Sources */,
-				95881332209812050080D3D4 /* ExpansionConfiguration.swift in Sources */,
-				9588133C209820B60080D3D4 /* VariableSpec.swift in Sources */,
-				9588132D209811DD0080D3D4 /* ExpressionOperator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1416,36 +1082,6 @@
 				9588130D2097F8CB0080D3D4 /* JSONValue.swift in Sources */,
 				9588130C2097F8CB0080D3D4 /* Tests.swift in Sources */,
 				9588130E2097F8CB0080D3D4 /* TestModels.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		95AE3DD22092FC0F004D6773 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				95AE3DDD2092FC2F004D6773 /* URITemplate.swift in Sources */,
-				9588133820981E190080D3D4 /* ValueFormatting.swift in Sources */,
-				958812C820973AD60080D3D4 /* CharacterSets.swift in Sources */,
-				958812CD20973B1C0080D3D4 /* Scanner.swift in Sources */,
-				958812C32097333B0080D3D4 /* Components.swift in Sources */,
-				95881333209812050080D3D4 /* ExpansionConfiguration.swift in Sources */,
-				9588133D209820B60080D3D4 /* VariableSpec.swift in Sources */,
-				9588132E209811DD0080D3D4 /* ExpressionOperator.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		95C5916E1F6F7A1100C4405A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				95BAAD661F720D04005F3D08 /* URITemplate.swift in Sources */,
-				9588133620981E190080D3D4 /* ValueFormatting.swift in Sources */,
-				958812C620973AD60080D3D4 /* CharacterSets.swift in Sources */,
-				958812CB20973B1C0080D3D4 /* Scanner.swift in Sources */,
-				958812C12097333B0080D3D4 /* Components.swift in Sources */,
-				95881331209812050080D3D4 /* ExpansionConfiguration.swift in Sources */,
-				9588133B209820B60080D3D4 /* VariableSpec.swift in Sources */,
-				9588132C209811DD0080D3D4 /* ExpressionOperator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1491,25 +1127,40 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		9588123A209354DC0080D3D4 /* PBXTargetDependency */ = {
+		9533E14820F384A400ADECFD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 95C591711F6F7A1100C4405A /* URITemplate-ios */;
-			targetProxy = 95881239209354DC0080D3D4 /* PBXContainerItemProxy */;
+			target = 9549657A20A41AAD00BD6E16 /* URITemplate-ios */;
+			targetProxy = 9533E14720F384A400ADECFD /* PBXContainerItemProxy */;
 		};
-		9588123C209354DC0080D3D4 /* PBXTargetDependency */ = {
+		9533E14B20F3855400ADECFD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 95AE3DD52092FC0F004D6773 /* URITemplate-tv */;
-			targetProxy = 9588123B209354DC0080D3D4 /* PBXContainerItemProxy */;
+			target = 9549658C20A4230500BD6E16 /* URITemplate-mac */;
+			targetProxy = 9533E14A20F3855400ADECFD /* PBXContainerItemProxy */;
 		};
-		958812532096A20C0080D3D4 /* PBXTargetDependency */ = {
+		9533E14E20F3858300ADECFD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 95AE3DD52092FC0F004D6773 /* URITemplate-tv */;
-			targetProxy = 958812522096A20C0080D3D4 /* PBXContainerItemProxy */;
+			target = 95D06B7320AAB08E005D6947 /* URITemplate-tv */;
+			targetProxy = 9533E14D20F3858300ADECFD /* PBXContainerItemProxy */;
 		};
-		958812622096C3C00080D3D4 /* PBXTargetDependency */ = {
+		9533E15120F3863000ADECFD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 958812582096C3820080D3D4 /* URITemplate-watch */;
-			targetProxy = 958812612096C3C00080D3D4 /* PBXContainerItemProxy */;
+			target = 9549657A20A41AAD00BD6E16 /* URITemplate-ios */;
+			targetProxy = 9533E15020F3863000ADECFD /* PBXContainerItemProxy */;
+		};
+		9533E15320F386C300ADECFD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 95D06B7320AAB08E005D6947 /* URITemplate-tv */;
+			targetProxy = 9533E15220F386C300ADECFD /* PBXContainerItemProxy */;
+		};
+		9533E15520F3872200ADECFD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 95D06B8020AAB126005D6947 /* URITemplate-watch */;
+			targetProxy = 9533E15420F3872200ADECFD /* PBXContainerItemProxy */;
+		};
+		9533E15720F3876400ADECFD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9549658C20A4230500BD6E16 /* URITemplate-mac */;
+			targetProxy = 9533E15620F3876400ADECFD /* PBXContainerItemProxy */;
 		};
 		958812752096C7190080D3D4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1521,59 +1172,24 @@
 			target = 958812652096C7190080D3D4 /* URITemplateExample-watch */;
 			targetProxy = 9588127E2096C71A0080D3D4 /* PBXContainerItemProxy */;
 		};
-		9588128A2096CA340080D3D4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 958812582096C3820080D3D4 /* URITemplate-watch */;
-			targetProxy = 958812892096CA340080D3D4 /* PBXContainerItemProxy */;
-		};
-		958812A32096E9120080D3D4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 958812972096E8EB0080D3D4 /* URITemplate-mac */;
-			targetProxy = 958812A22096E9120080D3D4 /* PBXContainerItemProxy */;
-		};
-		958812BC2096ED650080D3D4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 958812972096E8EB0080D3D4 /* URITemplate-mac */;
-			targetProxy = 958812BB2096ED650080D3D4 /* PBXContainerItemProxy */;
-		};
-		958812DB209745FE0080D3D4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 958812972096E8EB0080D3D4 /* URITemplate-mac */;
-			targetProxy = 958812DA209745FE0080D3D4 /* PBXContainerItemProxy */;
-		};
-		958812F32097F3090080D3D4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 95C591711F6F7A1100C4405A /* URITemplate-ios */;
-			targetProxy = 958812F22097F3090080D3D4 /* PBXContainerItemProxy */;
-		};
-		958813082097F8B70080D3D4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 95AE3DD52092FC0F004D6773 /* URITemplate-tv */;
-			targetProxy = 958813072097F8B70080D3D4 /* PBXContainerItemProxy */;
-		};
-		95BAAD641F70EE4B005F3D08 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 95C591711F6F7A1100C4405A /* URITemplate-ios */;
-			targetProxy = 95BAAD631F70EE4B005F3D08 /* PBXContainerItemProxy */;
-		};
 		95D06B8A20AAB13A005D6947 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9549657A20A41AAD00BD6E16 /* URITemplate-ios-d */;
+			target = 9549657A20A41AAD00BD6E16 /* URITemplate-ios */;
 			targetProxy = 95D06B8920AAB13A005D6947 /* PBXContainerItemProxy */;
 		};
 		95D06B8C20AAB13A005D6947 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9549658C20A4230500BD6E16 /* URITemplate-mac-d */;
+			target = 9549658C20A4230500BD6E16 /* URITemplate-mac */;
 			targetProxy = 95D06B8B20AAB13A005D6947 /* PBXContainerItemProxy */;
 		};
 		95D06B8E20AAB13A005D6947 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 95D06B7320AAB08E005D6947 /* URITemplate-tv-d */;
+			target = 95D06B7320AAB08E005D6947 /* URITemplate-tv */;
 			targetProxy = 95D06B8D20AAB13A005D6947 /* PBXContainerItemProxy */;
 		};
 		95D06B9020AAB13A005D6947 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 95D06B8020AAB126005D6947 /* URITemplate-watch-d */;
+			target = 95D06B8020AAB126005D6947 /* URITemplate-watch */;
 			targetProxy = 95D06B8F20AAB13A005D6947 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1600,28 +1216,28 @@
 /* Begin XCBuildConfiguration section */
 		9549658120A41AAD00BD6E16 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 954965D220AAA5B900BD6E16 /* DynamicLibTarget-ios.xcconfig */;
+			baseConfigurationReference = 954965D220AAA5B900BD6E16 /* FrameworkTarget-ios.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		9549658220A41AAD00BD6E16 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 954965D220AAA5B900BD6E16 /* DynamicLibTarget-ios.xcconfig */;
+			baseConfigurationReference = 954965D220AAA5B900BD6E16 /* FrameworkTarget-ios.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
 		};
 		9549659320A4230500BD6E16 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 954965D320AAA5B900BD6E16 /* DynamicLibTarget-mac.xcconfig */;
+			baseConfigurationReference = 954965D320AAA5B900BD6E16 /* FrameworkTarget-mac.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		9549659420A4230500BD6E16 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 954965D320AAA5B900BD6E16 /* DynamicLibTarget-mac.xcconfig */;
+			baseConfigurationReference = 954965D320AAA5B900BD6E16 /* FrameworkTarget-mac.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
@@ -1656,20 +1272,6 @@
 			};
 			name = Release;
 		};
-		9588125D2096C3820080D3D4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 958812632096C4A10080D3D4 /* StaticLibTarget-watch.xcconfig */;
-			buildSettings = {
-			};
-			name = Debug;
-		};
-		9588125E2096C3820080D3D4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 958812632096C4A10080D3D4 /* StaticLibTarget-watch.xcconfig */;
-			buildSettings = {
-			};
-			name = Release;
-		};
 		958812822096C71A0080D3D4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 958812932096DAED0080D3D4 /* ExampleTarget-watch-ext.xcconfig */;
@@ -1694,20 +1296,6 @@
 		958812872096C71A0080D3D4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 958812922096DAED0080D3D4 /* ExampleTarget-watch.xcconfig */;
-			buildSettings = {
-			};
-			name = Release;
-		};
-		9588129F2096E8EB0080D3D4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 958812A42096E9CD0080D3D4 /* StaticLibTarget-mac.xcconfig */;
-			buildSettings = {
-			};
-			name = Debug;
-		};
-		958812A02096E8EB0080D3D4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 958812A42096E9CD0080D3D4 /* StaticLibTarget-mac.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
@@ -1768,20 +1356,6 @@
 			};
 			name = Release;
 		};
-		95AE3DDB2092FC0F004D6773 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9588123420934F150080D3D4 /* StaticLibTarget-tv.xcconfig */;
-			buildSettings = {
-			};
-			name = Debug;
-		};
-		95AE3DDC2092FC0F004D6773 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9588123420934F150080D3D4 /* StaticLibTarget-tv.xcconfig */;
-			buildSettings = {
-			};
-			name = Release;
-		};
 		95C591791F6F7A1100C4405A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 95C591A41F6F909500C4405A /* Project-Debug.xcconfig */;
@@ -1792,20 +1366,6 @@
 		95C5917A1F6F7A1100C4405A /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 95C591A31F6F907300C4405A /* Project-Release.xcconfig */;
-			buildSettings = {
-			};
-			name = Release;
-		};
-		95C5917C1F6F7A1100C4405A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 95C591A11F6F873D00C4405A /* StaticLibTarget-ios.xcconfig */;
-			buildSettings = {
-			};
-			name = Debug;
-		};
-		95C5917D1F6F7A1100C4405A /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 95C591A11F6F873D00C4405A /* StaticLibTarget-ios.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
@@ -1826,28 +1386,28 @@
 		};
 		95D06B7920AAB08E005D6947 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 954965D420AAA5B900BD6E16 /* DynamicLibTarget-tv.xcconfig */;
+			baseConfigurationReference = 954965D420AAA5B900BD6E16 /* FrameworkTarget-tv.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		95D06B7A20AAB08E005D6947 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 954965D420AAA5B900BD6E16 /* DynamicLibTarget-tv.xcconfig */;
+			baseConfigurationReference = 954965D420AAA5B900BD6E16 /* FrameworkTarget-tv.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
 		};
 		95D06B8720AAB126005D6947 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 954965D520AAA5B900BD6E16 /* DynamicLibTarget-watch.xcconfig */;
+			baseConfigurationReference = 954965D520AAA5B900BD6E16 /* FrameworkTarget-watch.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		95D06B8820AAB126005D6947 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 954965D520AAA5B900BD6E16 /* DynamicLibTarget-watch.xcconfig */;
+			baseConfigurationReference = 954965D520AAA5B900BD6E16 /* FrameworkTarget-watch.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
@@ -1855,7 +1415,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9549658020A41AAD00BD6E16 /* Build configuration list for PBXNativeTarget "URITemplate-ios-d" */ = {
+		9549658020A41AAD00BD6E16 /* Build configuration list for PBXNativeTarget "URITemplate-ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9549658120A41AAD00BD6E16 /* Debug */,
@@ -1864,7 +1424,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9549659220A4230500BD6E16 /* Build configuration list for PBXNativeTarget "URITemplate-mac-d" */ = {
+		9549659220A4230500BD6E16 /* Build configuration list for PBXNativeTarget "URITemplate-mac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9549659320A4230500BD6E16 /* Debug */,
@@ -1891,15 +1451,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9588125F2096C3820080D3D4 /* Build configuration list for PBXNativeTarget "URITemplate-watch" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9588125D2096C3820080D3D4 /* Debug */,
-				9588125E2096C3820080D3D4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		958812812096C71A0080D3D4 /* Build configuration list for PBXNativeTarget "URITemplateExample-watch Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1914,15 +1465,6 @@
 			buildConfigurations = (
 				958812862096C71A0080D3D4 /* Debug */,
 				958812872096C71A0080D3D4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9588129E2096E8EB0080D3D4 /* Build configuration list for PBXNativeTarget "URITemplate-mac" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9588129F2096E8EB0080D3D4 /* Debug */,
-				958812A02096E8EB0080D3D4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1963,29 +1505,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		95AE3DDA2092FC0F004D6773 /* Build configuration list for PBXNativeTarget "URITemplate-tv" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				95AE3DDB2092FC0F004D6773 /* Debug */,
-				95AE3DDC2092FC0F004D6773 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		95C5916D1F6F7A1100C4405A /* Build configuration list for PBXProject "URITemplate" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				95C591791F6F7A1100C4405A /* Debug */,
 				95C5917A1F6F7A1100C4405A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		95C5917B1F6F7A1100C4405A /* Build configuration list for PBXNativeTarget "URITemplate-ios" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				95C5917C1F6F7A1100C4405A /* Debug */,
-				95C5917D1F6F7A1100C4405A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1999,7 +1523,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		95D06B7B20AAB08E005D6947 /* Build configuration list for PBXNativeTarget "URITemplate-tv-d" */ = {
+		95D06B7B20AAB08E005D6947 /* Build configuration list for PBXNativeTarget "URITemplate-tv" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				95D06B7920AAB08E005D6947 /* Debug */,
@@ -2008,7 +1532,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		95D06B8620AAB126005D6947 /* Build configuration list for PBXNativeTarget "URITemplate-watch-d" */ = {
+		95D06B8620AAB126005D6947 /* Build configuration list for PBXNativeTarget "URITemplate-watch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				95D06B8720AAB126005D6947 /* Debug */,
