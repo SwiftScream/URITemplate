@@ -14,16 +14,16 @@ A robust and performant Swift 4.1 implementation of [RFC6570](https://tools.ietf
 ## Getting Started
 
 ### Manual
-Static Library and Dynamic Framework targets are provided for iOS, MacOS, tvOS, and watchOS; integrate them as you normally would.
+Static Framework targets are provided for iOS, MacOS, tvOS, and watchOS; integrate them as you normally would.
 
 ### CocoaPods
-Add `pod 'ScreamURITemplate', '~> 1.1'` to your Podfile
+Add `pod 'ScreamURITemplate', '~> 2.0'` to your Podfile
 
 ### Carthage
-Add `github "SwiftScream/URITemplate" ~> 1.1` to your Cartfile
+Add `github "SwiftScream/URITemplate" ~> 2.0` to your Cartfile
 
 ### Swift Package Manager
-Add `.package(url: "https://github.com/SwiftScream/URITemplate.git", from: "1.1.0")` to your package.swift dependencies
+Add `.package(url: "https://github.com/SwiftScream/URITemplate.git", from: "2.0.0")` to your package.swift dependencies
 
 ## Usage
 
