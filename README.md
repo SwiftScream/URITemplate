@@ -22,6 +22,10 @@ Add `pod 'ScreamURITemplate', '~> 2.0'` to your Podfile
 ### Carthage
 Add `github "SwiftScream/URITemplate" ~> 2.0` to your Cartfile
 
+For simulator builds you will need to add `-fprofile-instr-generate` to `OTHER_LDFLAGS`; device builds will be fine without it
+This is due to this open issue with carthage: https://github.com/Carthage/Carthage/issues/2363
+The alternative would be to disable code coverage :disappointed:
+
 ### Swift Package Manager
 Add `.package(url: "https://github.com/SwiftScream/URITemplate.git", from: "2.0.0")` to your package.swift dependencies
 
