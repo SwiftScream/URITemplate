@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/SwiftScream/URITemplate/compare/2.0.1...2.1.0) (2019-05-23)
+
+- Update Swift version to 4.2
+
 <a name="2.0.2"></a>
 # [2.0.2](https://github.com/SwiftScream/URITemplate/compare/2.0.1...2.0.2) (2018-08-03)
 
