@@ -50,6 +50,15 @@ class Tests: XCTestCase {
         XCTAssertEqual(dictionary[templateB], "B")
     }
 
+    func testHashableHashValue() {
+        let templateA1: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
+        let templateA2: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
+        let templateB1: URITemplate = "https://api.github.com/repos/{owner}"
+        let templateB2: URITemplate = "https://api.github.com/repos/{owner}"
+        XCTAssertEqual(templateA1.hashValue, templateA2.hashValue)
+        XCTAssertEqual(templateB1.hashValue, templateB2.hashValue)
+    }
+    
     func testVariableNames() {
         let template: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
         let variableNames = template.variableNames
