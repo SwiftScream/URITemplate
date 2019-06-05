@@ -75,8 +75,8 @@ extension URITemplate: Equatable {
 }
 
 extension URITemplate: Hashable {
-    public var hashValue: Int {
-        return string.hashValue
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(string)
     }
 }
 
