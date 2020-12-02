@@ -198,6 +198,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		726EAE802576FFCB0004609B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		958812842096C71A0080D3D4 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -633,6 +643,7 @@
 				9588123F2096A0980080D3D4 /* Sources */,
 				958812402096A0980080D3D4 /* Frameworks */,
 				958812412096A0980080D3D4 /* Resources */,
+				726EAE802576FFCB0004609B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -813,13 +824,14 @@
 		95C5916A1F6F7A1100C4405A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0930;
+				DefaultBuildSystemTypeForWorkspace = Latest;
+				LastSwiftUpdateCheck = 1220;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = SwiftScream;
 				TargetAttributes = {
 					9549657A20A41AAD00BD6E16 = {
 						CreatedOnToolsVersion = 9.3;
-						LastSwiftMigration = 0930;
+						LastSwiftMigration = 1220;
 					};
 					9549658C20A4230500BD6E16 = {
 						CreatedOnToolsVersion = 9.3;
@@ -838,6 +850,7 @@
 					};
 					958812712096C7190080D3D4 = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1220;
 						ProvisioningStyle = Automatic;
 					};
 					958812B32096ED160080D3D4 = {
@@ -854,6 +867,7 @@
 					};
 					95C591851F6F7C1200C4405A = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 1220;
 						ProvisioningStyle = Automatic;
 					};
 					95D06B7320AAB08E005D6947 = {
@@ -861,6 +875,7 @@
 					};
 					95D06B8020AAB126005D6947 = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1220;
 					};
 				};
 			};
@@ -1262,6 +1277,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 958812542096A6900080D3D4 /* ExampleTarget-tv.xcconfig */;
 			buildSettings = {
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 			};
 			name = Debug;
 		};
@@ -1269,6 +1285,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 958812542096A6900080D3D4 /* ExampleTarget-tv.xcconfig */;
 			buildSettings = {
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 			};
 			name = Release;
 		};

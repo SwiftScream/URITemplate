@@ -115,7 +115,7 @@ internal struct Scanner {
             throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Variable Name Cannot Begin With '.'")
         }
         var remainingVariableName = variableName
-        while let index = remainingVariableName.index(of: "%") {
+        while let index = remainingVariableName.firstIndex(of: "%") {
             let secondIndex = remainingVariableName.index(after: index)
             let thirdIndex = remainingVariableName.index(after: secondIndex)
             if !hexCharacterSet.contains(unicodeScalars[secondIndex]) ||
