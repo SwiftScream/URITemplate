@@ -1,13 +1,13 @@
 language: swift
 os: osx
-osx_image: xcode10.2
+osx_image: xcode12.2
 
 install: gem install xcpretty
 
 jobs:
   include:
     - script:
-      - set -o pipefail && xcodebuild test -project URITemplate.xcodeproj -scheme URITemplate-ios -destination "platform=iOS Simulator,name=iPhone X"  | xcpretty -c
+      - set -o pipefail && xcodebuild test -project URITemplate.xcodeproj -scheme URITemplate-ios -destination "platform=iOS Simulator,name=iPhone 12"  | xcpretty -c
       - bash <(curl -s https://codecov.io/bash) -J Tests-ios -F ios
     - script:
       - set -o pipefail && xcodebuild test -project URITemplate.xcodeproj -scheme URITemplate-mac -destination "platform=macos"  | xcpretty -c
