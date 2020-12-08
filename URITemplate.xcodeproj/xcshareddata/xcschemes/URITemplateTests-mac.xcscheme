@@ -5,38 +5,33 @@
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
-      <BuildActionEntries>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "95D06B7320AAB08E005D6947"
-               BuildableName = "URITemplate.framework"
-               BlueprintName = "URITemplate-tv"
-               ReferencedContainer = "container:URITemplate.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-      </BuildActionEntries>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "95D06B7320AAB08E005D6947"
+            BlueprintIdentifier = "9549658C20A4230500BD6E16"
             BuildableName = "URITemplate.framework"
-            BlueprintName = "URITemplate-tv"
+            BlueprintName = "URITemplate-mac"
             ReferencedContainer = "container:URITemplate.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "958812D3209745FE0080D3D4"
+               BuildableName = "Tests-mac.xctest"
+               BlueprintName = "Tests-mac"
+               ReferencedContainer = "container:URITemplate.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -52,9 +47,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "95D06B7320AAB08E005D6947"
+            BlueprintIdentifier = "9549658C20A4230500BD6E16"
             BuildableName = "URITemplate.framework"
-            BlueprintName = "URITemplate-tv"
+            BlueprintName = "URITemplate-mac"
             ReferencedContainer = "container:URITemplate.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -65,15 +60,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "95D06B7320AAB08E005D6947"
-            BuildableName = "URITemplate.framework"
-            BlueprintName = "URITemplate-tv"
-            ReferencedContainer = "container:URITemplate.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
