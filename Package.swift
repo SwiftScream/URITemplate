@@ -1,20 +1,33 @@
-// swift-tools-version:4.0
+// swift-tools-version: 5.7
 
 import PackageDescription
 
 let package = Package(
-    name: "URITemplate",
+    name: "ScreamURITemplate",
     products: [
         .library(
-            name: "URITemplate",
-            targets: ["URITemplate"]),
+            name: "ScreamURITemplate",
+            targets: ["ScreamURITemplate"]),
     ],
     dependencies: [
     ],
     targets: [
         .target(
-            name: "URITemplate",
-            dependencies: [],
-            path: "Source"),
-    ]
+            name: "ScreamURITemplate",
+            dependencies: []),
+        .testTarget(
+            name: "ScreamURITemplateTests",
+            dependencies: ["ScreamURITemplate"],
+            resources: [
+                .process("data/tests.json"),
+                .process("data/uritemplate-test/spec-examples.json"),
+                .process("data/uritemplate-test/spec-examples-by-section.json"),
+                .process("data/uritemplate-test/extended-tests.json"),
+                .process("data/uritemplate-test/negative-tests.json"),
+            ]),
+        .executableTarget(
+            name: "ScreamURITemplateExample",
+            dependencies: ["ScreamURITemplate"]),
+    ],
+    swiftLanguageVersions: [.v5]
 )

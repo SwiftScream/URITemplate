@@ -4,30 +4,15 @@
 [![Travis](https://api.travis-ci.com/SwiftScream/URITemplate.svg?branch=master)](https://travis-ci.com/SwiftScream/URITemplate)
 [![Codecov branch](https://img.shields.io/codecov/c/github/SwiftScream/URITemplate/master.svg)](https://codecov.io/gh/SwiftScream/URITemplate/branch/master)
 
-![Swift 4.2](https://img.shields.io/badge/swift-4.2-4BC51D.svg?style=flat)
-[![CocoaPods compatible](https://img.shields.io/badge/CocoaPods-compatible-4BC51D.svg?style=flat)](https://cocoapods.org/pods/ScreamURITemplate)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+![Swift 5](https://img.shields.io/badge/swift-5-4BC51D.svg?style=flat)
 [![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-4BC51D.svg?style=flat)](https://swift.org/package-manager/)
 
-A robust and performant Swift 4.2 implementation of [RFC6570](https://tools.ietf.org/html/rfc6570) URI Template.  Full Level 4 support is provided.
+A robust and performant Swift 5 implementation of [RFC6570](https://tools.ietf.org/html/rfc6570) URI Template.  Full Level 4 support is provided.
 
 ## Getting Started
 
-### Manual
-Static Framework targets are provided for iOS, MacOS, tvOS, and watchOS; integrate them as you normally would.
-
-### CocoaPods
-Add `pod 'ScreamURITemplate', '~> 2.1'` to your Podfile
-
-### Carthage
-Add `github "SwiftScream/URITemplate" ~> 2.1` to your Cartfile
-
-For simulator builds you will need to add `-fprofile-instr-generate` to `OTHER_LDFLAGS`; device builds will be fine without it
-This is due to this open issue with carthage: https://github.com/Carthage/Carthage/issues/2363
-The alternative would be to disable code coverage :disappointed:
-
 ### Swift Package Manager
-Add `.package(url: "https://github.com/SwiftScream/URITemplate.git", from: "2.0.0")` to your package.swift dependencies
+Add `.package(url: "https://github.com/SwiftScream/URITemplate.git", from: "3.0.0")` to your Package.swift dependencies
 
 ## Usage
 
