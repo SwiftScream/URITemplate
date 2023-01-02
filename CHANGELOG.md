@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/SwiftScream/URITemplate/compare/2.1.0...3.0.0) (2023-01-02)
+
+- Present as a modern Swift Package
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/SwiftScream/URITemplate/compare/2.0.1...2.1.0) (2019-05-23)
 
