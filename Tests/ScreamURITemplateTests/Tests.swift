@@ -12,11 +12,10 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-import XCTest
 import ScreamURITemplate
+import XCTest
 
 class Tests: XCTestCase {
-
     func testCustomStringConvertible() {
         let template: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
         XCTAssertEqual(template.description, "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
@@ -92,7 +91,7 @@ class Tests: XCTestCase {
     }
 
     func testInitPerformance() {
-        self.measure {
+        measure {
             for _ in 1...5000 {
                 _ = try? URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
             }
@@ -105,11 +104,10 @@ class Tests: XCTestCase {
                          "repo": "URITemplate",
                          "username": "alexdeem"]
 
-        self.measure {
+        measure {
             for _ in 1...5000 {
                 _ = try? template.process(variables: variables)
             }
         }
     }
-
 }

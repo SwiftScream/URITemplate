@@ -12,11 +12,10 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-import XCTest
 import ScreamURITemplate
+import XCTest
 
 class TestFileTests: XCTestCase {
-
     private var templateString: String!
     private var variables: [String: VariableValue]!
     private var acceptableExpansions: [String]!
@@ -42,7 +41,7 @@ class TestFileTests: XCTestCase {
             let template = try URITemplate(string: templateString)
             _ = try template.process(variables: variables)
             XCTFail("Did not throw")
-        } catch URITemplate.Error.malformedTemplate(let position, let reason) {
+        } catch let URITemplate.Error.malformedTemplate(position, reason) {
             if failReason != nil {
                 XCTAssertEqual(failReason, reason)
             }
@@ -50,7 +49,7 @@ class TestFileTests: XCTestCase {
                 let characters = templateString[..<position].count
                 XCTAssertEqual(failPosition, characters)
             }
-        } catch URITemplate.Error.expansionFailure(let position, let reason) {
+        } catch let URITemplate.Error.expansionFailure(position, reason) {
             if failReason != nil {
                 XCTAssertEqual(failReason, reason)
             }
@@ -105,5 +104,4 @@ class TestFileTests: XCTestCase {
 
         return fileTestSuite
     }
-
 }

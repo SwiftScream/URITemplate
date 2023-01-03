@@ -41,26 +41,26 @@ public struct TestCase {
 extension JSONValue {
     func toVariableValue() -> VariableValue? {
         switch self {
-        case .int(let int):
+        case let .int(int):
             return String(int)
-        case .double(let double):
+        case let .double(double):
             return String(double)
-        case .string(let string):
+        case let .string(string):
             return string
-        case .object(let object):
+        case let .object(object):
             return object.mapValues { element -> String? in
                 switch element {
-                case .string(let string):
+                case let .string(string):
                     return string
                 default:
                     return nil
                 }
-                }.filter { $0.value != nil }
+            }.filter { $0.value != nil }
                 .mapValues { $0! }
-        case .array(let array):
+        case let .array(array):
             return array.compactMap { element -> String? in
                 switch element {
-                case .string(let string):
+                case let .string(string):
                     return string
                 default:
                     return nil
@@ -79,19 +79,19 @@ extension TestCase {
             return nil
         }
 
-        guard let first = data.first, case .string(let template) = first else {
+        guard let first = data.first, case let .string(template) = first else {
             return nil
         }
 
         let expansionsData = data[1]
         switch expansionsData {
-        case .string(let string):
+        case let .string(string):
             acceptableExpansions = [string]
             shouldFail = false
-        case .array(let array):
+        case let .array(array):
             acceptableExpansions = array.compactMap { value in
                 switch value {
-                case .string(let string):
+                case let .string(string):
                     return string
                 default:
                     return nil
@@ -105,16 +105,16 @@ extension TestCase {
 
         self.template = template
 
-        var failPosition: Int? = nil
+        var failPosition: Int?
         if data.count > 2 {
-            if case .int(let position) = data[2] {
+            if case let .int(position) = data[2] {
                 failPosition = position
             }
         }
 
-        var failReason: String? = nil
+        var failReason: String?
         if data.count > 3 {
-            if case .string(let reason) = data[3] {
+            if case let .string(reason) = data[3] {
                 failReason = reason
             }
         }
@@ -131,10 +131,10 @@ public func parseTestFile(URL: URL) -> [TestGroup] {
         return []
     }
 
-    return testCollection.map { (testGroupName, testGroupData) in
+    return testCollection.map { testGroupName, testGroupData in
         let variables = testGroupData.variables.mapValues { element in
             return element.toVariableValue()
-            }.filter { return $0.value != nil}
+        }.filter { return $0.value != nil }
             .mapValues { return $0! }
 
         let testcases = testGroupData.testcases.compactMap { element in

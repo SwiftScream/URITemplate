@@ -29,5 +29,4 @@ let package = Package(
             name: "ScreamURITemplateExample",
             dependencies: ["ScreamURITemplate"]),
     ],
-    swiftLanguageVersions: [.v5]
-)
+    swiftLanguageVersions: [.v5])

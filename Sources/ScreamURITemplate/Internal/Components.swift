@@ -27,7 +27,7 @@ extension Component {
 
 internal struct LiteralComponent: Component {
     let literal: Substring
-    init (_ string: Substring) {
+    init(_ string: Substring) {
         literal = string
     }
 
@@ -42,7 +42,7 @@ internal struct LiteralComponent: Component {
 
 internal struct LiteralPercentEncodedTripletComponent: Component {
     let literal: Substring
-    init (_ string: Substring) {
+    init(_ string: Substring) {
         literal = string
     }
 
@@ -56,7 +56,7 @@ internal struct ExpressionComponent: Component {
     let variableList: [VariableSpec]
     let templatePosition: String.Index
 
-    init (expressionOperator: ExpressionOperator, variableList: [VariableSpec], templatePosition: String.Index) {
+    init(expressionOperator: ExpressionOperator, variableList: [VariableSpec], templatePosition: String.Index) {
         self.expressionOperator = expressionOperator
         self.variableList = variableList
         self.templatePosition = templatePosition
@@ -93,7 +93,7 @@ internal struct ExpressionComponent: Component {
                 } else {
                     throw FormatError.failure(reason: "Invalid Value Type")
                 }
-            } catch FormatError.failure(let reason) {
+            } catch let FormatError.failure(reason) {
                 throw URITemplate.Error.expansionFailure(position: templatePosition, reason: "Failed expanding variable \"\(variableSpec.name)\": \(reason)")
             }
         }

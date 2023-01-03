@@ -25,8 +25,8 @@ internal struct Scanner {
 
     public init(string: String) {
         self.string = string
-        self.unicodeScalars = string.unicodeScalars
-        self.currentIndex = string.startIndex
+        unicodeScalars = string.unicodeScalars
+        currentIndex = string.startIndex
     }
 
     public var isComplete: Bool {
@@ -119,7 +119,7 @@ internal struct Scanner {
             let secondIndex = remainingVariableName.index(after: index)
             let thirdIndex = remainingVariableName.index(after: secondIndex)
             if !hexCharacterSet.contains(unicodeScalars[secondIndex]) ||
-               !hexCharacterSet.contains(unicodeScalars[thirdIndex]) {
+                !hexCharacterSet.contains(unicodeScalars[thirdIndex]) {
                 throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "% must be percent-encoded in variable name")
             }
             let nextIndex = remainingVariableName.index(after: thirdIndex)
@@ -174,7 +174,7 @@ internal struct Scanner {
         let thirdIndex = unicodeScalars.index(after: secondIndex)
 
         if !hexCharacterSet.contains(unicodeScalars[secondIndex]) ||
-           !hexCharacterSet.contains(unicodeScalars[thirdIndex]) {
+            !hexCharacterSet.contains(unicodeScalars[thirdIndex]) {
             throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "% must be percent-encoded in literal")
         }
 

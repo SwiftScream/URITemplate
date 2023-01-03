@@ -29,7 +29,7 @@ internal extension StringProtocol {
     func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String {
         let modifiedValue: String
         if let prefixLength = variableSpec.prefixLength() {
-            modifiedValue = String(self.prefix(prefixLength))
+            modifiedValue = String(prefix(prefixLength))
         } else {
             modifiedValue = String(self)
         }
@@ -47,7 +47,7 @@ internal extension StringProtocol {
 internal extension Array where Element: StringProtocol {
     func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String? {
         let separator = ","
-        let encodedExpansions = try self.map { element -> String in
+        let encodedExpansions = try map { element -> String in
             return try percentEncode(string: String(element), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet)
         }
         if encodedExpansions.count == 0 {
@@ -65,7 +65,7 @@ internal extension Array where Element: StringProtocol {
 
     func explodeForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String? {
         let separator = expansionConfiguration.separator
-        let encodedExpansions = try self.map { element -> String in
+        let encodedExpansions = try map { element -> String in
             let encodedElement = try percentEncode(string: String(element), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet)
             if expansionConfiguration.named {
                 if encodedElement.isEmpty && expansionConfiguration.omittOrphanedEquals {
@@ -84,7 +84,7 @@ internal extension Array where Element: StringProtocol {
 
 internal extension Dictionary where Key: StringProtocol, Value: StringProtocol {
     func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String? {
-        let encodedExpansions = try self.map { key, value -> String in
+        let encodedExpansions = try map { key, value -> String in
             let encodedKey = try percentEncode(string: String(key), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet)
             let encodedValue = try percentEncode(string: String(value), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet)
             return "\(encodedKey),\(encodedValue)"
@@ -101,7 +101,7 @@ internal extension Dictionary where Key: StringProtocol, Value: StringProtocol {
 
     func explodeForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String? {
         let separator = expansionConfiguration.separator
-        let encodedExpansions = try self.map { key, value -> String in
+        let encodedExpansions = try map { key, value -> String in
             let encodedKey = try percentEncode(string: String(key), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet)
             let encodedValue = try percentEncode(string: String(value), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet)
             if expansionConfiguration.named && encodedValue.isEmpty && expansionConfiguration.omittOrphanedEquals {

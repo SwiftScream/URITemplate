@@ -25,7 +25,7 @@ internal struct VariableSpec {
     let modifier: Modifier
 
     func prefixLength() -> Int? {
-        guard case .prefix(let length) = self.modifier else {
+        guard case let .prefix(length) = modifier else {
             return nil
         }
         return length
