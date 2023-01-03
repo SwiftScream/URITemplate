@@ -21,10 +21,8 @@ extension Dictionary: VariableValue where Key: StringProtocol, Value: StringProt
 
 public struct URITemplate {
     public enum Error: Swift.Error {
-        // swiftlint:disable identifier_name superfluous_disable_command
         case malformedTemplate(position: String.Index, reason: String)
         case expansionFailure(position: String.Index, reason: String)
-        // swiftlint:enable identifier_name superfluous_disable_command
     }
 
     private let string: String
@@ -63,7 +61,7 @@ extension URITemplate: CustomStringConvertible {
 
 extension URITemplate: ExpressibleByStringLiteral {
     public init(stringLiteral value: StaticString) {
-        //swiftlint:disable:next force_try
+        // swiftlint:disable:next force_try
         try! self.init(string: "\(value)")
     }
 }

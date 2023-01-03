@@ -58,7 +58,7 @@ class Tests: XCTestCase {
         XCTAssertEqual(templateA1.hashValue, templateA2.hashValue)
         XCTAssertEqual(templateB1.hashValue, templateB2.hashValue)
     }
-    
+
     func testVariableNames() {
         let template: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
         let variableNames = template.variableNames

@@ -62,6 +62,7 @@ internal struct ExpressionComponent: Component {
         self.templatePosition = templatePosition
     }
 
+    // swiftlint:disable:next cyclomatic_complexity
     func expand(variables: [String: VariableValue]) throws -> String {
         let configuration = expressionOperator.expansionConfiguration()
         let expansions = try variableList.compactMap { variableSpec -> String? in

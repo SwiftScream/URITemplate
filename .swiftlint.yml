@@ -1,17 +1,12 @@
 disabled_rules:
   - line_length
-  - function_body_length
   - trailing_comma
+  - redundant_optional_initialization
 
 opt_in_rules:
 
 included:
 
 excluded:
-  
-identifier_name:
-  min_length: 1
+  .build
 
-cyclomatic_complexity:
-  warning: 12
-  error: 20

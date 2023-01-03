@@ -16,7 +16,6 @@ import Foundation
 
 internal struct VariableSpec {
     enum Modifier {
-        // swiftlint:disable:next identifier_name superfluous_disable_command
         case prefix(length: Int)
         case explode
         case none

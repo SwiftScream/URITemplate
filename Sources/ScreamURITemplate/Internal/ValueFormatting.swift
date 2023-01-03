@@ -15,7 +15,6 @@
 import Foundation
 
 internal enum FormatError: Error {
-    //swiftlint:disable:next identifier_name superfluous_disable_command
     case failure(reason: String)
 }
 

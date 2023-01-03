@@ -73,6 +73,7 @@ extension JSONValue {
 }
 
 extension TestCase {
+    // swiftlint:disable:next cyclomatic_complexity
     init?(_ data: [JSONValue]) {
         if data.count < 2 {
             return nil

@@ -62,10 +62,10 @@ internal struct Scanner {
     private mutating func scanExpressionOperator() throws -> ExpressionOperator {
         let expressionOperator: ExpressionOperator
         if expressionOperatorCharacterSet.contains(unicodeScalars[currentIndex]) {
-            guard let op = ExpressionOperator(rawValue: unicodeScalars[currentIndex]) else {
+            guard let `operator` = ExpressionOperator(rawValue: unicodeScalars[currentIndex]) else {
                 throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Unsupported Operator")
             }
-            expressionOperator = op
+            expressionOperator = `operator`
             currentIndex = unicodeScalars.index(after: currentIndex)
         } else {
             expressionOperator = .simple
@@ -151,7 +151,7 @@ internal struct Scanner {
                 throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Cannot parse prefix modifier length")
             }
             currentIndex = endIndex
-            return .prefix(length:length)
+            return .prefix(length: length)
         default:
             return .none
         }
