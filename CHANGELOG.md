@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+<a name="3.0.1"></a>
+# [3.0.1](https://github.com/SwiftScream/URITemplate/compare/3.0.0...3.0.1) (2023-01-08)
+
+- Add SwiftLint, SwiftFormat, Dependabot
+
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/SwiftScream/URITemplate/compare/2.1.0...3.0.0) (2023-01-02)
 
