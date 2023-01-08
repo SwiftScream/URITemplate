@@ -16,14 +16,12 @@ import Foundation
 
 public enum JSONValue: Decodable {
     case null
-    //swiftlint:disable identifier_name superfluous_disable_command
     case string(String)
     case int(Int)
     case double(Double)
     case bool(Bool)
     case object([String: JSONValue])
     case array([JSONValue])
-    //swiftlint:enable identifier_name superfluous_disable_command
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()

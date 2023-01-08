@@ -1,0 +1,24 @@
+name: Lint
+
+on:
+  push:
+    branches: [ "master", "develop" ]
+  pull_request:
+    branches: [ "master", "develop" ]
+
+jobs:
+  SwiftLint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: irgaly/setup-mint@v1
+    - name: SwiftLint
+      run: mint run swiftlint --strict
+  SwiftFormat:
+    runs-on: ubuntu-latest
+    needs: SwiftLint
+    steps:
+    - uses: actions/checkout@v3
+    - uses: irgaly/setup-mint@v1
+    - name: SwiftFormat Lint
+      run: mint run swiftformat --lint .

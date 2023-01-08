@@ -25,8 +25,8 @@ internal struct Scanner {
 
     public init(string: String) {
         self.string = string
-        self.unicodeScalars = string.unicodeScalars
-        self.currentIndex = string.startIndex
+        unicodeScalars = string.unicodeScalars
+        currentIndex = string.startIndex
     }
 
     public var isComplete: Bool {
@@ -62,10 +62,10 @@ internal struct Scanner {
     private mutating func scanExpressionOperator() throws -> ExpressionOperator {
         let expressionOperator: ExpressionOperator
         if expressionOperatorCharacterSet.contains(unicodeScalars[currentIndex]) {
-            guard let op = ExpressionOperator(rawValue: unicodeScalars[currentIndex]) else {
+            guard let `operator` = ExpressionOperator(rawValue: unicodeScalars[currentIndex]) else {
                 throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Unsupported Operator")
             }
-            expressionOperator = op
+            expressionOperator = `operator`
             currentIndex = unicodeScalars.index(after: currentIndex)
         } else {
             expressionOperator = .simple
@@ -119,7 +119,7 @@ internal struct Scanner {
             let secondIndex = remainingVariableName.index(after: index)
             let thirdIndex = remainingVariableName.index(after: secondIndex)
             if !hexCharacterSet.contains(unicodeScalars[secondIndex]) ||
-               !hexCharacterSet.contains(unicodeScalars[thirdIndex]) {
+                !hexCharacterSet.contains(unicodeScalars[thirdIndex]) {
                 throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "% must be percent-encoded in variable name")
             }
             let nextIndex = remainingVariableName.index(after: thirdIndex)
@@ -151,7 +151,7 @@ internal struct Scanner {
                 throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Cannot parse prefix modifier length")
             }
             currentIndex = endIndex
-            return .prefix(length:length)
+            return .prefix(length: length)
         default:
             return .none
         }
@@ -174,7 +174,7 @@ internal struct Scanner {
         let thirdIndex = unicodeScalars.index(after: secondIndex)
 
         if !hexCharacterSet.contains(unicodeScalars[secondIndex]) ||
-           !hexCharacterSet.contains(unicodeScalars[thirdIndex]) {
+            !hexCharacterSet.contains(unicodeScalars[thirdIndex]) {
             throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "% must be percent-encoded in literal")
         }
 
