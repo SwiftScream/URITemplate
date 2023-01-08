@@ -19,7 +19,7 @@ private let genDelimsCharacterSet = CharacterSet(charactersIn: ":/?#[]@")
 private let subDelimsCharacterSet = CharacterSet(charactersIn: "!$&'()*+,;=")
 internal let reservedCharacterSet = genDelimsCharacterSet.union(subDelimsCharacterSet)
 internal let reservedAndUnreservedCharacterSet = reservedCharacterSet.union(unreservedCharacterSet)
-internal let invertedLiteralCharacterSet = CharacterSet.illegalCharacters.union(CharacterSet.controlCharacters).union(CharacterSet(charactersIn: " \"'%<>\\^`{|}"))
+internal let invertedLiteralCharacterSet = CharacterSet.illegalCharacters.union(CharacterSet.controlCharacters).union(CharacterSet(charactersIn: " \"%<>\\^`{|}"))
 internal let literalCharacterSet = invertedLiteralCharacterSet.inverted
 internal let hexCharacterSet = CharacterSet(charactersIn: "0123456789abcdefABCDEF")
 internal let varnameCharacterSet = CharacterSet.alphanumerics.union(CharacterSet(charactersIn: "_%."))
