@@ -25,8 +25,13 @@ let package = Package(
                 .process("data/uritemplate-test/extended-tests.json"),
                 .process("data/uritemplate-test/negative-tests.json"),
             ]),
-        .executableTarget(
-            name: "ScreamURITemplateExample",
-            dependencies: ["ScreamURITemplate"]),
     ],
     swiftLanguageVersions: [.v5])
+
+#if swift(>=5.6) || os(macOS) || os(Linux)
+    package.targets.append(
+        .executableTarget(
+            name: "ScreamURITemplateExample",
+            dependencies: ["ScreamURITemplate"])
+    )
+#endif
