@@ -2,7 +2,7 @@
 
 A robust and performant Swift 5 implementation of [RFC6570](https://tools.ietf.org/html/rfc6570) URI Template.  Full Level 4 support is provided.
 
-[![CI](https://github.com/SwiftScream/URITemplate/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/SwiftScream/URITemplate/actions/workflows/build-and-test.yml)
+[![CI](https://github.com/SwiftScream/URITemplate/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/SwiftScream/URITemplate/actions/workflows/ci.yml)
 [![Codecov branch](https://img.shields.io/codecov/c/github/SwiftScream/URITemplate/master.svg)](https://codecov.io/gh/SwiftScream/URITemplate/branch/master)
 
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FSwiftScream%2FURITemplate%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/SwiftScream/URITemplate)
