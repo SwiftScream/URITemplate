@@ -16,6 +16,7 @@ import Foundation
 
 internal struct ExpansionConfiguration {
     let percentEncodingAllowedCharacterSet: CharacterSet
+    let allowPercentEncodedTriplets: Bool
     let prefix: String?
     let separator: String
     let named: Bool

@@ -14,7 +14,13 @@
 
 import Foundation
 
-internal protocol Component {
+#if swift(>=5.5)
+    internal typealias ComponentBase = Sendable
+#else
+    internal protocol ComponentBase {}
+#endif
+
+internal protocol Component: ComponentBase {
     func expand(variables: [String: VariableValue]) throws -> String
     var variableNames: [String] { get }
 }

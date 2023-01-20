@@ -1,13 +1,14 @@
-# URITemplate [![license](https://img.shields.io/github/license/SwiftScream/URITemplate.svg)](https://raw.githubusercontent.com/SwiftScream/URITemplate/master/LICENSE) [![GitHub release](https://img.shields.io/github/release/SwiftScream/URITemplate.svg)](https://github.com/SwiftScream/URITemplate/releases/latest)
-
-
-[![Travis](https://api.travis-ci.com/SwiftScream/URITemplate.svg?branch=master)](https://travis-ci.com/SwiftScream/URITemplate)
-[![Codecov branch](https://img.shields.io/codecov/c/github/SwiftScream/URITemplate/master.svg)](https://codecov.io/gh/SwiftScream/URITemplate/branch/master)
-
-![Swift 5](https://img.shields.io/badge/swift-5-4BC51D.svg?style=flat)
-[![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-4BC51D.svg?style=flat)](https://swift.org/package-manager/)
+# ScreamURITemplate
 
 A robust and performant Swift 5 implementation of [RFC6570](https://tools.ietf.org/html/rfc6570) URI Template.  Full Level 4 support is provided.
+
+[![CI](https://github.com/SwiftScream/URITemplate/actions/workflows/ci.yml/badge.svg)](https://github.com/SwiftScream/URITemplate/actions/workflows/ci.yml)
+[![Codecov branch](https://img.shields.io/codecov/c/github/SwiftScream/URITemplate/master.svg)](https://codecov.io/gh/SwiftScream/URITemplate/branch/master)
+
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FSwiftScream%2FURITemplate%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/SwiftScream/URITemplate)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FSwiftScream%2FURITemplate%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/SwiftScream/URITemplate)
+
+[![license](https://img.shields.io/github/license/SwiftScream/URITemplate.svg)](https://raw.githubusercontent.com/SwiftScream/URITemplate/master/LICENSE) [![GitHub release](https://img.shields.io/github/release/SwiftScream/URITemplate.svg)](https://github.com/SwiftScream/URITemplate/releases/latest)
 
 ## Getting Started
 
@@ -19,6 +20,8 @@ Add `.package(url: "https://github.com/SwiftScream/URITemplate.git", from: "3.0.
 ### Template Processing
 
 ```swift
+import ScreamURITemplate
+
 let template = try URITemplate(string:"https://api.github.com/repos/{owner}/{repository}/traffic/views")
 let variables = ["owner":"SwiftScream", "repository":"URITemplate"]
 let urlString = try template.process(variables)

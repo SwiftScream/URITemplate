@@ -16,6 +16,14 @@ import ScreamURITemplate
 import XCTest
 
 class Tests: XCTestCase {
+    #if swift(>=5.5)
+        func testSendable() {
+            let template: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
+            let sendable = template as Sendable
+            XCTAssertNotNil(sendable)
+        }
+    #endif
+
     func testCustomStringConvertible() {
         let template: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
         XCTAssertEqual(template.description, "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
