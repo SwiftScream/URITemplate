@@ -24,52 +24,61 @@ internal enum ExpressionOperator: Unicode.Scalar {
     case query = "?"
     case queryContinuation = "&"
 
+    // swiftlint:disable:next function_body_length
     func expansionConfiguration() -> ExpansionConfiguration {
         switch self {
         case .simple:
             return ExpansionConfiguration(percentEncodingAllowedCharacterSet: unreservedCharacterSet,
+                                          allowPercentEncodedTriplets: false,
                                           prefix: nil,
                                           separator: ",",
                                           named: false,
                                           omittOrphanedEquals: false)
         case .reserved:
             return ExpansionConfiguration(percentEncodingAllowedCharacterSet: reservedAndUnreservedCharacterSet,
+                                          allowPercentEncodedTriplets: true,
                                           prefix: nil,
                                           separator: ",",
                                           named: false,
                                           omittOrphanedEquals: false)
         case .fragment:
             return ExpansionConfiguration(percentEncodingAllowedCharacterSet: reservedAndUnreservedCharacterSet,
+                                          allowPercentEncodedTriplets: true,
                                           prefix: "#",
                                           separator: ",",
                                           named: false,
                                           omittOrphanedEquals: false)
         case .label:
             return ExpansionConfiguration(percentEncodingAllowedCharacterSet: unreservedCharacterSet,
+                                          allowPercentEncodedTriplets: false,
                                           prefix: ".",
                                           separator: ".",
                                           named: false,
                                           omittOrphanedEquals: false)
         case .pathSegment:
             return ExpansionConfiguration(percentEncodingAllowedCharacterSet: unreservedCharacterSet,
+                                          allowPercentEncodedTriplets: false,
                                           prefix: "/",
                                           separator: "/",
                                           named: false,
                                           omittOrphanedEquals: false)
         case .pathStyle:
             return ExpansionConfiguration(percentEncodingAllowedCharacterSet: unreservedCharacterSet,
+                                          allowPercentEncodedTriplets: false,
                                           prefix: ";",
                                           separator: ";",
                                           named: true,
                                           omittOrphanedEquals: true)
         case .query:
             return ExpansionConfiguration(percentEncodingAllowedCharacterSet: unreservedCharacterSet,
+                                          allowPercentEncodedTriplets: false,
                                           prefix: "?",
                                           separator: "&",
                                           named: true,
                                           omittOrphanedEquals: false)
         case .queryContinuation:
             return ExpansionConfiguration(percentEncodingAllowedCharacterSet: unreservedCharacterSet,
+                                          allowPercentEncodedTriplets: false,
                                           prefix: "&",
                                           separator: "&",
                                           named: true,
