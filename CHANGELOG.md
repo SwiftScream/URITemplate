@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+<a name="3.1.0"></a>
+# [3.1.0](https://github.com/SwiftScream/URITemplate/compare/3.0.1...3.1.0) (2023-01-20)
+
+- Allow single-quote as literal, refer [RFC errata 6937](https://www.rfc-editor.org/errata/eid6937)
+- Add `Sendable` conformance
+- Do not encode percent-encoded-triplets in reserved or fragment expansion
+- Update test suite
+
+
 <a name="3.0.1"></a>
 # [3.0.1](https://github.com/SwiftScream/URITemplate/compare/3.0.0...3.0.1) (2023-01-08)
 
