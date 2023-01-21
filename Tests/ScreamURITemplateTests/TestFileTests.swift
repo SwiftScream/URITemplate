@@ -80,7 +80,10 @@ class TestFileTests: XCTestCase {
             return fileTestSuite
         }
 
-        let testGroups = parseTestFile(URL: testURL)
+        guard let testGroups = parseTestFile(URL: testURL) else {
+            fileTestSuite.addTest(TestFileTests(selector: #selector(TestFileTests.testFileParseFailed)))
+            return fileTestSuite
+        }
         for group in testGroups {
             let groupTestSuite = XCTestSuite(name: "Group: \(group.name)")
             for test in group.testcases {
