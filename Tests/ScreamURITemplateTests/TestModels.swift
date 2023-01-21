@@ -135,11 +135,11 @@ extension TestCase {
     }
 }
 
-public func parseTestFile(URL: URL) -> [TestGroup] {
+public func parseTestFile(URL: URL) -> [TestGroup]? {
     guard let testData = try? Data(contentsOf: URL),
           let testCollection = try? JSONDecoder().decode(TestFile.self, from: testData) else {
         print("Failed to decode test file \(URL)")
-        return []
+        return nil
     }
 
     return testCollection.map { testGroupName, testGroupData in
