@@ -14,6 +14,9 @@
 
 import Foundation
 import ScreamURITemplate
+#if swift(>=5.9)
+import ScreamURITemplateMacros
+#endif
 
 let template = try URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
 let variables = ["owner": "SwiftScream",
@@ -25,3 +28,8 @@ let urlString = try template.process(variables: variables)
 let url = URL(string: urlString)!
 print("Expanding \(template)\n     with \(variables):\n")
 print(url.absoluteString)
+
+#if swift(>=5.9)
+let macroExpansion = #URITemplate("https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
+print(macroExpansion)
+#endif

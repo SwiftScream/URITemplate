@@ -63,6 +63,7 @@ extension URITemplate: CustomStringConvertible {
     }
 }
 
+@available(swift, deprecated: 5.9, message: "Use #URITemplate macro instead")
 extension URITemplate: ExpressibleByStringLiteral {
     public init(stringLiteral value: StaticString) {
         // swiftlint:disable:next force_try
