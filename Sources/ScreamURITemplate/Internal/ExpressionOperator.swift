@@ -14,7 +14,7 @@
 
 import Foundation
 
-internal enum ExpressionOperator: Unicode.Scalar {
+enum ExpressionOperator: Unicode.Scalar {
     case simple = "\0"
     case reserved = "+"
     case fragment = "#"

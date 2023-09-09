@@ -14,7 +14,7 @@
 
 import Foundation
 
-internal struct VariableSpec {
+struct VariableSpec {
     enum Modifier {
         case prefix(length: Int)
         case explode

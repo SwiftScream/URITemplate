@@ -18,7 +18,7 @@ private func ~= (lhs: CharacterSet, rhs: Unicode.Scalar) -> Bool {
     return lhs.contains(rhs)
 }
 
-internal struct Scanner {
+struct Scanner {
     let string: String
     let unicodeScalars: String.UnicodeScalarView
     var currentIndex: String.Index

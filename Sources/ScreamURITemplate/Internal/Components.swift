@@ -15,12 +15,12 @@
 import Foundation
 
 #if swift(>=5.5)
-    internal typealias ComponentBase = Sendable
+    typealias ComponentBase = Sendable
 #else
-    internal protocol ComponentBase {}
+    protocol ComponentBase {}
 #endif
 
-internal protocol Component: ComponentBase {
+protocol Component: ComponentBase {
     func expand(variables: [String: VariableValue]) throws -> String
     var variableNames: [String] { get }
 }
@@ -31,7 +31,7 @@ extension Component {
     }
 }
 
-internal struct LiteralComponent: Component {
+struct LiteralComponent: Component {
     let literal: Substring
     init(_ string: Substring) {
         literal = string
@@ -46,7 +46,7 @@ internal struct LiteralComponent: Component {
     }
 }
 
-internal struct LiteralPercentEncodedTripletComponent: Component {
+struct LiteralPercentEncodedTripletComponent: Component {
     let literal: Substring
     init(_ string: Substring) {
         literal = string
@@ -57,7 +57,7 @@ internal struct LiteralPercentEncodedTripletComponent: Component {
     }
 }
 
-internal struct ExpressionComponent: Component {
+struct ExpressionComponent: Component {
     let expressionOperator: ExpressionOperator
     let variableList: [VariableSpec]
     let templatePosition: String.Index
