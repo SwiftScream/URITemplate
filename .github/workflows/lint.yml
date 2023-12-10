@@ -17,10 +17,12 @@ jobs:
     - name: SwiftLint
       run: mint run swiftlint --strict
   SwiftFormat:
-    runs-on: macos-latest
+    runs-on: macos-13
     needs: SwiftLint
     steps:
     - uses: actions/checkout@v4
+    - name: Select Xcode 15
+      run: sudo xcode-select -s /Applications/Xcode_15.0.app/
     - uses: irgaly/setup-mint@v1
     - name: SwiftFormat Lint
       run: mint run swiftformat --lint .
