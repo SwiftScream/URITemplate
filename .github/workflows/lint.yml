@@ -8,14 +8,14 @@ on:
 
 jobs:
   SwiftLint:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v4
     - uses: irgaly/setup-mint@v1
     - name: SwiftLint
       run: mint run swiftlint --strict
   SwiftFormat:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     needs: SwiftLint
     steps:
     - uses: actions/checkout@v4
