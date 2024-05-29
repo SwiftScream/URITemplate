@@ -21,6 +21,8 @@ jobs:
       run: xcrun llvm-cov export -format="lcov" .build/debug/ScreamURITemplatePackageTests.xctest/Contents/MacOS/ScreamURITemplatePackageTests -instr-profile .build/debug/codecov/default.profdata > info.lcov
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       with:
         fail_ci_if_error: true
         verbose: true
