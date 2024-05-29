@@ -20,7 +20,7 @@ jobs:
     - name: Prepare coverage file
       run: xcrun llvm-cov export -format="lcov" .build/debug/ScreamURITemplatePackageTests.xctest/Contents/MacOS/ScreamURITemplatePackageTests -instr-profile .build/debug/codecov/default.profdata > info.lcov
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
       with:
         fail_ci_if_error: true
         verbose: true
