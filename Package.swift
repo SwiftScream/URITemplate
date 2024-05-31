@@ -18,6 +18,12 @@ let package = Package(
         .testTarget(
             name: "ScreamURITemplateTests",
             dependencies: ["ScreamURITemplate"],
+            exclude: [
+                "data/uritemplate-test/json2xml.xslt",
+                "data/uritemplate-test/LICENSE",
+                "data/uritemplate-test/README.md",
+                "data/uritemplate-test/transform-json-tests.xslt",
+            ],
             resources: [
                 .process("data/tests.json"),
                 .process("data/uritemplate-test/spec-examples.json"),
