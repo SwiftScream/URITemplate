@@ -26,14 +26,10 @@ class TestFileTests: XCTestCase {
         XCTFail("Test File Parse Failed")
     }
 
-    func testSuccessfulProcess() {
-        do {
-            let template = try URITemplate(string: templateString)
-            let result = try template.process(variables: variables)
-            XCTAssertTrue(acceptableExpansions.contains(result))
-        } catch {
-            XCTFail("Unexpected Throw")
-        }
+    func testSuccessfulProcess() throws {
+        let template = try URITemplate(string: templateString)
+        let result = try template.process(variables: variables)
+        XCTAssertTrue(acceptableExpansions.contains(result))
     }
 
     func testFailedProcess() {

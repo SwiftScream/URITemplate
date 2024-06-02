@@ -27,12 +27,9 @@ class Tests: XCTestCase {
         XCTAssertEqual(template.description, "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
     }
 
-    func testExpressibleByStringLiteral() {
+    func testExpressibleByStringLiteral() throws {
         let templateA: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
-        guard let templateB = try? URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}") else {
-            XCTFail("invalid template")
-            return
-        }
+        let templateB = try URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
         XCTAssertEqual(templateA, templateB)
     }
 
@@ -71,29 +68,21 @@ class Tests: XCTestCase {
         XCTAssertEqual(variableNames, expected)
     }
 
-    func testEncoding() {
-        do {
-            let templateString = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
-            let template = try URITemplate(string: templateString)
-            let jsonData = try JSONEncoder().encode(["a": template])
-            let expectedData = try JSONEncoder().encode(["a": templateString])
-            XCTAssertEqual(jsonData, expectedData)
-        } catch {
-            XCTFail("unexpected throw")
-        }
+    func testEncoding() throws {
+        let templateString = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
+        let template = try URITemplate(string: templateString)
+        let jsonData = try JSONEncoder().encode(["a": template])
+        let expectedData = try JSONEncoder().encode(["a": templateString])
+        XCTAssertEqual(jsonData, expectedData)
     }
 
-    func testDecoding() {
-        do {
-            let templateString = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
-            let jsonString = "{\"a\":\"\(templateString)\"}"
-            let jsonData = jsonString.data(using: .utf8)!
-            let object = try JSONDecoder().decode([String: URITemplate].self, from: jsonData)
-            let expectedTemplate = try URITemplate(string: templateString)
-            XCTAssertEqual(object["a"], expectedTemplate)
-        } catch {
-            XCTFail("unexpected throw")
-        }
+    func testDecoding() throws {
+        let templateString = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
+        let jsonString = "{\"a\":\"\(templateString)\"}"
+        let jsonData = jsonString.data(using: .utf8)!
+        let object = try JSONDecoder().decode([String: URITemplate].self, from: jsonData)
+        let expectedTemplate = try URITemplate(string: templateString)
+        XCTAssertEqual(object["a"], expectedTemplate)
     }
 
     func testInitPerformance() {
