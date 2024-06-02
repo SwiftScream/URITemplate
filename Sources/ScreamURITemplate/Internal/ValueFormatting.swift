@@ -47,11 +47,10 @@ func percentEncode(string: String, withAllowedCharacters allowedCharacterSet: Ch
 
 extension StringProtocol {
     func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String {
-        let modifiedValue: String
-        if let prefixLength = variableSpec.prefixLength() {
-            modifiedValue = String(prefix(prefixLength))
+        let modifiedValue = if let prefixLength = variableSpec.prefixLength() {
+            String(prefix(prefixLength))
         } else {
-            modifiedValue = String(self)
+            String(self)
         }
         let encodedExpansion = try percentEncode(string: modifiedValue, withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet, allowPercentEncodedTriplets: expansionConfiguration.allowPercentEncodedTriplets)
         if expansionConfiguration.named {
