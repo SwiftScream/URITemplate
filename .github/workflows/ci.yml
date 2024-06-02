@@ -26,17 +26,3 @@ jobs:
       with:
         fail_ci_if_error: true
         verbose: true
-
-  build-5_4_2:
-    runs-on: macos-11
-    steps:
-    - uses: actions/checkout@v4
-      with:
-        submodules: recursive
-    - name: Check Swift version
-      run: |
-        sudo xcode-select -s /Applications/Xcode_12.5.1.app/
-        export TOOLCHAINS=swift
-        swift --version
-    - name: Run tests
-      run: swift test

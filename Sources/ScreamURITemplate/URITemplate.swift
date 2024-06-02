@@ -53,9 +53,7 @@ public struct URITemplate {
     }
 }
 
-#if swift(>=5.5)
-    extension URITemplate: Sendable {}
-#endif
+extension URITemplate: Sendable {}
 
 extension URITemplate: CustomStringConvertible {
     public var description: String {

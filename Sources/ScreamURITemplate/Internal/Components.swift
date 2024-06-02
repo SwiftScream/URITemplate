@@ -14,11 +14,7 @@
 
 import Foundation
 
-#if swift(>=5.5)
-    typealias ComponentBase = Sendable
-#else
-    protocol ComponentBase {}
-#endif
+typealias ComponentBase = Sendable
 
 protocol Component: ComponentBase {
     func expand(variables: [String: VariableValue]) throws -> String

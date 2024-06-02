@@ -1,4 +1,4 @@
-// swift-tools-version: 5.4
+// swift-tools-version: 5.9
 
 import PackageDescription
 
@@ -31,13 +31,8 @@ let package = Package(
                 .process("data/uritemplate-test/extended-tests.json"),
                 .process("data/uritemplate-test/negative-tests.json"),
             ]),
-    ],
-    swiftLanguageVersions: [.v5])
-
-#if swift(>=5.6) || os(macOS) || os(Linux)
-    package.targets.append(
         .executableTarget(
             name: "ScreamURITemplateExample",
-            dependencies: ["ScreamURITemplate"])
-    )
-#endif
+            dependencies: ["ScreamURITemplate"]),
+    ],
+    swiftLanguageVersions: [.v5])
