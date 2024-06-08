@@ -77,3 +77,9 @@ extension UInt32: StringVariableValue {}
 extension UInt64: StringVariableValue {}
 extension UInt8: StringVariableValue {}
 extension Unicode.Scalar: StringVariableValue {}
+
+extension UUID: StringVariableValue {
+    public func asStringVariableValue() -> String {
+        uuidString
+    }
+}

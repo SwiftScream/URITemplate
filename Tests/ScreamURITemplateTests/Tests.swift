@@ -82,6 +82,15 @@ class Tests: XCTestCase {
         ].contains(urlString))
     }
 
+    func testUUIDVariable() throws {
+        let template: URITemplate = "https://api.example.com/{id}"
+        let variables: VariableDictionary = [
+            "id": UUID(uuidString: "1740A1A9-B3AD-4AE9-954B-918CEDE95285")!,
+        ]
+        let urlString = try template.process(variables: variables)
+        XCTAssertEqual(urlString, "https://api.example.com/1740A1A9-B3AD-4AE9-954B-918CEDE95285")
+    }
+
     func testSendable() {
         let template: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
         let sendable = template as Sendable
