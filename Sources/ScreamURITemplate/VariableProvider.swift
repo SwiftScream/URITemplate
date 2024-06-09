@@ -20,3 +20,20 @@ public protocol VariableProvider {
 public typealias VariableDictionary = [String: VariableValue]
 
 extension VariableDictionary: VariableProvider {}
+
+public struct SequenceVariableProvider: VariableProvider, ExpressibleByArrayLiteral {
+    let sequence: any Sequence<VariableProvider>
+
+    public init(arrayLiteral elements: VariableProvider...) {
+        sequence = elements
+    }
+
+    public subscript(_ key: String) -> VariableValue? {
+        for provider in sequence {
+            if let value = provider[key] {
+                return value
+            }
+        }
+        return nil
+    }
+}

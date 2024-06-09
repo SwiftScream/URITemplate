@@ -17,7 +17,12 @@ import XCTest
 
 struct TestVariableProvider: VariableProvider {
     subscript(_ key: String) -> VariableValue? {
-        return "_\(key)_"
+        switch key {
+        case "missing":
+            return nil
+        default:
+            return "_\(key)_"
+        }
     }
 }
 
@@ -26,6 +31,15 @@ class Tests: XCTestCase {
         let template: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
         let urlString = try template.process(variables: TestVariableProvider())
         XCTAssertEqual(urlString, "https://api.github.com/repos/_owner_/_repo_/collaborators/_username_")
+    }
+
+    func testSequenceVariableProvider() throws {
+        let template: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}{missing}"
+        let urlString = try template.process(variables: [
+            ["owner": "SwiftScream"],
+            TestVariableProvider(),
+        ] as SequenceVariableProvider)
+        XCTAssertEqual(urlString, "https://api.github.com/repos/SwiftScream/_repo_/collaborators/_username_")
     }
 
     func testStringStringDictionary() throws {
