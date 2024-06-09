@@ -50,7 +50,7 @@ extension KeyValuePairs<String, StringVariableValue>: VariableValue {
 
 extension [String: StringVariableValue]: VariableValue {
     public func asTypedVariableValue() -> TypedVariableValue? {
-        .associativeArray(map { ($0, $1.asStringVariableValue()) })
+        .associativeArray(map { ($0, $1.asStringVariableValue()) }.sorted { $0.0 < $1.0 })
     }
 }
 

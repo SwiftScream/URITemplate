@@ -72,14 +72,7 @@ class Tests: XCTestCase {
             ] as KeyValuePairs,
         ]
         let urlString = try template.process(variables: variables)
-        XCTAssertTrue([
-            "https://api.example.com/path?a=A&b=42&c=true&b2=42&a2=A&c2=true",
-            "https://api.example.com/path?a=A&c=true&b=42&b2=42&a2=A&c2=true",
-            "https://api.example.com/path?b=42&a=A&c=true&b2=42&a2=A&c2=true",
-            "https://api.example.com/path?b=42&c=true&a=A&b2=42&a2=A&c2=true",
-            "https://api.example.com/path?c=true&a=A&b=42&b2=42&a2=A&c2=true",
-            "https://api.example.com/path?c=true&b=42&a=A&b2=42&a2=A&c2=true",
-        ].contains(urlString))
+        XCTAssertEqual("https://api.example.com/path?a=A&b=42&c=true&b2=42&a2=A&c2=true", urlString)
     }
 
     func testUUIDVariable() throws {

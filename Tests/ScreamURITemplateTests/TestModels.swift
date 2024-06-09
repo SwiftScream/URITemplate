@@ -84,18 +84,7 @@ extension TestCase {
         let expansionsData = data[1]
         switch expansionsData {
         case let .string(string):
-            // HACK: ensure the tests support alternate ordering for dictionary explode tests
-            // A PR has been raised to add support for the alternate ordering https://github.com/uri-templates/uritemplate-test/pull/58
-            switch string {
-            case "key1,val1%2F,key2,val2%2F":
-                acceptableExpansions = [string, "key2,val2%2F,key1,val1%2F"]
-            case "#key1,val1%2F,key2,val2%2F":
-                acceptableExpansions = [string, "#key2,val2%2F,key1,val1%2F"]
-            case "key1,val1%252F,key2,val2%252F":
-                acceptableExpansions = [string, "key2,val2%252F,key1,val1%252F"]
-            default:
-                acceptableExpansions = [string]
-            }
+            acceptableExpansions = [string]
             shouldFail = false
         case let .array(array):
             acceptableExpansions = array.compactMap { value in
