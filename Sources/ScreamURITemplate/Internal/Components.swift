@@ -17,7 +17,7 @@ import Foundation
 typealias ComponentBase = Sendable
 
 protocol Component: ComponentBase {
-    func expand(variables: [String: VariableValue]) throws -> String
+    func expand(variables: VariableProvider) throws -> String
     var variableNames: [String] { get }
 }
 
@@ -33,7 +33,7 @@ struct LiteralComponent: Component {
         literal = string
     }
 
-    func expand(variables _: [String: VariableValue]) throws -> String {
+    func expand(variables _: VariableProvider) throws -> String {
         let expansion = String(literal)
         guard let encodedExpansion = expansion.addingPercentEncoding(withAllowedCharacters: reservedAndUnreservedCharacterSet) else {
             throw URITemplate.Error.expansionFailure(position: literal.startIndex, reason: "Percent Encoding Failed")
@@ -48,7 +48,7 @@ struct LiteralPercentEncodedTripletComponent: Component {
         literal = string
     }
 
-    func expand(variables _: [String: VariableValue]) throws -> String {
+    func expand(variables _: VariableProvider) throws -> String {
         return String(literal)
     }
 }
@@ -65,16 +65,17 @@ struct ExpressionComponent: Component {
     }
 
     // swiftlint:disable:next cyclomatic_complexity
-    func expand(variables: [String: VariableValue]) throws -> String {
+    func expand(variables: VariableProvider) throws -> String {
         let configuration = expressionOperator.expansionConfiguration()
         let expansions = try variableList.compactMap { variableSpec -> String? in
-            guard let value = variables[String(variableSpec.name)] else {
+            guard let value = variables[String(variableSpec.name)]?.asTypedVariableValue() else {
                 return nil
             }
             do {
-                if let stringValue = value as? String {
-                    return try stringValue.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
-                } else if let arrayValue = value as? [String] {
+                switch value {
+                case let .string(plainValue):
+                    return try plainValue.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
+                case let .list(arrayValue):
                     switch variableSpec.modifier {
                     case .prefix:
                         throw FormatError.failure(reason: "Prefix operator can only be applied to string")
@@ -83,17 +84,15 @@ struct ExpressionComponent: Component {
                     case .none:
                         return try arrayValue.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
                     }
-                } else if let dictionaryValue = value as? [String: String] {
+                case let .associativeArray(associativeArrayValue):
                     switch variableSpec.modifier {
                     case .prefix:
                         throw FormatError.failure(reason: "Prefix operator can only be applied to string")
                     case .explode:
-                        return try dictionaryValue.explodeForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
+                        return try associativeArrayValue.explodeForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
                     case .none:
-                        return try dictionaryValue.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
+                        return try associativeArrayValue.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
                     }
-                } else {
-                    throw FormatError.failure(reason: "Invalid Value Type")
                 }
             } catch let FormatError.failure(reason) {
                 throw URITemplate.Error.expansionFailure(position: templatePosition, reason: "Failed expanding variable \"\(variableSpec.name)\": \(reason)")

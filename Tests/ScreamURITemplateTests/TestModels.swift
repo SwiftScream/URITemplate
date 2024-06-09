@@ -26,7 +26,7 @@ private struct TestGroupDecodable: Decodable {
 public struct TestGroup {
     public let name: String
     public let level: Int?
-    public let variables: [String: VariableValue]
+    public let variables: VariableDictionary
     public let testcases: [TestCase]
 }
 
@@ -38,8 +38,25 @@ public struct TestCase {
     public let failReason: String?
 }
 
-extension JSONValue {
-    func toVariableValue() -> VariableValue? {
+extension JSONValue: VariableValue {
+    public func asTypedVariableValue() -> ScreamURITemplate.TypedVariableValue? {
+        switch self {
+        case let .int(int):
+            return int.asTypedVariableValue()
+        case let .double(double):
+            return double.asTypedVariableValue()
+        case let .string(string):
+            return string.asTypedVariableValue()
+        case let .object(object):
+            return object.compactMapValues { $0.asString() }.asTypedVariableValue()
+        case let .array(array):
+            return array.compactMap { $0.asString() }.asTypedVariableValue()
+        case .null, .bool:
+            return nil
+        }
+    }
+
+    private func asString() -> String? {
         switch self {
         case let .int(int):
             return String(int)
@@ -47,26 +64,7 @@ extension JSONValue {
             return String(double)
         case let .string(string):
             return string
-        case let .object(object):
-            return object.mapValues { element -> String? in
-                switch element {
-                case let .string(string):
-                    return string
-                default:
-                    return nil
-                }
-            }.filter { $0.value != nil }
-                .mapValues { $0! }
-        case let .array(array):
-            return array.compactMap { element -> String? in
-                switch element {
-                case let .string(string):
-                    return string
-                default:
-                    return nil
-                }
-            }
-        default:
+        case .null, .bool, .object, .array:
             return nil
         }
     }
@@ -143,15 +141,10 @@ public func parseTestFile(URL: URL) -> [TestGroup]? {
     }
 
     return testCollection.map { testGroupName, testGroupData in
-        let variables = testGroupData.variables.mapValues { element in
-            return element.toVariableValue()
-        }.filter { return $0.value != nil }
-            .mapValues { return $0! }
-
         let testcases = testGroupData.testcases.compactMap { element in
             return TestCase(element)
         }
 
-        return TestGroup(name: testGroupName, level: testGroupData.level, variables: variables, testcases: testcases)
+        return TestGroup(name: testGroupName, level: testGroupData.level, variables: testGroupData.variables, testcases: testcases)
     }
 }

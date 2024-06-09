@@ -17,7 +17,7 @@ import XCTest
 
 class TestFileTests: XCTestCase {
     private var templateString: String!
-    private var variables: [String: VariableValue]!
+    private var variables: VariableDictionary!
     private var acceptableExpansions: [String]!
     private var failPosition: Int?
     private var failReason: String?

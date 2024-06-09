@@ -101,7 +101,7 @@ extension Array where Element: StringProtocol {
     }
 }
 
-extension Dictionary where Key: StringProtocol, Value: StringProtocol {
+extension [TypedVariableValue.AssociativeArrayElement] {
     func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String? {
         let encodedExpansions = try map { key, value -> String in
             let encodedKey = try percentEncode(string: String(key), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet, allowPercentEncodedTriplets: expansionConfiguration.allowPercentEncodedTriplets)

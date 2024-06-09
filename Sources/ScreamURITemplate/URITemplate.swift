@@ -14,11 +14,6 @@
 
 import Foundation
 
-public protocol VariableValue {}
-extension String: VariableValue {}
-extension Array: VariableValue where Element: StringProtocol {}
-extension Dictionary: VariableValue where Key: StringProtocol, Value: StringProtocol {}
-
 public struct URITemplate {
     public enum Error: Swift.Error {
         case malformedTemplate(position: String.Index, reason: String)
@@ -38,12 +33,16 @@ public struct URITemplate {
         self.components = components
     }
 
-    public func process(variables: [String: VariableValue]) throws -> String {
+    public func process(variables: VariableProvider) throws -> String {
         var result = ""
         for component in components {
             result += try component.expand(variables: variables)
         }
         return result
+    }
+
+    public func process(variables: [String: String]) throws -> String {
+        return try process(variables: variables as VariableDictionary)
     }
 
     public var variableNames: [String] {

@@ -15,7 +15,73 @@
 import ScreamURITemplate
 import XCTest
 
+struct TestVariableProvider: VariableProvider {
+    subscript(_ key: String) -> VariableValue? {
+        return "_\(key)_"
+    }
+}
+
 class Tests: XCTestCase {
+    func testVariableProvider() throws {
+        let template: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
+        let urlString = try template.process(variables: TestVariableProvider())
+        XCTAssertEqual(urlString, "https://api.github.com/repos/_owner_/_repo_/collaborators/_username_")
+    }
+
+    func testStringStringDictionary() throws {
+        let template: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
+        let variables = ["owner": "SwiftScream",
+                         "repo": "URITemplate",
+                         "username": "alexdeem"]
+        let urlString = try template.process(variables: variables)
+        XCTAssertEqual(urlString, "https://api.github.com/repos/SwiftScream/URITemplate/collaborators/alexdeem")
+    }
+
+    func testVariableDictionaryPlain() throws {
+        let template: URITemplate = "https://api.example.com/{string}/{int}/{bool}"
+        let variables: VariableDictionary = [
+            "string": "SwiftScream",
+            "int": 42,
+            "bool": true,
+        ]
+        let urlString = try template.process(variables: variables)
+        XCTAssertEqual(urlString, "https://api.example.com/SwiftScream/42/true")
+    }
+
+    func testVariableDictionaryList() throws {
+        let template: URITemplate = "https://api.example.com/{list}"
+        let variables: VariableDictionary = [
+            "list": ["SwiftScream", 42, true],
+        ]
+        let urlString = try template.process(variables: variables)
+        XCTAssertEqual(urlString, "https://api.example.com/SwiftScream,42,true")
+    }
+
+    func testVariableDictionaryAssocList() throws {
+        let template: URITemplate = "https://api.example.com/path{?unordered*,ordered*}"
+        let variables: VariableDictionary = [
+            "unordered": [
+                "b": 42,
+                "a": "A",
+                "c": true,
+            ],
+            "ordered": [
+                "b2": 42,
+                "a2": "A",
+                "c2": true,
+            ] as KeyValuePairs,
+        ]
+        let urlString = try template.process(variables: variables)
+        XCTAssertTrue([
+            "https://api.example.com/path?a=A&b=42&c=true&b2=42&a2=A&c2=true",
+            "https://api.example.com/path?a=A&c=true&b=42&b2=42&a2=A&c2=true",
+            "https://api.example.com/path?b=42&a=A&c=true&b2=42&a2=A&c2=true",
+            "https://api.example.com/path?b=42&c=true&a=A&b2=42&a2=A&c2=true",
+            "https://api.example.com/path?c=true&a=A&b=42&b2=42&a2=A&c2=true",
+            "https://api.example.com/path?c=true&b=42&a=A&b2=42&a2=A&c2=true",
+        ].contains(urlString))
+    }
+
     func testSendable() {
         let template: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
         let sendable = template as Sendable
