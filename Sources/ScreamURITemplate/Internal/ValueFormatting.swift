@@ -18,7 +18,34 @@ enum FormatError: Error {
     case failure(reason: String)
 }
 
-func percentEncode(string: String, withAllowedCharacters allowedCharacterSet: CharacterSet, allowPercentEncodedTriplets: Bool) throws -> String {
+extension TypedVariableValue {
+    func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration configuration: ExpansionConfiguration) throws -> String? {
+        switch self {
+        case let .string(plainValue):
+            return try plainValue.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
+        case let .list(arrayValue):
+            switch variableSpec.modifier {
+            case .prefix:
+                throw FormatError.failure(reason: "Prefix operator can only be applied to string")
+            case .explode:
+                return try arrayValue.explodeForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
+            case .none:
+                return try arrayValue.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
+            }
+        case let .associativeArray(associativeArrayValue):
+            switch variableSpec.modifier {
+            case .prefix:
+                throw FormatError.failure(reason: "Prefix operator can only be applied to string")
+            case .explode:
+                return try associativeArrayValue.explodeForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
+            case .none:
+                return try associativeArrayValue.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
+            }
+        }
+    }
+}
+
+private func percentEncode(string: String, withAllowedCharacters allowedCharacterSet: CharacterSet, allowPercentEncodedTriplets: Bool) throws -> String {
     guard var encoded = string.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) else {
         throw FormatError.failure(reason: "Percent Encoding Failed")
     }
@@ -45,7 +72,7 @@ func percentEncode(string: String, withAllowedCharacters allowedCharacterSet: Ch
     return encoded
 }
 
-extension StringProtocol {
+private extension StringProtocol {
     func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String {
         let modifiedValue = if let prefixLength = variableSpec.prefixLength() {
             String(prefix(prefixLength))
@@ -63,7 +90,7 @@ extension StringProtocol {
     }
 }
 
-extension Array where Element: StringProtocol {
+private extension Array where Element: StringProtocol {
     func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String? {
         let separator = ","
         let encodedExpansions = try map { element -> String in
@@ -101,7 +128,7 @@ extension Array where Element: StringProtocol {
     }
 }
 
-extension [TypedVariableValue.AssociativeArrayElement] {
+private extension [TypedVariableValue.AssociativeArrayElement] {
     func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String? {
         let encodedExpansions = try map { key, value -> String in
             let encodedKey = try percentEncode(string: String(key), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet, allowPercentEncodedTriplets: expansionConfiguration.allowPercentEncodedTriplets)

@@ -64,7 +64,6 @@ struct ExpressionComponent: Component {
         self.templatePosition = templatePosition
     }
 
-    // swiftlint:disable:next cyclomatic_complexity
     func expand(variables: VariableProvider) throws -> String {
         let configuration = expressionOperator.expansionConfiguration()
         let expansions = try variableList.compactMap { variableSpec -> String? in
@@ -72,28 +71,7 @@ struct ExpressionComponent: Component {
                 return nil
             }
             do {
-                switch value {
-                case let .string(plainValue):
-                    return try plainValue.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
-                case let .list(arrayValue):
-                    switch variableSpec.modifier {
-                    case .prefix:
-                        throw FormatError.failure(reason: "Prefix operator can only be applied to string")
-                    case .explode:
-                        return try arrayValue.explodeForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
-                    case .none:
-                        return try arrayValue.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
-                    }
-                case let .associativeArray(associativeArrayValue):
-                    switch variableSpec.modifier {
-                    case .prefix:
-                        throw FormatError.failure(reason: "Prefix operator can only be applied to string")
-                    case .explode:
-                        return try associativeArrayValue.explodeForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
-                    case .none:
-                        return try associativeArrayValue.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
-                    }
-                }
+                return try value.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
             } catch let FormatError.failure(reason) {
                 throw URITemplate.Error.expansionFailure(position: templatePosition, reason: "Failed expanding variable \"\(variableSpec.name)\": \(reason)")
             }
