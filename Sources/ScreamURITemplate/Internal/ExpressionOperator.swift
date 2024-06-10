@@ -33,56 +33,56 @@ enum ExpressionOperator: Unicode.Scalar {
                                           prefix: nil,
                                           separator: ",",
                                           named: false,
-                                          omittOrphanedEquals: false)
+                                          omitOrphanedEquals: false)
         case .reserved:
             return ExpansionConfiguration(percentEncodingAllowedCharacterSet: reservedAndUnreservedCharacterSet,
                                           allowPercentEncodedTriplets: true,
                                           prefix: nil,
                                           separator: ",",
                                           named: false,
-                                          omittOrphanedEquals: false)
+                                          omitOrphanedEquals: false)
         case .fragment:
             return ExpansionConfiguration(percentEncodingAllowedCharacterSet: reservedAndUnreservedCharacterSet,
                                           allowPercentEncodedTriplets: true,
                                           prefix: "#",
                                           separator: ",",
                                           named: false,
-                                          omittOrphanedEquals: false)
+                                          omitOrphanedEquals: false)
         case .label:
             return ExpansionConfiguration(percentEncodingAllowedCharacterSet: unreservedCharacterSet,
                                           allowPercentEncodedTriplets: false,
                                           prefix: ".",
                                           separator: ".",
                                           named: false,
-                                          omittOrphanedEquals: false)
+                                          omitOrphanedEquals: false)
         case .pathSegment:
             return ExpansionConfiguration(percentEncodingAllowedCharacterSet: unreservedCharacterSet,
                                           allowPercentEncodedTriplets: false,
                                           prefix: "/",
                                           separator: "/",
                                           named: false,
-                                          omittOrphanedEquals: false)
+                                          omitOrphanedEquals: false)
         case .pathStyle:
             return ExpansionConfiguration(percentEncodingAllowedCharacterSet: unreservedCharacterSet,
                                           allowPercentEncodedTriplets: false,
                                           prefix: ";",
                                           separator: ";",
                                           named: true,
-                                          omittOrphanedEquals: true)
+                                          omitOrphanedEquals: true)
         case .query:
             return ExpansionConfiguration(percentEncodingAllowedCharacterSet: unreservedCharacterSet,
                                           allowPercentEncodedTriplets: false,
                                           prefix: "?",
                                           separator: "&",
                                           named: true,
-                                          omittOrphanedEquals: false)
+                                          omitOrphanedEquals: false)
         case .queryContinuation:
             return ExpansionConfiguration(percentEncodingAllowedCharacterSet: unreservedCharacterSet,
                                           allowPercentEncodedTriplets: false,
                                           prefix: "&",
                                           separator: "&",
                                           named: true,
-                                          omittOrphanedEquals: false)
+                                          omitOrphanedEquals: false)
         }
     }
 }

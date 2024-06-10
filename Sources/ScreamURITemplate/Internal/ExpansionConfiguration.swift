@@ -20,5 +20,5 @@ struct ExpansionConfiguration {
     let prefix: String?
     let separator: String
     let named: Bool
-    let omittOrphanedEquals: Bool
+    let omitOrphanedEquals: Bool
 }

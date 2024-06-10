@@ -81,7 +81,7 @@ private extension StringProtocol {
         }
         let encodedExpansion = try percentEncode(string: modifiedValue, withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet, allowPercentEncodedTriplets: expansionConfiguration.allowPercentEncodedTriplets)
         if expansionConfiguration.named {
-            if encodedExpansion.isEmpty && expansionConfiguration.omittOrphanedEquals {
+            if encodedExpansion.isEmpty && expansionConfiguration.omitOrphanedEquals {
                 return String(variableSpec.name)
             }
             return "\(variableSpec.name)=\(encodedExpansion)"
@@ -101,7 +101,7 @@ private extension Array where Element: StringProtocol {
         }
         let expansion = encodedExpansions.joined(separator: separator)
         if expansionConfiguration.named {
-            if expansion.isEmpty && expansionConfiguration.omittOrphanedEquals {
+            if expansion.isEmpty && expansionConfiguration.omitOrphanedEquals {
                 return String(variableSpec.name)
             }
             return "\(variableSpec.name)=\(expansion)"
@@ -114,7 +114,7 @@ private extension Array where Element: StringProtocol {
         let encodedExpansions = try map { element -> String in
             let encodedElement = try percentEncode(string: String(element), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet, allowPercentEncodedTriplets: expansionConfiguration.allowPercentEncodedTriplets)
             if expansionConfiguration.named {
-                if encodedElement.isEmpty && expansionConfiguration.omittOrphanedEquals {
+                if encodedElement.isEmpty && expansionConfiguration.omitOrphanedEquals {
                     return String(variableSpec.name)
                 }
                 return "\(variableSpec.name)=\(encodedElement)"
@@ -150,7 +150,7 @@ private extension [TypedVariableValue.AssociativeArrayElement] {
         let encodedExpansions = try map { key, value -> String in
             let encodedKey = try percentEncode(string: String(key), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet, allowPercentEncodedTriplets: expansionConfiguration.allowPercentEncodedTriplets)
             let encodedValue = try percentEncode(string: String(value), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet, allowPercentEncodedTriplets: expansionConfiguration.allowPercentEncodedTriplets)
-            if expansionConfiguration.named && encodedValue.isEmpty && expansionConfiguration.omittOrphanedEquals {
+            if expansionConfiguration.named && encodedValue.isEmpty && expansionConfiguration.omitOrphanedEquals {
                 return String(variableSpec.name)
             }
             return "\(encodedKey)=\(encodedValue)"
