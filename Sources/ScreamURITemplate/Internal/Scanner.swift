@@ -23,17 +23,17 @@ struct Scanner {
     let unicodeScalars: String.UnicodeScalarView
     var currentIndex: String.Index
 
-    public init(string: String) {
+    init(string: String) {
         self.string = string
         unicodeScalars = string.unicodeScalars
         currentIndex = string.startIndex
     }
 
-    public var isComplete: Bool {
+    var isComplete: Bool {
         return currentIndex >= unicodeScalars.endIndex
     }
 
-    public mutating func scanComponent() throws -> Component {
+    mutating func scanComponent() throws -> Component {
         let nextScalar = unicodeScalars[currentIndex]
 
         switch nextScalar {

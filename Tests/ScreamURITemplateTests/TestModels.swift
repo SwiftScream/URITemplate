@@ -23,19 +23,19 @@ private struct TestGroupDecodable: Decodable {
     let testcases: [[JSONValue]]
 }
 
-public struct TestGroup {
-    public let name: String
-    public let level: Int?
-    public let variables: VariableDictionary
-    public let testcases: [TestCase]
+struct TestGroup {
+    let name: String
+    let level: Int?
+    let variables: VariableDictionary
+    let testcases: [TestCase]
 }
 
-public struct TestCase {
-    public let template: String
-    public let acceptableExpansions: [String]
-    public let shouldFail: Bool
-    public let failPosition: Int?
-    public let failReason: String?
+struct TestCase {
+    let template: String
+    let acceptableExpansions: [String]
+    let shouldFail: Bool
+    let failPosition: Int?
+    let failReason: String?
 }
 
 extension JSONValue: VariableValue {
@@ -122,7 +122,7 @@ extension TestCase {
     }
 }
 
-public func parseTestFile(URL: URL) -> [TestGroup]? {
+func parseTestFile(URL: URL) -> [TestGroup]? {
     guard let testData = try? Data(contentsOf: URL),
           let testCollection = try? JSONDecoder().decode(TestFile.self, from: testData) else {
         print("Failed to decode test file \(URL)")
