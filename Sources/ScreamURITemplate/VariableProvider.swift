@@ -32,8 +32,12 @@ extension TypedVariableDictionary: TypedVariableProvider {}
 public struct SequenceVariableProvider: VariableProvider, ExpressibleByArrayLiteral {
     let sequence: any Sequence<VariableProvider>
 
+    public init(sequence: any Sequence<VariableProvider>) {
+        self.sequence = sequence
+    }
+
     public init(arrayLiteral elements: VariableProvider...) {
-        sequence = elements
+        self.init(sequence: elements)
     }
 
     public subscript(_ name: String) -> VariableValue? {
