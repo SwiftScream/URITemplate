@@ -16,9 +16,11 @@ import Foundation
 import ScreamURITemplate
 
 let template = try URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
-let variables = ["owner": "SwiftScream",
-                 "repo": "URITemplate",
-                 "username": "alexdeem"]
+let variables = [
+    "owner": "SwiftScream",
+    "repo": "URITemplate",
+    "username": "alexdeem",
+]
 
 let urlString = try template.process(variables: variables)
 

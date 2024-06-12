@@ -1,6 +1,5 @@
 disabled_rules:
   - line_length
-  - trailing_comma
   - redundant_optional_initialization
 
 opt_in_rules:
@@ -10,3 +9,8 @@ included:
 excluded:
   .build
 
+trailing_comma:
+  mandatory_comma: true
+
+vertical_whitespace:
+  max_empty_lines: 2

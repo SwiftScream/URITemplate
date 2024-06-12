@@ -44,9 +44,11 @@ class Tests: XCTestCase {
 
     func testStringStringDictionary() throws {
         let template: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
-        let variables = ["owner": "SwiftScream",
-                         "repo": "URITemplate",
-                         "username": "alexdeem"]
+        let variables = [
+            "owner": "SwiftScream",
+            "repo": "URITemplate",
+            "username": "alexdeem",
+        ]
         let urlString = try template.process(variables: variables)
         XCTAssertEqual(urlString, "https://api.github.com/repos/SwiftScream/URITemplate/collaborators/alexdeem")
     }
@@ -177,9 +179,11 @@ class Tests: XCTestCase {
 
     func testProcessPerformance() {
         let template: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
-        let variables = ["owner": "SwiftScream",
-                         "repo": "URITemplate",
-                         "username": "alexdeem"]
+        let variables = [
+            "owner": "SwiftScream",
+            "repo": "URITemplate",
+            "username": "alexdeem",
+        ]
 
         measure {
             for _ in 1...5000 {
