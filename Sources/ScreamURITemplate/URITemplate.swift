@@ -33,12 +33,24 @@ public struct URITemplate {
         self.components = components
     }
 
-    public func process(variables: VariableProvider) throws -> String {
+    public func process(variables: TypedVariableProvider) throws -> String {
         var result = ""
         for component in components {
             result += try component.expand(variables: variables)
         }
         return result
+    }
+
+    public func process(variables: VariableProvider) throws -> String {
+        struct TypedVariableProviderWrapper: TypedVariableProvider {
+            let variables: VariableProvider
+
+            subscript(_ key: String) -> TypedVariableValue? {
+                return variables[key]?.asTypedVariableValue()
+            }
+        }
+
+        return try process(variables: TypedVariableProviderWrapper(variables: variables))
     }
 
     public func process(variables: [String: String]) throws -> String {

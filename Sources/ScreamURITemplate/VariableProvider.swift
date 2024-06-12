@@ -17,9 +17,17 @@ public protocol VariableProvider {
     subscript(_: String) -> VariableValue? { get }
 }
 
+public protocol TypedVariableProvider {
+    subscript(_: String) -> TypedVariableValue? { get }
+}
+
 public typealias VariableDictionary = [String: VariableValue]
 
 extension VariableDictionary: VariableProvider {}
+
+public typealias TypedVariableDictionary = [String: TypedVariableValue]
+
+extension TypedVariableDictionary: TypedVariableProvider {}
 
 public struct SequenceVariableProvider: VariableProvider, ExpressibleByArrayLiteral {
     let sequence: any Sequence<VariableProvider>

@@ -17,7 +17,7 @@ import Foundation
 typealias ComponentBase = Sendable
 
 protocol Component: ComponentBase {
-    func expand(variables: VariableProvider) throws -> String
+    func expand(variables: TypedVariableProvider) throws -> String
     var variableNames: [String] { get }
 }
 
@@ -33,7 +33,7 @@ struct LiteralComponent: Component {
         literal = string
     }
 
-    func expand(variables _: VariableProvider) throws -> String {
+    func expand(variables _: TypedVariableProvider) throws -> String {
         let expansion = String(literal)
         guard let encodedExpansion = expansion.addingPercentEncoding(withAllowedCharacters: reservedAndUnreservedCharacterSet) else {
             throw URITemplate.Error.expansionFailure(position: literal.startIndex, reason: "Percent Encoding Failed")
@@ -48,7 +48,7 @@ struct LiteralPercentEncodedTripletComponent: Component {
         literal = string
     }
 
-    func expand(variables _: VariableProvider) throws -> String {
+    func expand(variables _: TypedVariableProvider) throws -> String {
         return String(literal)
     }
 }
@@ -64,10 +64,10 @@ struct ExpressionComponent: Component {
         self.templatePosition = templatePosition
     }
 
-    func expand(variables: VariableProvider) throws -> String {
+    func expand(variables: TypedVariableProvider) throws -> String {
         let configuration = expressionOperator.expansionConfiguration()
         let expansions = try variableList.compactMap { variableSpec -> String? in
-            guard let value = variables[String(variableSpec.name)]?.asTypedVariableValue() else {
+            guard let value = variables[String(variableSpec.name)] else {
                 return nil
             }
             do {

@@ -100,6 +100,45 @@ class Tests: XCTestCase {
         XCTAssertEqual(urlString, "https://api.example.com/1740A1A9-B3AD-4AE9-954B-918CEDE95285")
     }
 
+    func testVariableDictionaryVariousTypes() throws {
+        let template: URITemplate = "https://api.example.com{/string,int,bool,list}{?unordered*,ordered*}"
+        let variables: VariableDictionary = [
+            "string": "SwiftScream",
+            "int": 42,
+            "bool": true,
+            "list": ["SwiftScream", 42, true],
+            "unordered": [
+                "b": 42,
+                "a": "A",
+                "c": true,
+            ],
+            "ordered": [
+                "b2": 42,
+                "a2": "A",
+                "c2": true,
+            ] as KeyValuePairs,
+        ]
+        let urlString = try template.process(variables: variables)
+        XCTAssertEqual("https://api.example.com/SwiftScream/42/true/SwiftScream,42,true?a=A&b=42&c=true&b2=42&a2=A&c2=true", urlString)
+    }
+
+    func testTypedVariableDictionaryVariousTypes() throws {
+        let template: URITemplate = "https://api.example.com{/string,int,bool,list}{?unordered*,ordered*}"
+        let variables: TypedVariableDictionary = [
+            "string": .string("SwiftScream"),
+            "int": .string("42"),
+            "bool": .string("true"),
+            "list": .list(["SwiftScream", "42", "true"]),
+            "ordered": .associativeArray([
+                ("b", "42"),
+                ("a", "A"),
+                ("c", "true"),
+            ]),
+        ]
+        let urlString = try template.process(variables: variables)
+        XCTAssertEqual("https://api.example.com/SwiftScream/42/true/SwiftScream,42,true?b=42&a=A&c=true", urlString)
+    }
+
     func testSendable() {
         let template: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
         let sendable = template as Sendable
