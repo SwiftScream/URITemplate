@@ -15,11 +15,9 @@
 import Foundation
 
 public enum TypedVariableValue {
-    public typealias AssociativeArrayElement = (key: String, value: String)
-
     case string(String)
     case list([String])
-    case associativeArray([AssociativeArrayElement])
+    case associativeArray([(key: String, value: String)])
 }
 
 public protocol VariableValue {

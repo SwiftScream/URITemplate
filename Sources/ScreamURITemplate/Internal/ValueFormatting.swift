@@ -128,7 +128,7 @@ private extension Array where Element: StringProtocol {
     }
 }
 
-private extension [TypedVariableValue.AssociativeArrayElement] {
+private extension [(key: String, value: String)] {
     func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String? {
         let encodedExpansions = try map { key, value -> String in
             let encodedKey = try percentEncode(string: String(key), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet, allowPercentEncodedTriplets: expansionConfiguration.allowPercentEncodedTriplets)
