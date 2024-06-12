@@ -36,9 +36,9 @@ public struct SequenceVariableProvider: VariableProvider, ExpressibleByArrayLite
         sequence = elements
     }
 
-    public subscript(_ key: String) -> VariableValue? {
+    public subscript(_ name: String) -> VariableValue? {
         for provider in sequence {
-            if let value = provider[key] {
+            if let value = provider[name] {
                 return value
             }
         }
