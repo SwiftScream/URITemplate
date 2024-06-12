@@ -27,35 +27,35 @@ public protocol VariableValue {
 }
 
 public protocol StringVariableValue: VariableValue {
-    func asStringVariableValue() -> String
+    func asString() -> String
 }
 
 public extension StringVariableValue {
     func asTypedVariableValue() -> TypedVariableValue? {
-        .string(asStringVariableValue())
+        .string(asString())
     }
 }
 
 extension [StringVariableValue]: VariableValue {
     public func asTypedVariableValue() -> TypedVariableValue? {
-        .list(map { $0.asStringVariableValue() })
+        .list(map { $0.asString() })
     }
 }
 
 extension KeyValuePairs<String, StringVariableValue>: VariableValue {
     public func asTypedVariableValue() -> TypedVariableValue? {
-        .associativeArray(map { ($0, $1.asStringVariableValue()) })
+        .associativeArray(map { ($0, $1.asString()) })
     }
 }
 
 extension [String: StringVariableValue]: VariableValue {
     public func asTypedVariableValue() -> TypedVariableValue? {
-        .associativeArray(map { ($0, $1.asStringVariableValue()) }.sorted { $0.0 < $1.0 })
+        .associativeArray(map { ($0, $1.asString()) }.sorted { $0.0 < $1.0 })
     }
 }
 
 public extension LosslessStringConvertible {
-    func asStringVariableValue() -> String {
+    func asString() -> String {
         description
     }
 }
@@ -79,7 +79,7 @@ extension UInt8: StringVariableValue {}
 extension Unicode.Scalar: StringVariableValue {}
 
 extension UUID: StringVariableValue {
-    public func asStringVariableValue() -> String {
+    public func asString() -> String {
         uuidString
     }
 }
