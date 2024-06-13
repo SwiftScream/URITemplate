@@ -1,4 +1,4 @@
-// swift-tools-version: 5.4
+// swift-tools-version: 5.9
 
 import PackageDescription
 
@@ -10,6 +10,7 @@ let package = Package(
             targets: ["ScreamURITemplate"]),
     ],
     dependencies: [
+        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
     ],
     targets: [
         .target(
@@ -18,6 +19,12 @@ let package = Package(
         .testTarget(
             name: "ScreamURITemplateTests",
             dependencies: ["ScreamURITemplate"],
+            exclude: [
+                "data/uritemplate-test/json2xml.xslt",
+                "data/uritemplate-test/LICENSE",
+                "data/uritemplate-test/README.md",
+                "data/uritemplate-test/transform-json-tests.xslt",
+            ],
             resources: [
                 .process("data/tests.json"),
                 .process("data/uritemplate-test/spec-examples.json"),
@@ -25,13 +32,8 @@ let package = Package(
                 .process("data/uritemplate-test/extended-tests.json"),
                 .process("data/uritemplate-test/negative-tests.json"),
             ]),
-    ],
-    swiftLanguageVersions: [.v5])
-
-#if swift(>=5.6) || os(macOS) || os(Linux)
-    package.targets.append(
         .executableTarget(
             name: "ScreamURITemplateExample",
-            dependencies: ["ScreamURITemplate"])
-    )
-#endif
+            dependencies: ["ScreamURITemplate"]),
+    ],
+    swiftLanguageVersions: [.v5])

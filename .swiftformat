@@ -1,4 +1,3 @@
---swiftversion 5.7
 --exclude .build
 
 # rules

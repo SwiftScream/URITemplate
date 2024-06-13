@@ -1,4 +1,4 @@
-//   Copyright 2018-2023 Alex Deem
+//   Copyright 2018-2024 Alex Deem
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ import XCTest
 
 class TestFileTests: XCTestCase {
     private var templateString: String!
-    private var variables: [String: VariableValue]!
+    private var variables: VariableDictionary!
     private var acceptableExpansions: [String]!
     private var failPosition: Int?
     private var failReason: String?
@@ -26,14 +26,10 @@ class TestFileTests: XCTestCase {
         XCTFail("Test File Parse Failed")
     }
 
-    func testSuccessfulProcess() {
-        do {
-            let template = try URITemplate(string: templateString)
-            let result = try template.process(variables: variables)
-            XCTAssertTrue(acceptableExpansions.contains(result))
-        } catch {
-            XCTFail("Unexpected Throw")
-        }
+    func testSuccessfulProcess() throws {
+        let template = try URITemplate(string: templateString)
+        let result = try template.process(variables: variables)
+        XCTAssertTrue(acceptableExpansions.contains(result))
     }
 
     func testFailedProcess() {
@@ -80,7 +76,10 @@ class TestFileTests: XCTestCase {
             return fileTestSuite
         }
 
-        let testGroups = parseTestFile(URL: testURL)
+        guard let testGroups = parseTestFile(URL: testURL) else {
+            fileTestSuite.addTest(TestFileTests(selector: #selector(TestFileTests.testFileParseFailed)))
+            return fileTestSuite
+        }
         for group in testGroups {
             let groupTestSuite = XCTestSuite(name: "Group: \(group.name)")
             for test in group.testcases {

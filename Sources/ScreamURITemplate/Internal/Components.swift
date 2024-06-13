@@ -1,4 +1,4 @@
-//   Copyright 2018-2023 Alex Deem
+//   Copyright 2018-2024 Alex Deem
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -14,14 +14,10 @@
 
 import Foundation
 
-#if swift(>=5.5)
-    internal typealias ComponentBase = Sendable
-#else
-    internal protocol ComponentBase {}
-#endif
+typealias ComponentBase = Sendable
 
-internal protocol Component: ComponentBase {
-    func expand(variables: [String: VariableValue]) throws -> String
+protocol Component: ComponentBase {
+    func expand(variables: TypedVariableProvider) throws -> String
     var variableNames: [String] { get }
 }
 
@@ -31,13 +27,13 @@ extension Component {
     }
 }
 
-internal struct LiteralComponent: Component {
+struct LiteralComponent: Component {
     let literal: Substring
     init(_ string: Substring) {
         literal = string
     }
 
-    func expand(variables _: [String: VariableValue]) throws -> String {
+    func expand(variables _: TypedVariableProvider) throws -> String {
         let expansion = String(literal)
         guard let encodedExpansion = expansion.addingPercentEncoding(withAllowedCharacters: reservedAndUnreservedCharacterSet) else {
             throw URITemplate.Error.expansionFailure(position: literal.startIndex, reason: "Percent Encoding Failed")
@@ -46,18 +42,18 @@ internal struct LiteralComponent: Component {
     }
 }
 
-internal struct LiteralPercentEncodedTripletComponent: Component {
+struct LiteralPercentEncodedTripletComponent: Component {
     let literal: Substring
     init(_ string: Substring) {
         literal = string
     }
 
-    func expand(variables _: [String: VariableValue]) throws -> String {
+    func expand(variables _: TypedVariableProvider) throws -> String {
         return String(literal)
     }
 }
 
-internal struct ExpressionComponent: Component {
+struct ExpressionComponent: Component {
     let expressionOperator: ExpressionOperator
     let variableList: [VariableSpec]
     let templatePosition: String.Index
@@ -68,37 +64,14 @@ internal struct ExpressionComponent: Component {
         self.templatePosition = templatePosition
     }
 
-    // swiftlint:disable:next cyclomatic_complexity
-    func expand(variables: [String: VariableValue]) throws -> String {
+    func expand(variables: TypedVariableProvider) throws -> String {
         let configuration = expressionOperator.expansionConfiguration()
         let expansions = try variableList.compactMap { variableSpec -> String? in
             guard let value = variables[String(variableSpec.name)] else {
                 return nil
             }
             do {
-                if let stringValue = value as? String {
-                    return try stringValue.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
-                } else if let arrayValue = value as? [String] {
-                    switch variableSpec.modifier {
-                    case .prefix:
-                        throw FormatError.failure(reason: "Prefix operator can only be applied to string")
-                    case .explode:
-                        return try arrayValue.explodeForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
-                    case .none:
-                        return try arrayValue.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
-                    }
-                } else if let dictionaryValue = value as? [String: String] {
-                    switch variableSpec.modifier {
-                    case .prefix:
-                        throw FormatError.failure(reason: "Prefix operator can only be applied to string")
-                    case .explode:
-                        return try dictionaryValue.explodeForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
-                    case .none:
-                        return try dictionaryValue.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
-                    }
-                } else {
-                    throw FormatError.failure(reason: "Invalid Value Type")
-                }
+                return try value.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
             } catch let FormatError.failure(reason) {
                 throw URITemplate.Error.expansionFailure(position: templatePosition, reason: "Failed expanding variable \"\(variableSpec.name)\": \(reason)")
             }

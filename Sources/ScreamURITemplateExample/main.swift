@@ -1,4 +1,4 @@
-//   Copyright 2018-2023 Alex Deem
+//   Copyright 2018-2024 Alex Deem
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -16,9 +16,11 @@ import Foundation
 import ScreamURITemplate
 
 let template = try URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
-let variables = ["owner": "SwiftScream",
-                 "repo": "URITemplate",
-                 "username": "alexdeem"]
+let variables = [
+    "owner": "SwiftScream",
+    "repo": "URITemplate",
+    "username": "alexdeem",
+]
 
 let urlString = try template.process(variables: variables)
 

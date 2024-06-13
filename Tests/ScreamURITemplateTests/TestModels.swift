@@ -1,4 +1,4 @@
-//   Copyright 2018-2023 Alex Deem
+//   Copyright 2018-2024 Alex Deem
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -23,23 +23,40 @@ private struct TestGroupDecodable: Decodable {
     let testcases: [[JSONValue]]
 }
 
-public struct TestGroup {
-    public let name: String
-    public let level: Int?
-    public let variables: [String: VariableValue]
-    public let testcases: [TestCase]
+struct TestGroup {
+    let name: String
+    let level: Int?
+    let variables: VariableDictionary
+    let testcases: [TestCase]
 }
 
-public struct TestCase {
-    public let template: String
-    public let acceptableExpansions: [String]
-    public let shouldFail: Bool
-    public let failPosition: Int?
-    public let failReason: String?
+struct TestCase {
+    let template: String
+    let acceptableExpansions: [String]
+    let shouldFail: Bool
+    let failPosition: Int?
+    let failReason: String?
 }
 
-extension JSONValue {
-    func toVariableValue() -> VariableValue? {
+extension JSONValue: VariableValue {
+    public func asTypedVariableValue() -> ScreamURITemplate.TypedVariableValue? {
+        switch self {
+        case let .int(int):
+            return int.asTypedVariableValue()
+        case let .double(double):
+            return double.asTypedVariableValue()
+        case let .string(string):
+            return string.asTypedVariableValue()
+        case let .object(object):
+            return object.compactMapValues { $0.asString() }.asTypedVariableValue()
+        case let .array(array):
+            return array.compactMap { $0.asString() }.asTypedVariableValue()
+        case .null, .bool:
+            return nil
+        }
+    }
+
+    private func asString() -> String? {
         switch self {
         case let .int(int):
             return String(int)
@@ -47,26 +64,7 @@ extension JSONValue {
             return String(double)
         case let .string(string):
             return string
-        case let .object(object):
-            return object.mapValues { element -> String? in
-                switch element {
-                case let .string(string):
-                    return string
-                default:
-                    return nil
-                }
-            }.filter { $0.value != nil }
-                .mapValues { $0! }
-        case let .array(array):
-            return array.compactMap { element -> String? in
-                switch element {
-                case let .string(string):
-                    return string
-                default:
-                    return nil
-                }
-            }
-        default:
+        case .null, .bool, .object, .array:
             return nil
         }
     }
@@ -86,18 +84,7 @@ extension TestCase {
         let expansionsData = data[1]
         switch expansionsData {
         case let .string(string):
-            // HACK: ensure the tests support alternate ordering for dictionary explode tests
-            // A PR has been raised to add support for the alternate ordering https://github.com/uri-templates/uritemplate-test/pull/58
-            switch string {
-            case "key1,val1%2F,key2,val2%2F":
-                acceptableExpansions = [string, "key2,val2%2F,key1,val1%2F"]
-            case "#key1,val1%2F,key2,val2%2F":
-                acceptableExpansions = [string, "#key2,val2%2F,key1,val1%2F"]
-            case "key1,val1%252F,key2,val2%252F":
-                acceptableExpansions = [string, "key2,val2%252F,key1,val1%252F"]
-            default:
-                acceptableExpansions = [string]
-            }
+            acceptableExpansions = [string]
             shouldFail = false
         case let .array(array):
             acceptableExpansions = array.compactMap { value in
@@ -135,23 +122,18 @@ extension TestCase {
     }
 }
 
-public func parseTestFile(URL: URL) -> [TestGroup] {
+func parseTestFile(URL: URL) -> [TestGroup]? {
     guard let testData = try? Data(contentsOf: URL),
           let testCollection = try? JSONDecoder().decode(TestFile.self, from: testData) else {
         print("Failed to decode test file \(URL)")
-        return []
+        return nil
     }
 
     return testCollection.map { testGroupName, testGroupData in
-        let variables = testGroupData.variables.mapValues { element in
-            return element.toVariableValue()
-        }.filter { return $0.value != nil }
-            .mapValues { return $0! }
-
         let testcases = testGroupData.testcases.compactMap { element in
             return TestCase(element)
         }
 
-        return TestGroup(name: testGroupName, level: testGroupData.level, variables: variables, testcases: testcases)
+        return TestGroup(name: testGroupName, level: testGroupData.level, variables: testGroupData.variables, testcases: testcases)
     }
 }

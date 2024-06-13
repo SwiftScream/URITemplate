@@ -1,4 +1,4 @@
-//   Copyright 2018-2023 Alex Deem
+//   Copyright 2018-2024 Alex Deem
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -14,11 +14,11 @@
 
 import Foundation
 
-internal struct ExpansionConfiguration {
+struct ExpansionConfiguration {
     let percentEncodingAllowedCharacterSet: CharacterSet
     let allowPercentEncodedTriplets: Bool
     let prefix: String?
     let separator: String
     let named: Bool
-    let omittOrphanedEquals: Bool
+    let omitOrphanedEquals: Bool
 }

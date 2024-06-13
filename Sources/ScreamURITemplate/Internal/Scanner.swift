@@ -1,4 +1,4 @@
-//   Copyright 2018-2023 Alex Deem
+//   Copyright 2018-2024 Alex Deem
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -18,22 +18,22 @@ private func ~= (lhs: CharacterSet, rhs: Unicode.Scalar) -> Bool {
     return lhs.contains(rhs)
 }
 
-internal struct Scanner {
+struct Scanner {
     let string: String
     let unicodeScalars: String.UnicodeScalarView
     var currentIndex: String.Index
 
-    public init(string: String) {
+    init(string: String) {
         self.string = string
         unicodeScalars = string.unicodeScalars
         currentIndex = string.startIndex
     }
 
-    public var isComplete: Bool {
+    var isComplete: Bool {
         return currentIndex >= unicodeScalars.endIndex
     }
 
-    public mutating func scanComponent() throws -> Component {
+    mutating func scanComponent() throws -> Component {
         let nextScalar = unicodeScalars[currentIndex]
 
         switch nextScalar {
