@@ -41,8 +41,8 @@ public struct URITemplate {
         self.components = components
     }
 
-    /// Process a URI Template with the specified variables
-    /// - Parameter variables: A ``TypedVariableProvider`` that can provide values for the templates variables
+    /// Process a URI Template specifying variables with a ``TypedVariableProvider``
+    /// - Parameter variables: A ``TypedVariableProvider`` that can provide values for the template variables
     ///
     /// - Returns: The result of processing the template
     ///
@@ -55,11 +55,11 @@ public struct URITemplate {
         return result
     }
 
-    /// Process a URI Template with the specified variables
+    /// Process a URI Template specifying variables with a ``VariableProvider``
     ///
     /// This method allows for specifying variables in a more ergonomic manner compared to using ``TypedVariableValue`` directly
     ///
-    /// - Parameter variables: A ``VariableProvider`` that can provide values for the templates variables
+    /// - Parameter variables: A ``VariableProvider`` that can provide values for the template variables
     ///
     /// - Returns: The result of processing the template
     ///
@@ -76,7 +76,7 @@ public struct URITemplate {
         return try process(variables: TypedVariableProviderWrapper(variables: variables))
     }
 
-    /// Process a URI Template with the specified string variables
+    /// Process a URI Template where the variable values are all of type string
     ///
     /// This method is an override allowing for the special case of string-only variables without needing to typecast
     ///
