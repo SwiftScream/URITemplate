@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+<a name="4.0.0"></a>
+# [4.0.0](https://github.com/SwiftScream/URITemplate/compare/3.1.0...4.0.0) (2024-06-13)
+
+- Refine interface for specifying variables
+- Add docc documentation
+- Move to swift 5.9 as minimum supported version
+
+
 <a name="3.1.0"></a>
 # [3.1.0](https://github.com/SwiftScream/URITemplate/compare/3.0.1...3.1.0) (2023-01-20)
 
