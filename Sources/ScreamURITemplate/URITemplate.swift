@@ -14,15 +14,23 @@
 
 import Foundation
 
+/// An [RFC6570](https://tools.ietf.org/html/rfc6570) URI Template
 public struct URITemplate {
+    /// An error that may be thrown when parsing or processing a template
     public enum Error: Swift.Error {
+        /// Represents an error parsing a string into a URI Template
         case malformedTemplate(position: String.Index, reason: String)
+        /// Represents an error processing a template
         case expansionFailure(position: String.Index, reason: String)
     }
 
     private let string: String
     private let components: [Component]
 
+    /// Initializes a URITemplate from a string
+    /// - Parameter string: the string representation of the URI Template
+    ///
+    /// - Throws: `URITemplate.Error.malformedTemplate` if the string is not a valid URI Template
     public init(string: String) throws {
         var components: [Component] = []
         var scanner = Scanner(string: string)
@@ -33,6 +41,12 @@ public struct URITemplate {
         self.components = components
     }
 
+    /// Process a URI Template with the specified variables
+    /// - Parameter variables: A ``TypedVariableProvider`` that can provide values for the templates variables
+    ///
+    /// - Returns: The result of processing the template
+    ///
+    /// - Throws: `URITemplate.Error.expansionFailure` if an error occurs processing the template
     public func process(variables: TypedVariableProvider) throws -> String {
         var result = ""
         for component in components {
@@ -41,6 +55,15 @@ public struct URITemplate {
         return result
     }
 
+    /// Process a URI Template with the specified variables
+    ///
+    /// This method allows for specifying variables in a more ergonomic manner compared to using ``TypedVariableValue`` directly
+    ///
+    /// - Parameter variables: A ``VariableProvider`` that can provide values for the templates variables
+    ///
+    /// - Returns: The result of processing the template
+    ///
+    /// - Throws: `URITemplate.Error.expansionFailure` if an error occurs processing the template
     public func process(variables: VariableProvider) throws -> String {
         struct TypedVariableProviderWrapper: TypedVariableProvider {
             let variables: VariableProvider
@@ -53,10 +76,20 @@ public struct URITemplate {
         return try process(variables: TypedVariableProviderWrapper(variables: variables))
     }
 
+    /// Process a URI Template with the specified string variables
+    ///
+    /// This method is an override allowing for the special case of string-only variables without needing to typecast
+    ///
+    /// - Parameter variables: A [String: String] dictionary representing the variables
+    ///
+    /// - Returns: The result of processing the template
+    ///
+    /// - Throws: `URITemplate.Error.expansionFailure` if an error occurs processing the template
     public func process(variables: [String: String]) throws -> String {
         return try process(variables: variables as VariableDictionary)
     }
 
+    /// An array of all variable names used in the template
     public var variableNames: [String] {
         return components.flatMap { component in
             return component.variableNames

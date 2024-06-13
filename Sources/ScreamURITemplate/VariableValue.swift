@@ -14,21 +14,45 @@
 
 import Foundation
 
+/// The value of a URITemplate variable to use during processing
+///
+/// This type represents the value of a variable, as defined by [RFC6570](https://tools.ietf.org/html/rfc6570), to be used in
+/// template processing.
+///
+/// Variables can be either a string, a list of strings, or an associative array of string key, value pairs.
+///
+/// While you can process a template by providing variable values using this type (via ``TypedVariableProvider``) you may find it
+/// more ergonomic to provide ``VariableValue`` using ``VariableProvider``, or for simple cases simply `[String: String]`
 public enum TypedVariableValue {
+    /// A simple string value
     case string(String)
+    /// An ordered list of strings
     case list([String])
+    /// An associative array of string key, value pairs
+    ///
+    /// Note that the elements are ordered
     case associativeArray([(key: String, value: String)])
 }
 
+/// A protocol enabling ergonomic expression of variable values
+///
+/// Conforming a type to this protocol will enable it to be directly provided as a variable value via ``VariableProvider``
 public protocol VariableValue {
+    /// Converts this value to a TypedVariableValue to be used for template processing
     func asTypedVariableValue() -> TypedVariableValue?
 }
 
+/// A protocol enabling ergonomic expression of simple string variable values
+///
+/// Conforming a type to this protocol will enable it to be directly provided as a variable value, or as an element in a list or
+/// associative array value via ``VariableProvider``
 public protocol StringVariableValue: VariableValue {
+    /// Converts this value to a `String` to be used for template processing
     func asString() -> String
 }
 
 public extension StringVariableValue {
+    /// Converts this value to a TypedVariableValue to be used for template processing
     func asTypedVariableValue() -> TypedVariableValue? {
         .string(asString())
     }
@@ -53,6 +77,7 @@ extension [String: StringVariableValue]: VariableValue {
 }
 
 public extension LosslessStringConvertible {
+    /// Converts this value to a `String` to be used for template processing
     func asString() -> String {
         description
     }

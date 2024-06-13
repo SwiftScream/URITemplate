@@ -13,22 +13,48 @@
 
 import Foundation
 
+/// A type that provides variable values to use in template processing
+///
+/// This type provides values using ``VariableValue`` which allows for an ergonomic way to provide values.
 public protocol VariableProvider {
+    /// Get the ``VariableValue`` for a given variable
+    ///
+    /// - Parameters:
+    ///   - _: the name of the variable
+    ///
+    /// - Returns: the ``VariableValue`` for the variable, or `nil` if the variable has no value
     subscript(_: String) -> VariableValue? { get }
 }
 
+/// A type that provides variable values to use in template processing
+///
+/// This type provides values using ``TypedVariableValue``
+///
+/// Consider using ``VariableProvider`` for a more ergonomic way of providing variable values.
 public protocol TypedVariableProvider {
+    /// Get the ``TypedVariableValue`` for a given variable
+    ///
+    /// - Parameters:
+    ///   - _: the name of the variable
+    ///
+    /// - Returns: the ``TypedVariableValue`` for the variable, or `nil` if the variable has no value
     subscript(_: String) -> TypedVariableValue? { get }
 }
 
+/// A typealias for the most simple ``VariableProvider`` implementation: `[String: VariableValue]`
 public typealias VariableDictionary = [String: VariableValue]
 
 extension VariableDictionary: VariableProvider {}
 
+/// A typealias for the most simple ``TypedVariableProvider`` implementation: `[String: TypedVariableValue]`
 public typealias TypedVariableDictionary = [String: TypedVariableValue]
 
 extension TypedVariableDictionary: TypedVariableProvider {}
 
+/// An object that aggregates a `Sequence` of ``VariableProvider`` as a single ``VariableProvider``
+///
+/// This object allows using a prioritised sequence of VariableProvider as a single VariableProvider.
+/// The first VariableProvider in the sequence that provides a value for a given variable name is the value that is returned.
 public struct SequenceVariableProvider: VariableProvider, ExpressibleByArrayLiteral {
     let sequence: any Sequence<VariableProvider>
 
