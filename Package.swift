@@ -15,7 +15,8 @@ let package = Package(
     targets: [
         .target(
             name: "ScreamURITemplate",
-            dependencies: []),
+            dependencies: [],
+            resources: [.process("PrivacyInfo.xcprivacy")]),
         .testTarget(
             name: "ScreamURITemplateTests",
             dependencies: ["ScreamURITemplate"],
