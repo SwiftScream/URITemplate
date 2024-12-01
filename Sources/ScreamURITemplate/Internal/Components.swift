@@ -36,7 +36,7 @@ struct LiteralComponent: Component {
     func expand(variables _: TypedVariableProvider) throws -> String {
         let expansion = String(literal)
         guard let encodedExpansion = expansion.addingPercentEncoding(withAllowedCharacters: reservedAndUnreservedCharacterSet) else {
-            throw URITemplate.Error.expansionFailure(position: literal.startIndex, reason: "Percent Encoding Failed")
+            throw URITemplate.Error(type: .expansionFailure, position: literal.startIndex, reason: "Percent Encoding Failed")
         }
         return encodedExpansion
     }
@@ -73,7 +73,7 @@ struct ExpressionComponent: Component {
             do {
                 return try value.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
             } catch let error as FormatError {
-                throw URITemplate.Error.expansionFailure(position: templatePosition, reason: "Failed expanding variable \"\(variableSpec.name)\": \(error.reason)")
+                throw URITemplate.Error(type: .expansionFailure, position: templatePosition, reason: "Failed expanding variable \"\(variableSpec.name)\": \(error.reason)")
             }
         }
 

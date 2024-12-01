@@ -17,11 +17,20 @@ import Foundation
 /// An [RFC6570](https://tools.ietf.org/html/rfc6570) URI Template
 public struct URITemplate {
     /// An error that may be thrown when parsing or processing a template
-    public enum Error: Swift.Error {
-        /// Represents an error parsing a string into a URI Template
-        case malformedTemplate(position: String.Index, reason: String)
-        /// Represents an error processing a template
-        case expansionFailure(position: String.Index, reason: String)
+    public struct Error: Swift.Error {
+        public enum ErrorType: Sendable {
+            /// Represents an error parsing a string into a URI Template
+            case malformedTemplate
+            /// Represents an error processing a template
+            case expansionFailure
+        }
+
+        /// The type of the error
+        public let type: ErrorType
+        /// The position in the template that the error occurred
+        public let position: String.Index
+        /// The reason for the error
+        public let reason: String
     }
 
     private let string: String
@@ -30,7 +39,7 @@ public struct URITemplate {
     /// Initializes a URITemplate from a string
     /// - Parameter string: the string representation of the URI Template
     ///
-    /// - Throws: `URITemplate.Error.malformedTemplate` if the string is not a valid URI Template
+    /// - Throws: `URITemplate.Error` with `type = .malformedTemplate` if the string is not a valid URI Template
     public init(string: String) throws {
         var components: [Component] = []
         var scanner = Scanner(string: string)
@@ -46,7 +55,7 @@ public struct URITemplate {
     ///
     /// - Returns: The result of processing the template
     ///
-    /// - Throws: `URITemplate.Error.expansionFailure` if an error occurs processing the template
+    /// - Throws: `URITemplate.Error` with `type = .expansionFailure` if an error occurs processing the template
     public func process(variables: TypedVariableProvider) throws -> String {
         var result = ""
         for component in components {
@@ -63,7 +72,7 @@ public struct URITemplate {
     ///
     /// - Returns: The result of processing the template
     ///
-    /// - Throws: `URITemplate.Error.expansionFailure` if an error occurs processing the template
+    /// - Throws: `URITemplate.Error` with `type = .expansionFailure` if an error occurs processing the template
     public func process(variables: VariableProvider) throws -> String {
         struct TypedVariableProviderWrapper: TypedVariableProvider {
             let variables: VariableProvider
@@ -84,7 +93,7 @@ public struct URITemplate {
     ///
     /// - Returns: The result of processing the template
     ///
-    /// - Throws: `URITemplate.Error.expansionFailure` if an error occurs processing the template
+    /// - Throws: `URITemplate.Error` with `type = .expansionFailure` if an error occurs processing the template
     public func process(variables: [String: String]) throws -> String {
         return try process(variables: variables as VariableDictionary)
     }

@@ -44,7 +44,7 @@ struct Scanner {
         case literalCharacterSet:
             return try scanLiteralComponent()
         default:
-            throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Unexpected character")
+            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unexpected character")
         }
     }
 
@@ -63,7 +63,7 @@ struct Scanner {
         let expressionOperator: ExpressionOperator
         if expressionOperatorCharacterSet.contains(unicodeScalars[currentIndex]) {
             guard let `operator` = ExpressionOperator(rawValue: unicodeScalars[currentIndex]) else {
-                throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Unsupported Operator")
+                throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unsupported Operator")
             }
             expressionOperator = `operator`
             currentIndex = unicodeScalars.index(after: currentIndex)
@@ -81,13 +81,13 @@ struct Scanner {
             let variableName = try scanVariableName()
 
             if currentIndex == unicodeScalars.endIndex {
-                throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Unterminated Expression")
+                throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unterminated Expression")
             }
 
             let modifier = try scanVariableModifier()
 
             if currentIndex == unicodeScalars.endIndex {
-                throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Unterminated Expression")
+                throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unterminated Expression")
             }
 
             variableList.append(VariableSpec(name: variableName, modifier: modifier))
@@ -99,7 +99,7 @@ struct Scanner {
                 currentIndex = unicodeScalars.index(after: currentIndex)
                 complete = true
             default:
-                throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Unexpected Character in Expression")
+                throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unexpected Character in Expression")
             }
         }
 
@@ -110,9 +110,9 @@ struct Scanner {
         let endIndex = scanUpTo(characterSet: invertedVarnameCharacterSet)
         let variableName = string[currentIndex..<endIndex]
         if variableName.isEmpty {
-            throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Empty Variable Name")
+            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Empty Variable Name")
         } else if variableName.starts(with: ".") {
-            throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Variable Name Cannot Begin With '.'")
+            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Variable Name Cannot Begin With '.'")
         }
         var remainingVariableName = variableName
         while let index = remainingVariableName.firstIndex(of: "%") {
@@ -120,7 +120,7 @@ struct Scanner {
             let thirdIndex = remainingVariableName.index(after: secondIndex)
             if !hexCharacterSet.contains(unicodeScalars[secondIndex]) ||
                 !hexCharacterSet.contains(unicodeScalars[thirdIndex]) {
-                throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "% must be percent-encoded in variable name")
+                throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "% must be percent-encoded in variable name")
             }
             let nextIndex = remainingVariableName.index(after: thirdIndex)
             remainingVariableName = remainingVariableName[nextIndex...]
@@ -139,16 +139,16 @@ struct Scanner {
             let endIndex = scanUpTo(characterSet: invertedDecimalDigitsCharacterSet)
             let lengthString = string[currentIndex..<endIndex]
             if lengthString.isEmpty {
-                throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Prefix length not specified")
+                throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Prefix length not specified")
             }
             if lengthString.first == "0" {
-                throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Prefix length cannot begin with 0")
+                throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Prefix length cannot begin with 0")
             }
             if lengthString.count > 4 {
-                throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Prefix modifier length too large")
+                throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Prefix modifier length too large")
             }
             guard let length = Int(lengthString) else {
-                throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "Cannot parse prefix modifier length")
+                throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Cannot parse prefix modifier length")
             }
             currentIndex = endIndex
             return .prefix(length: length)
@@ -175,7 +175,7 @@ struct Scanner {
 
         if !hexCharacterSet.contains(unicodeScalars[secondIndex]) ||
             !hexCharacterSet.contains(unicodeScalars[thirdIndex]) {
-            throw URITemplate.Error.malformedTemplate(position: currentIndex, reason: "% must be percent-encoded in literal")
+            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "% must be percent-encoded in literal")
         }
 
         currentIndex = unicodeScalars.index(after: thirdIndex)

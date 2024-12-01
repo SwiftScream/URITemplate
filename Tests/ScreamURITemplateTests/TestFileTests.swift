@@ -37,20 +37,12 @@ class TestFileTests: XCTestCase {
             let template = try URITemplate(string: templateString)
             _ = try template.process(variables: variables)
             XCTFail("Did not throw")
-        } catch let URITemplate.Error.malformedTemplate(position, reason) {
+        } catch let error as URITemplate.Error {
             if failReason != nil {
-                XCTAssertEqual(failReason, reason)
+                XCTAssertEqual(failReason, error.reason)
             }
             if failPosition != nil {
-                let characters = templateString[..<position].count
-                XCTAssertEqual(failPosition, characters)
-            }
-        } catch let URITemplate.Error.expansionFailure(position, reason) {
-            if failReason != nil {
-                XCTAssertEqual(failReason, reason)
-            }
-            if failPosition != nil {
-                let characters = templateString[..<position].count
+                let characters = templateString[..<error.position].count
                 XCTAssertEqual(failPosition, characters)
             }
         } catch {

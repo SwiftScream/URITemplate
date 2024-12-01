@@ -15,3 +15,6 @@ trailing_comma:
 
 vertical_whitespace:
   max_empty_lines: 2
+
+nesting:
+  type_level: 2
