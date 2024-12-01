@@ -72,8 +72,8 @@ struct ExpressionComponent: Component {
             }
             do {
                 return try value.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
-            } catch let FormatError.failure(reason) {
-                throw URITemplate.Error.expansionFailure(position: templatePosition, reason: "Failed expanding variable \"\(variableSpec.name)\": \(reason)")
+            } catch let error as FormatError {
+                throw URITemplate.Error.expansionFailure(position: templatePosition, reason: "Failed expanding variable \"\(variableSpec.name)\": \(error.reason)")
             }
         }
 

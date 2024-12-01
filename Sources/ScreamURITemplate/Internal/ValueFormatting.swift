@@ -14,8 +14,8 @@
 
 import Foundation
 
-enum FormatError: Error {
-    case failure(reason: String)
+struct FormatError: Error {
+    let reason: String
 }
 
 extension TypedVariableValue {
@@ -26,7 +26,7 @@ extension TypedVariableValue {
         case let .list(arrayValue):
             switch variableSpec.modifier {
             case .prefix:
-                throw FormatError.failure(reason: "Prefix operator can only be applied to string")
+                throw FormatError(reason: "Prefix operator can only be applied to string")
             case .explode:
                 return try arrayValue.explodeForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
             case .none:
@@ -35,7 +35,7 @@ extension TypedVariableValue {
         case let .associativeArray(associativeArrayValue):
             switch variableSpec.modifier {
             case .prefix:
-                throw FormatError.failure(reason: "Prefix operator can only be applied to string")
+                throw FormatError(reason: "Prefix operator can only be applied to string")
             case .explode:
                 return try associativeArrayValue.explodeForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
             case .none:
@@ -47,7 +47,7 @@ extension TypedVariableValue {
 
 private func percentEncode(string: String, withAllowedCharacters allowedCharacterSet: CharacterSet, allowPercentEncodedTriplets: Bool) throws -> String {
     guard var encoded = string.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) else {
-        throw FormatError.failure(reason: "Percent Encoding Failed")
+        throw FormatError(reason: "Percent Encoding Failed")
     }
     if allowPercentEncodedTriplets {
         // Revert where any percent-encode-triplets had their % encoded (to %25)
