@@ -33,7 +33,7 @@ struct Scanner {
         return currentIndex >= unicodeScalars.endIndex
     }
 
-    mutating func scanComponent() throws -> Component {
+    mutating func scanComponent() throws(URITemplate.Error) -> Component {
         let nextScalar = unicodeScalars[currentIndex]
 
         switch nextScalar {
@@ -48,7 +48,7 @@ struct Scanner {
         }
     }
 
-    private mutating func scanExpressionComponent() throws -> Component {
+    private mutating func scanExpressionComponent() throws(URITemplate.Error) -> Component {
         assert(unicodeScalars[currentIndex] == "{")
         let expressionStartIndex = currentIndex
         currentIndex = unicodeScalars.index(after: currentIndex)
@@ -59,7 +59,7 @@ struct Scanner {
         return ExpressionComponent(expressionOperator: expressionOperator, variableList: variableList, templatePosition: expressionStartIndex)
     }
 
-    private mutating func scanExpressionOperator() throws -> ExpressionOperator {
+    private mutating func scanExpressionOperator() throws(URITemplate.Error) -> ExpressionOperator {
         let expressionOperator: ExpressionOperator
         if expressionOperatorCharacterSet.contains(unicodeScalars[currentIndex]) {
             guard let `operator` = ExpressionOperator(rawValue: unicodeScalars[currentIndex]) else {
@@ -73,7 +73,7 @@ struct Scanner {
         return expressionOperator
     }
 
-    private mutating func scanVariableList() throws -> [VariableSpec] {
+    private mutating func scanVariableList() throws(URITemplate.Error) -> [VariableSpec] {
         var variableList: [VariableSpec] = []
 
         var complete = false
@@ -106,7 +106,7 @@ struct Scanner {
         return variableList
     }
 
-    private mutating func scanVariableName() throws -> Substring {
+    private mutating func scanVariableName() throws(URITemplate.Error) -> Substring {
         let endIndex = scanUpTo(characterSet: invertedVarnameCharacterSet)
         let variableName = string[currentIndex..<endIndex]
         if variableName.isEmpty {
@@ -129,7 +129,7 @@ struct Scanner {
         return variableName
     }
 
-    private mutating func scanVariableModifier() throws -> VariableSpec.Modifier {
+    private mutating func scanVariableModifier() throws(URITemplate.Error) -> VariableSpec.Modifier {
         switch unicodeScalars[currentIndex] {
         case "*":
             currentIndex = unicodeScalars.index(after: currentIndex)
@@ -157,7 +157,7 @@ struct Scanner {
         }
     }
 
-    private mutating func scanLiteralComponent() throws -> Component {
+    private mutating func scanLiteralComponent() throws(URITemplate.Error) -> Component {
         assert(literalCharacterSet.contains(unicodeScalars[currentIndex]))
 
         let startIndex = currentIndex
@@ -166,7 +166,7 @@ struct Scanner {
         return LiteralComponent(string[startIndex..<endIndex])
     }
 
-    private mutating func scanPercentEncodingComponent() throws -> Component {
+    private mutating func scanPercentEncodingComponent() throws(URITemplate.Error) -> Component {
         assert(unicodeScalars[currentIndex] == "%")
 
         let startIndex = currentIndex

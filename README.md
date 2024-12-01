@@ -35,7 +35,7 @@ The error cases contain associated values specifying a string reason for the err
 ```swift
 do {
     _ = try URITemplate(string: "https://api.github.com/repos/{}/{repository}")
-} catch let error as URITemplate.Error {
+} catch {
     // error.reason = "Empty Variable Name"
     // error.position = 29th character
 }

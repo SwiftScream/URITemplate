@@ -37,7 +37,7 @@ class TestFileTests: XCTestCase {
             let template = try URITemplate(string: templateString)
             _ = try template.process(variables: variables)
             XCTFail("Did not throw")
-        } catch let error as URITemplate.Error {
+        } catch {
             if failReason != nil {
                 XCTAssertEqual(failReason, error.reason)
             }
@@ -45,8 +45,6 @@ class TestFileTests: XCTestCase {
                 let characters = templateString[..<error.position].count
                 XCTAssertEqual(failPosition, characters)
             }
-        } catch {
-            XCTFail("Threw an unexpected error")
         }
     }
 

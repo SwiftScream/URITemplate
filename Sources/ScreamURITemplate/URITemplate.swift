@@ -40,7 +40,7 @@ public struct URITemplate {
     /// - Parameter string: the string representation of the URI Template
     ///
     /// - Throws: `URITemplate.Error` with `type = .malformedTemplate` if the string is not a valid URI Template
-    public init(string: String) throws {
+    public init(string: String) throws(URITemplate.Error) {
         var components: [Component] = []
         var scanner = Scanner(string: string)
         while !scanner.isComplete {
@@ -56,7 +56,7 @@ public struct URITemplate {
     /// - Returns: The result of processing the template
     ///
     /// - Throws: `URITemplate.Error` with `type = .expansionFailure` if an error occurs processing the template
-    public func process(variables: TypedVariableProvider) throws -> String {
+    public func process(variables: TypedVariableProvider) throws(URITemplate.Error) -> String {
         var result = ""
         for component in components {
             result += try component.expand(variables: variables)
@@ -73,7 +73,7 @@ public struct URITemplate {
     /// - Returns: The result of processing the template
     ///
     /// - Throws: `URITemplate.Error` with `type = .expansionFailure` if an error occurs processing the template
-    public func process(variables: VariableProvider) throws -> String {
+    public func process(variables: VariableProvider) throws(URITemplate.Error) -> String {
         struct TypedVariableProviderWrapper: TypedVariableProvider {
             let variables: VariableProvider
 
@@ -94,7 +94,7 @@ public struct URITemplate {
     /// - Returns: The result of processing the template
     ///
     /// - Throws: `URITemplate.Error` with `type = .expansionFailure` if an error occurs processing the template
-    public func process(variables: [String: String]) throws -> String {
+    public func process(variables: [String: String]) throws(URITemplate.Error) -> String {
         return try process(variables: variables as VariableDictionary)
     }
 
