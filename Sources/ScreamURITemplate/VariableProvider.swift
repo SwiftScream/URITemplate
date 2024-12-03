@@ -21,8 +21,7 @@ public protocol VariableProvider {
     /// Get the ``VariableValue`` for a given variable
     ///
     /// - Parameters:
-    ///   - _: the name of the variable
-    ///
+    ///   - : the name of the variable
     /// - Returns: the ``VariableValue`` for the variable, or `nil` if the variable has no value
     subscript(_: String) -> VariableValue? { get }
 }
@@ -36,7 +35,7 @@ public protocol TypedVariableProvider {
     /// Get the ``TypedVariableValue`` for a given variable
     ///
     /// - Parameters:
-    ///   - _: the name of the variable
+    ///   - : the name of the variable
     ///
     /// - Returns: the ``TypedVariableValue`` for the variable, or `nil` if the variable has no value
     subscript(_: String) -> TypedVariableValue? { get }
