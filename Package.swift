@@ -1,25 +1,44 @@
 // swift-tools-version: 6.0
 
+import CompilerPluginSupport
 import PackageDescription
 
 let package = Package(
     name: "ScreamURITemplate",
+    platforms: [.macOS(.v13)],
     products: [
         .library(
             name: "ScreamURITemplate",
             targets: ["ScreamURITemplate"]),
+        .library(
+            name: "ScreamURITemplateMacros",
+            targets: ["ScreamURITemplateMacros"]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
+        .package(url: "https://github.com/apple/swift-syntax", from: "600.0.1"),
     ],
     targets: [
         .target(
             name: "ScreamURITemplate",
-            dependencies: [],
             resources: [.process("PrivacyInfo.xcprivacy")]),
+        .target(
+            name: "ScreamURITemplateMacros",
+            dependencies: ["ScreamURITemplate", "ScreamURITemplateCompilerPlugin"]),
+        .macro(
+            name: "ScreamURITemplateCompilerPlugin",
+            dependencies: [
+                .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
+                .product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
+                "ScreamURITemplate",
+            ]),
         .testTarget(
             name: "ScreamURITemplateTests",
-            dependencies: ["ScreamURITemplate"],
+            dependencies: [
+                .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax"),
+                "ScreamURITemplate",
+                "ScreamURITemplateCompilerPlugin",
+            ],
             exclude: [
                 "data/uritemplate-test/json2xml.xslt",
                 "data/uritemplate-test/LICENSE",
@@ -35,6 +54,6 @@ let package = Package(
             ]),
         .executableTarget(
             name: "ScreamURITemplateExample",
-            dependencies: ["ScreamURITemplate"]),
+            dependencies: ["ScreamURITemplate", "ScreamURITemplateMacros"]),
     ],
     swiftLanguageModes: [.v6])

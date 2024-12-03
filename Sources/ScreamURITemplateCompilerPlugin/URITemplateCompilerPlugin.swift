@@ -12,22 +12,10 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-import Foundation
-import ScreamURITemplate
-import ScreamURITemplateMacros
+import SwiftCompilerPlugin
+import SwiftSyntaxMacros
 
-let template = try URITemplate(string: "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
-let variables = [
-    "owner": "SwiftScream",
-    "repo": "URITemplate",
-    "username": "alexdeem",
-]
-
-let urlString = try template.process(variables: variables)
-
-let url = URL(string: urlString)!
-print("Expanding \(template)\n     with \(variables):\n")
-print(url.absoluteString)
-
-let macroExpansion = #URITemplate("https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
-print(macroExpansion)
+@main
+struct URITemplateCompilerPlugin: CompilerPlugin {
+    var providingMacros: [Macro.Type] = [URITemplateMacro.self]
+}
