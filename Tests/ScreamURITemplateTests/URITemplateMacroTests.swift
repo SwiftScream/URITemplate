@@ -20,12 +20,12 @@
 
     import XCTest
 
-    class MacroTests: XCTestCase {
+    class URITemplateMacroTests: XCTestCase {
         let testMacros: [String: Macro.Type] = [
             "URITemplate": URITemplateMacro.self,
         ]
 
-        func testValidURITemplateMacro() throws {
+        func testValid() throws {
             assertMacroExpansion(
                 #"""
                 #URITemplate("https://api.github.com/repos/{owner}")
@@ -38,7 +38,7 @@
                 macros: testMacros)
         }
 
-        func testInvalidURITemplateMacro() throws {
+        func testInvalid() throws {
             assertMacroExpansion(
                 #"""
                 #URITemplate("https://api.github.com/repos/{}/{repo}")
@@ -53,7 +53,7 @@
                 macros: testMacros)
         }
 
-        func testMisusedURITemplateMacro() throws {
+        func testMisused() throws {
             assertMacroExpansion(
                 #"""
                 let s: StaticString = "https://api.github.com/repos/{owner}"
