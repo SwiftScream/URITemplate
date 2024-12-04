@@ -48,7 +48,7 @@
                 #URITemplate("https://api.github.com/repos/{}/{repo}")
                 """#,
                 diagnostics: [
-                    DiagnosticSpec(message: "Invalid URI template: Empty Variable Name at \"}/{repo}\"", line: 1, column: 15),
+                    DiagnosticSpec(message: "Invalid URI template: Empty Variable Name at \"}/{repo}\"", line: 1, column: 14),
                 ],
                 macros: testMacros)
         }

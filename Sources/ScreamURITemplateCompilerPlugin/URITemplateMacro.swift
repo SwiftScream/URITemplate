@@ -24,9 +24,7 @@ public struct URITemplateMacro: ExpressionMacro {
         of node: some FreestandingMacroExpansionSyntax,
         in _: some MacroExpansionContext) throws -> ExprSyntax {
         guard let argument = node.arguments.first?.expression,
-              let segments = argument.as(StringLiteralExprSyntax.self)?.segments,
-              segments.count == 1,
-              case let .stringSegment(literalSegment)? = segments.first
+              let uriTemplateString = argument.stringLiteral()
         else {
             throw DiagnosticsError(diagnostics: [
                 Diagnostic(node: node,
@@ -34,12 +32,11 @@ public struct URITemplateMacro: ExpressionMacro {
             ])
         }
 
-        let uriTemplateString = literalSegment.content.text
         do {
             _ = try URITemplate(string: uriTemplateString)
         } catch {
             throw DiagnosticsError(diagnostics: [
-                Diagnostic(node: literalSegment,
+                Diagnostic(node: argument,
                            message: MacroExpansionErrorMessage("Invalid URI template: \(error.reason) at \"\(uriTemplateString.suffix(from: error.position).prefix(50))\"")),
             ])
         }
