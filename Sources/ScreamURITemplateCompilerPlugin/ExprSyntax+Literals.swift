@@ -24,4 +24,21 @@ extension ExprSyntax {
 
         return literalSegment.content.text
     }
+
+    func dictionaryLiteral() -> [String: String]? {
+        guard let elements = self.as(DictionaryExprSyntax.self)?.content.as(DictionaryElementListSyntax.self) else {
+            return nil
+        }
+
+        var result: [String: String] = [:]
+        for element in elements {
+            guard let key = element.key.stringLiteral(),
+                  let value = element.value.stringLiteral() else {
+                return nil
+            }
+            result[key] = value
+        }
+
+        return result
+    }
 }

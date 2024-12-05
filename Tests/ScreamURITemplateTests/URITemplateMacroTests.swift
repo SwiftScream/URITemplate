@@ -13,7 +13,7 @@
 //   limitations under the License.
 
 #if canImport(ScreamURITemplateCompilerPlugin)
-    import ScreamURITemplateCompilerPlugin
+    @testable import ScreamURITemplateCompilerPlugin
 
     import SwiftSyntaxMacros
     import SwiftSyntaxMacrosTestSupport
@@ -24,6 +24,11 @@
         let testMacros: [String: Macro.Type] = [
             "URITemplate": URITemplateMacro.self,
         ]
+
+        func testMacroAvailability() {
+            let plugin = URITemplateCompilerPlugin()
+            XCTAssert(plugin.providingMacros.contains { $0 == URITemplateMacro.self })
+        }
 
         func testValid() throws {
             assertMacroExpansion(

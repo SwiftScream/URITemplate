@@ -31,3 +31,7 @@ print(url.absoluteString)
 
 let macroExpansion = #URITemplate("https://api.github.com/repos/{owner}/{repo}/collaborators/{username}")
 print(macroExpansion)
+
+let urlExpansion = #URLByExpandingURITemplate("https://api.github.com/repos/{owner}/{repo}/collaborators/{username}",
+                                              with: ["owner": "SwiftScream", "repo": "URITemplate", "username": "alexdeem"])
+print(urlExpansion)

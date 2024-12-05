@@ -17,5 +17,8 @@ import SwiftSyntaxMacros
 
 @main
 struct URITemplateCompilerPlugin: CompilerPlugin {
-    var providingMacros: [Macro.Type] = [URITemplateMacro.self]
+    var providingMacros: [Macro.Type] = [
+        URITemplateMacro.self,
+        URLByExpandingURITemplateMacro.self,
+    ]
 }
