@@ -35,3 +35,13 @@ print(macroExpansion)
 let urlExpansion = #URLByExpandingURITemplate("https://api.github.com/repos/{owner}/{repo}/collaborators/{username}",
                                               with: ["owner": "SwiftScream", "repo": "URITemplate", "username": "alexdeem"])
 print(urlExpansion)
+
+@VariableProvider
+struct GitHubRepoCollaborator {
+    let owner: String
+    let repo: String
+    let username: String
+}
+
+let expansion = try macroExpansion.process(variables: GitHubRepoCollaborator(owner: "SwiftScream", repo: "URITemplate", username: "alexdeem"))
+print(expansion)

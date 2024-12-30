@@ -12,15 +12,15 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-import SwiftCompilerPlugin
+import SwiftSyntax
 import SwiftSyntaxMacros
 
-@main
-struct URITemplateCompilerPlugin: CompilerPlugin {
-    var providingMacros: [Macro.Type] = [
-        URITemplateMacro.self,
-        URLByExpandingURITemplateMacro.self,
-        VariableProviderMacro.self,
-        ProvidedMacro.self,
-    ]
+public struct ProvidedMacro: PeerMacro {
+    public static func expansion(
+        of _: SwiftSyntax.AttributeSyntax,
+        providingPeersOf _: some SwiftSyntax.DeclSyntaxProtocol,
+        in _: some SwiftSyntaxMacros.MacroExpansionContext) throws -> [SwiftSyntax.DeclSyntax] {
+        // This macro does not generate code, it's used as a marker for @VariableProvider
+        return []
+    }
 }

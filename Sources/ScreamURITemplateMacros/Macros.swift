@@ -37,3 +37,23 @@ public macro URITemplate(_ stringLiteral: StaticString) -> URITemplate = #extern
 /// - Returns: A `URL` constructed from the result of processing the template with the parameters
 @freestanding(expression)
 public macro URLByExpandingURITemplate(_ stringLiteral: StaticString, with: KeyValuePairs<StaticString, StaticString>) -> URL = #externalMacro(module: "ScreamURITemplateCompilerPlugin", type: "URLByExpandingURITemplateMacro")
+
+/// Macro to provide a default implementation of the `VariableProvider` protocol
+/// Example:
+/// ```swift
+/// @VariableProvider
+/// struct GitHubRepo {
+///     @Provided let owner: String
+///     @Provided let repo: String
+///     let transient: Int
+/// }
+/// ```
+/// The generated implementation provides variables named as per the properties of the struct or class
+/// By default all properties are provided. If this is not desirable, tag the properties to be provided with the `@Provided` attribute
+@attached(extension, conformances: VariableProvider, names: named(subscript))
+public macro VariableProvider() = #externalMacro(module: "ScreamURITemplateCompilerPlugin", type: "VariableProviderMacro")
+
+/// Macro used to tag properties that should be provided by the `@VariableProvider` macro
+/// This macro generates no code, it's just a marker for use by `@VariableProvider`
+@attached(peer)
+public macro Provided() = #externalMacro(module: "ScreamURITemplateCompilerPlugin", type: "ProvidedMacro")
