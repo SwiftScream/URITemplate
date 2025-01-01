@@ -7,10 +7,10 @@ All notable changes to this project will be documented in this file.
 
 - Move to swift 6.0 as minimum supported version
 - Leverage typed-throws
-- Add #URITemplate freestanding expression macro
-- Add #URLByExpandingURITemplate freestanding expression macro
-- Add @VariableProvider attached macro to provide default implementqation of `VariableProvider`
-- Add TypedURITemplate enabling a type-safe process interface
+- Add `#URITemplate` freestanding expression macro
+- Add `#URLByExpandingURITemplate` freestanding expression macro
+- Add `@VariableProvider` attached macro to provide default implementation of `VariableProvider`
+- Add `TypedURITemplate` enabling a type-safe process interface
 
 <a name="4.0.0"></a>
 # [4.0.0](https://github.com/SwiftScream/URITemplate/compare/3.1.0...4.0.0) (2024-06-13)
