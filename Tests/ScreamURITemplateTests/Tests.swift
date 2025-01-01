@@ -15,7 +15,7 @@
 import ScreamURITemplate
 import XCTest
 
-struct TestVariableProvider: VariableProvider {
+private struct TestVariableProvider: VariableProvider {
     subscript(_ key: String) -> VariableValue? {
         switch key {
         case "missing":

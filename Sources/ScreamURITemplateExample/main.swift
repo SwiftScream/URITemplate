@@ -45,3 +45,7 @@ struct GitHubRepoCollaborator {
 
 let expansion = try macroExpansion.process(variables: GitHubRepoCollaborator(owner: "SwiftScream", repo: "URITemplate", username: "alexdeem"))
 print(expansion)
+
+let typedTemplate = TypedURITemplate<GitHubRepoCollaborator>(macroExpansion)
+let result = try typedTemplate.process(variables: .init(owner: "SwiftScream", repo: "SwiftScream", username: "alexdeem"))
+print(result)
