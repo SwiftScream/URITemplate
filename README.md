@@ -1,6 +1,6 @@
 # ScreamURITemplate
 
-A robust and performant Swift 5 implementation of [RFC6570](https://tools.ietf.org/html/rfc6570) URI Template.  Full Level 4 support is provided.
+A robust and performant Swift 6 implementation of [RFC6570](https://tools.ietf.org/html/rfc6570) URI Template.  Full Level 4 support is provided.
 
 [![CI](https://github.com/SwiftScream/URITemplate/actions/workflows/ci.yml/badge.svg)](https://github.com/SwiftScream/URITemplate/actions/workflows/ci.yml)
 [![Codecov branch](https://img.shields.io/codecov/c/github/SwiftScream/URITemplate/master.svg)](https://codecov.io/gh/SwiftScream/URITemplate/branch/master)
@@ -13,7 +13,7 @@ A robust and performant Swift 5 implementation of [RFC6570](https://tools.ietf.o
 ## Getting Started
 
 ### Swift Package Manager
-Add `.package(url: "https://github.com/SwiftScream/URITemplate.git", from: "3.0.0")` to your Package.swift dependencies
+Add `.package(url: "https://github.com/SwiftScream/URITemplate.git", from: "5.0.0")` to your Package.swift dependencies
 
 ## Usage
 
@@ -35,9 +35,9 @@ The error cases contain associated values specifying a string reason for the err
 ```swift
 do {
     _ = try URITemplate(string: "https://api.github.com/repos/{}/{repository}")
-} catch URITemplate.Error.malformedTemplate(let position, let reason) {
-    // reason = "Empty Variable Name"
-    // position = 29th character
+} catch {
+    // error.reason = "Empty Variable Name"
+    // error.position = 29th character
 }
 ```
 

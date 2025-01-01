@@ -12,13 +12,15 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-import Foundation
+import SwiftCompilerPlugin
+import SwiftSyntaxMacros
 
-struct ExpansionConfiguration {
-    let percentEncodingAllowedCharacterSet: CharacterSet
-    let allowPercentEncodedTriplets: Bool
-    let prefix: String?
-    let separator: String
-    let named: Bool
-    let omitOrphanedEquals: Bool
+@main
+struct URITemplateCompilerPlugin: CompilerPlugin {
+    var providingMacros: [Macro.Type] = [
+        URITemplateMacro.self,
+        URLByExpandingURITemplateMacro.self,
+        VariableProviderMacro.self,
+        ProvidedMacro.self,
+    ]
 }

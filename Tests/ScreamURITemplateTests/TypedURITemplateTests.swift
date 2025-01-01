@@ -12,22 +12,21 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-import Foundation
+import XCTest
 
-struct VariableSpec {
-    enum Modifier {
-        case prefix(length: Int)
-        case explode
-        case none
+import ScreamURITemplate
+
+private struct TestVariableProvider: VariableProvider {
+    subscript(_ key: String) -> VariableValue? {
+        return "_\(key)_"
     }
+}
 
-    let name: Substring
-    let modifier: Modifier
-
-    func prefixLength() -> Int? {
-        guard case let .prefix(length) = modifier else {
-            return nil
-        }
-        return length
+class TypedURITemplateTests: XCTestCase {
+    func testExpansion() throws {
+        let template: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
+        let typedTemplate = TypedURITemplate<TestVariableProvider>(template)
+        let urlString = try typedTemplate.process(variables: .init())
+        XCTAssertEqual(urlString, "https://api.github.com/repos/_owner_/_repo_/collaborators/_username_")
     }
 }

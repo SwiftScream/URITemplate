@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: macos-latest
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_16.1.app/Contents/Developer
     steps:
     - uses: actions/checkout@v4
       with:
@@ -20,9 +22,8 @@ jobs:
     - name: Prepare coverage file
       run: xcrun llvm-cov export -format="lcov" .build/debug/ScreamURITemplatePackageTests.xctest/Contents/MacOS/ScreamURITemplatePackageTests -instr-profile .build/debug/codecov/default.profdata > info.lcov
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v4
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      uses: codecov/codecov-action@v5
       with:
+        token: ${{ secrets.CODECOV_TOKEN }}
         fail_ci_if_error: true
         verbose: true

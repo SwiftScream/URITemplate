@@ -12,13 +12,15 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-import Foundation
+import SwiftSyntax
+import SwiftSyntaxMacros
 
-struct ExpansionConfiguration {
-    let percentEncodingAllowedCharacterSet: CharacterSet
-    let allowPercentEncodedTriplets: Bool
-    let prefix: String?
-    let separator: String
-    let named: Bool
-    let omitOrphanedEquals: Bool
+public struct ProvidedMacro: PeerMacro {
+    public static func expansion(
+        of _: SwiftSyntax.AttributeSyntax,
+        providingPeersOf _: some SwiftSyntax.DeclSyntaxProtocol,
+        in _: some SwiftSyntaxMacros.MacroExpansionContext) throws -> [SwiftSyntax.DeclSyntax] {
+        // This macro does not generate code, it's used as a marker for @VariableProvider
+        return []
+    }
 }

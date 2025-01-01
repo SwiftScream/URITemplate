@@ -1,4 +1,4 @@
-//   Copyright 2018-2024 Alex Deem
+//   Copyright 2018-2025 Alex Deem
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -14,19 +14,19 @@
 
 import Foundation
 
-enum FormatError: Error {
-    case failure(reason: String)
+struct FormatError: Error {
+    let reason: String
 }
 
 extension TypedVariableValue {
-    func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration configuration: ExpansionConfiguration) throws -> String? {
+    func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration configuration: ExpansionConfiguration) throws(FormatError) -> String? {
         switch self {
         case let .string(plainValue):
             return try plainValue.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
         case let .list(arrayValue):
             switch variableSpec.modifier {
             case .prefix:
-                throw FormatError.failure(reason: "Prefix operator can only be applied to string")
+                throw FormatError(reason: "Prefix operator can only be applied to string")
             case .explode:
                 return try arrayValue.explodeForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
             case .none:
@@ -35,7 +35,7 @@ extension TypedVariableValue {
         case let .associativeArray(associativeArrayValue):
             switch variableSpec.modifier {
             case .prefix:
-                throw FormatError.failure(reason: "Prefix operator can only be applied to string")
+                throw FormatError(reason: "Prefix operator can only be applied to string")
             case .explode:
                 return try associativeArrayValue.explodeForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
             case .none:
@@ -45,9 +45,9 @@ extension TypedVariableValue {
     }
 }
 
-private func percentEncode(string: String, withAllowedCharacters allowedCharacterSet: CharacterSet, allowPercentEncodedTriplets: Bool) throws -> String {
+private func percentEncode(string: String, withAllowedCharacters allowedCharacterSet: CharacterSet, allowPercentEncodedTriplets: Bool) throws(FormatError) -> String {
     guard var encoded = string.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) else {
-        throw FormatError.failure(reason: "Percent Encoding Failed")
+        throw FormatError(reason: "Percent Encoding Failed")
     }
     if allowPercentEncodedTriplets {
         // Revert where any percent-encode-triplets had their % encoded (to %25)
@@ -73,7 +73,7 @@ private func percentEncode(string: String, withAllowedCharacters allowedCharacte
 }
 
 private extension StringProtocol {
-    func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String {
+    func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws(FormatError) -> String {
         let modifiedValue = if let prefixLength = variableSpec.prefixLength() {
             String(prefix(prefixLength))
         } else {
@@ -91,9 +91,9 @@ private extension StringProtocol {
 }
 
 private extension Array where Element: StringProtocol {
-    func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String? {
+    func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws(FormatError) -> String? {
         let separator = ","
-        let encodedExpansions = try map { element -> String in
+        let encodedExpansions = try map { element throws(FormatError) -> String in
             return try percentEncode(string: String(element), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet, allowPercentEncodedTriplets: expansionConfiguration.allowPercentEncodedTriplets)
         }
         if encodedExpansions.count == 0 {
@@ -109,9 +109,9 @@ private extension Array where Element: StringProtocol {
         return expansion
     }
 
-    func explodeForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String? {
+    func explodeForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws(FormatError) -> String? {
         let separator = expansionConfiguration.separator
-        let encodedExpansions = try map { element -> String in
+        let encodedExpansions = try map { element throws(FormatError) -> String in
             let encodedElement = try percentEncode(string: String(element), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet, allowPercentEncodedTriplets: expansionConfiguration.allowPercentEncodedTriplets)
             if expansionConfiguration.named {
                 if encodedElement.isEmpty && expansionConfiguration.omitOrphanedEquals {
@@ -129,8 +129,8 @@ private extension Array where Element: StringProtocol {
 }
 
 private extension [(key: String, value: String)] {
-    func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String? {
-        let encodedExpansions = try map { key, value -> String in
+    func formatForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws(FormatError) -> String? {
+        let encodedExpansions = try map { key, value throws(FormatError) -> String in
             let encodedKey = try percentEncode(string: String(key), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet, allowPercentEncodedTriplets: expansionConfiguration.allowPercentEncodedTriplets)
             let encodedValue = try percentEncode(string: String(value), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet, allowPercentEncodedTriplets: expansionConfiguration.allowPercentEncodedTriplets)
             return "\(encodedKey),\(encodedValue)"
@@ -145,9 +145,9 @@ private extension [(key: String, value: String)] {
         return expansion
     }
 
-    func explodeForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws -> String? {
+    func explodeForTemplateExpansion(variableSpec: VariableSpec, expansionConfiguration: ExpansionConfiguration) throws(FormatError) -> String? {
         let separator = expansionConfiguration.separator
-        let encodedExpansions = try map { key, value -> String in
+        let encodedExpansions = try map { key, value throws(FormatError) -> String in
             let encodedKey = try percentEncode(string: String(key), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet, allowPercentEncodedTriplets: expansionConfiguration.allowPercentEncodedTriplets)
             let encodedValue = try percentEncode(string: String(value), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet, allowPercentEncodedTriplets: expansionConfiguration.allowPercentEncodedTriplets)
             if expansionConfiguration.named && encodedValue.isEmpty && expansionConfiguration.omitOrphanedEquals {

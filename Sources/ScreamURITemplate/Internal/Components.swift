@@ -1,4 +1,4 @@
-//   Copyright 2018-2024 Alex Deem
+//   Copyright 2018-2025 Alex Deem
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ import Foundation
 typealias ComponentBase = Sendable
 
 protocol Component: ComponentBase {
-    func expand(variables: TypedVariableProvider) throws -> String
+    func expand(variables: TypedVariableProvider) throws(URITemplate.Error) -> String
     var variableNames: [String] { get }
 }
 
@@ -33,10 +33,10 @@ struct LiteralComponent: Component {
         literal = string
     }
 
-    func expand(variables _: TypedVariableProvider) throws -> String {
+    func expand(variables _: TypedVariableProvider) throws(URITemplate.Error) -> String {
         let expansion = String(literal)
         guard let encodedExpansion = expansion.addingPercentEncoding(withAllowedCharacters: reservedAndUnreservedCharacterSet) else {
-            throw URITemplate.Error.expansionFailure(position: literal.startIndex, reason: "Percent Encoding Failed")
+            throw URITemplate.Error(type: .expansionFailure, position: literal.startIndex, reason: "Percent Encoding Failed")
         }
         return encodedExpansion
     }
@@ -48,7 +48,7 @@ struct LiteralPercentEncodedTripletComponent: Component {
         literal = string
     }
 
-    func expand(variables _: TypedVariableProvider) throws -> String {
+    func expand(variables _: TypedVariableProvider) throws(URITemplate.Error) -> String {
         return String(literal)
     }
 }
@@ -64,28 +64,35 @@ struct ExpressionComponent: Component {
         self.templatePosition = templatePosition
     }
 
-    func expand(variables: TypedVariableProvider) throws -> String {
+    func expand(variables: TypedVariableProvider) throws(URITemplate.Error) -> String {
         let configuration = expressionOperator.expansionConfiguration()
-        let expansions = try variableList.compactMap { variableSpec -> String? in
-            guard let value = variables[String(variableSpec.name)] else {
-                return nil
+        do {
+            let expansions = try variableList.compactMap { variableSpec throws(URITemplate.Error) -> String? in
+                guard let value = variables[String(variableSpec.name)] else {
+                    return nil
+                }
+                do throws(FormatError) {
+                    return try value.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
+                } catch {
+                    throw URITemplate.Error(type: .expansionFailure, position: templatePosition, reason: "Failed expanding variable \"\(variableSpec.name)\": \(error.reason)")
+                }
             }
-            do {
-                return try value.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
-            } catch let FormatError.failure(reason) {
-                throw URITemplate.Error.expansionFailure(position: templatePosition, reason: "Failed expanding variable \"\(variableSpec.name)\": \(reason)")
+
+            if expansions.count == 0 {
+                return ""
             }
-        }
 
-        if expansions.count == 0 {
-            return ""
+            let joinedExpansions = expansions.joined(separator: configuration.separator)
+            if let prefix = configuration.prefix {
+                return prefix + joinedExpansions
+            }
+            return joinedExpansions
+        } catch let error as URITemplate.Error {
+            throw error
+        } catch {
+            // compactMap is not marked up for Typed Throws, the compiler therefore does not know that this is not possible
+            throw URITemplate.Error(type: .expansionFailure, position: templatePosition, reason: "Failed expanding variable: \(error.localizedDescription)")
         }
-
-        let joinedExpansions = expansions.joined(separator: configuration.separator)
-        if let prefix = configuration.prefix {
-            return prefix + joinedExpansions
-        }
-        return joinedExpansions
     }
 
     var variableNames: [String] {

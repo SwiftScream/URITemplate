@@ -1,4 +1,4 @@
-//   Copyright 2018-2024 Alex Deem
+//   Copyright 2018-2025 Alex Deem
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -37,24 +37,14 @@ class TestFileTests: XCTestCase {
             let template = try URITemplate(string: templateString)
             _ = try template.process(variables: variables)
             XCTFail("Did not throw")
-        } catch let URITemplate.Error.malformedTemplate(position, reason) {
-            if failReason != nil {
-                XCTAssertEqual(failReason, reason)
-            }
-            if failPosition != nil {
-                let characters = templateString[..<position].count
-                XCTAssertEqual(failPosition, characters)
-            }
-        } catch let URITemplate.Error.expansionFailure(position, reason) {
-            if failReason != nil {
-                XCTAssertEqual(failReason, reason)
-            }
-            if failPosition != nil {
-                let characters = templateString[..<position].count
-                XCTAssertEqual(failPosition, characters)
-            }
         } catch {
-            XCTFail("Threw an unexpected error")
+            if failReason != nil {
+                XCTAssertEqual(failReason, error.reason)
+            }
+            if failPosition != nil {
+                let characters = templateString[..<error.position].count
+                XCTAssertEqual(failPosition, characters)
+            }
         }
     }
 
