@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "ScreamURITemplate",
-    platforms: [.macOS(.v13)],
+    platforms: [.macOS(.v13), .iOS(.v13)],
     products: [
         .library(
             name: "ScreamURITemplate",
