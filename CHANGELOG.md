@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+<a name="5.0.1"></a>
+# [5.0.1](https://github.com/SwiftScream/URITemplate/compare/5.0.0...5.0.1) (2025-01-02)
+
+- Enable macro usage on iOS
+
 <a name="5.0.0"></a>
 # [5.0.0](https://github.com/SwiftScream/URITemplate/compare/4.0.0...5.0.0) (2025-01-02)
 
