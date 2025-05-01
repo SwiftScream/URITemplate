@@ -15,8 +15,8 @@ let package = Package(
             targets: ["ScreamURITemplateMacros"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
-        .package(url: "https://github.com/apple/swift-syntax", from: "601.0.1"),
+        .package(url: "https://github.com/swiftlang/swift-docc-plugin", from: "1.0.0"),
+        .package(url: "https://github.com/swiftlang/swift-syntax", from: "601.0.1"),
     ],
     targets: [
         .target(
