@@ -1,4 +1,7 @@
 name: Lint
+permissions:
+  contents: read
+  pull-requests: write
 
 on:
   push:
@@ -22,3 +25,11 @@ jobs:
     - uses: irgaly/setup-mint@v1
     - name: SwiftFormat Lint
       run: mint run swiftformat --lint .
+  Docc:
+    runs-on: macos-latest
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_16.1.app/Contents/Developer
+    steps:
+    - uses: actions/checkout@v4
+    - name: Swift-Docc Validate
+      run: swift package generate-documentation --target ScreamURITemplate --target ScreamURITemplateMacros --analyze --warnings-as-errors

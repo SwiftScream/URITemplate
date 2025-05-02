@@ -26,7 +26,7 @@ public struct TypedURITemplate<Variables: VariableProvider> {
     }
 
     /// Process a URI Template specifying variables with an instance of the templated type `Variables`
-    /// - Parameter variables: A ``Variables`` object that can provide values for the template variables
+    /// - Parameter variables: A ``VariableProvider`` object that can provide values for the template variables
     ///
     /// - Returns: The result of processing the template
     ///
