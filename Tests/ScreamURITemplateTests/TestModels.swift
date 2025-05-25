@@ -47,11 +47,23 @@ extension JSONValue: VariableValue {
             return double.asTypedVariableValue()
         case let .string(string):
             return string.asTypedVariableValue()
-        case let .object(object):
-            return object.compactMapValues { $0.asString() }.asTypedVariableValue()
         case let .array(array):
-            return array.compactMap { $0.asString() }.asTypedVariableValue()
-        case .null, .bool:
+            guard let first = array.first else { return .list([]) }
+            if case .array = first {
+                let elements = array.compactMap { element -> (key: String, value: String)? in
+                    guard
+                        case let .array(kvElement) = element,
+                        kvElement.count == 2,
+                        let key = kvElement.first?.asString(),
+                        let value = kvElement.last?.asString()
+                    else { return nil }
+                    return (key: key, value: value)
+                }
+                return .associativeArray(elements)
+            } else {
+                return array.compactMap { $0.asString() }.asTypedVariableValue()
+            }
+        case .null, .bool, .object:
             return nil
         }
     }

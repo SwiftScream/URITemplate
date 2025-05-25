@@ -82,8 +82,8 @@
         "level": 4,
         "variables": {
             "list"   : [""],
-            "empty"  : {},
-            "dict"   : {"a":""}
+            "empty"  : [[]],
+            "dict"   : [["a", ""]]
         },
         "testcases" : [
             ["{;list}", ";list"],
