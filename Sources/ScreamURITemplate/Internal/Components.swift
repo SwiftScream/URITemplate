@@ -19,11 +19,16 @@ typealias ComponentBase = Sendable
 protocol Component: ComponentBase {
     func expand(variables: TypedVariableProvider) throws(URITemplate.Error) -> String
     var variableNames: [String] { get }
+    var level: URITemplate.Level { get }
 }
 
 extension Component {
     var variableNames: [String] {
         return []
+    }
+
+    var level: URITemplate.Level {
+        return .level1
     }
 }
 
@@ -98,6 +103,33 @@ struct ExpressionComponent: Component {
     var variableNames: [String] {
         return variableList.map { variableSpec in
             return String(variableSpec.name)
+        }
+    }
+
+    var level: URITemplate.Level {
+        // Check for modifiers (level 4)
+        for variableSpec in variableList {
+            switch variableSpec.modifier {
+            case .none:
+                continue
+            case .explode, .prefix:
+                return .level4
+            }
+        }
+
+        // Check for multiple variables (level 3)
+        if variableList.count > 1 {
+            return .level3
+        }
+
+        // Check operators
+        return switch expressionOperator {
+        case .simple:
+            .level1
+        case .reserved, .fragment:
+            .level2
+        case .label, .pathSegment, .pathStyle, .query, .queryContinuation:
+            .level3
         }
     }
 }

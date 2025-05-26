@@ -104,6 +104,29 @@ public struct URITemplate {
             return component.variableNames
         }
     }
+
+    /// Template level as defined by RFC6570
+    public enum Level: Int, Comparable {
+        /// Level 1: Simple string expansion only
+        case level1 = 1
+        /// Level 2: Reserved expansion
+        case level2 = 2
+        /// Level 3: Multiple variables/fragments/path segments
+        case level3 = 3
+        /// Level 4: Modifiers (prefix, explode) and composite values
+        case level4 = 4
+
+        public static func < (lhs: Level, rhs: Level) -> Bool {
+            return lhs.rawValue < rhs.rawValue
+        }
+    }
+
+    /// Determines the RFC6570 level of this template
+    ///
+    /// - Returns: The RFC6570 level of this template
+    public var level: Level {
+        components.map(\.level).max() ?? .level1
+    }
 }
 
 extension URITemplate: Sendable {}
