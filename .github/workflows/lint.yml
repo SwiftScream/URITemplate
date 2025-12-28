@@ -13,7 +13,7 @@ jobs:
   SwiftLint:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - uses: irgaly/setup-mint@v1
     - name: SwiftLint
       run: mint run swiftlint --strict
@@ -21,7 +21,7 @@ jobs:
     runs-on: macos-latest
     needs: SwiftLint
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - uses: irgaly/setup-mint@v1
     - name: SwiftFormat Lint
       run: mint run swiftformat --lint .
@@ -30,6 +30,6 @@ jobs:
     env:
       DEVELOPER_DIR: /Applications/Xcode_16.1.app/Contents/Developer
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Swift-Docc Validate
       run: swift package generate-documentation --target ScreamURITemplate --target ScreamURITemplateMacros --analyze --warnings-as-errors
