@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+<a name="5.0.3"></a>
+# [5.0.3](https://github.com/SwiftScream/URITemplate/compare/5.0.2...5.0.3) (2026-01-24)
+
+- Fix crash parsing some malformed templates; thanks @SolfaMode
+
 <a name="5.0.2"></a>
 # [5.0.2](https://github.com/SwiftScream/URITemplate/compare/5.0.1...5.0.2) (2025-05-02)
 
