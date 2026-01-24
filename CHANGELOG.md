@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+<a name="5.0.4"></a>
+# [5.0.4](https://github.com/SwiftScream/URITemplate/compare/5.0.3...5.0.4) (2026-01-24)
+
+- Fix crash parsing templates with incomplete percent encoded triplets
+
 <a name="5.0.3"></a>
 # [5.0.3](https://github.com/SwiftScream/URITemplate/compare/5.0.2...5.0.3) (2026-01-24)
 

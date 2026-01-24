@@ -48,37 +48,28 @@ struct Scanner {
         }
     }
 
-    private func checkUnterminated() throws(URITemplate.Error) {
-        if currentIndex == unicodeScalars.endIndex {
-            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unterminated Expression")
-        }
-    }
-
     private mutating func scanExpressionComponent() throws(URITemplate.Error) -> Component {
         assert(unicodeScalars[currentIndex] == "{")
         let expressionStartIndex = currentIndex
         currentIndex = unicodeScalars.index(after: currentIndex)
-        try checkUnterminated()
 
         let expressionOperator = try scanExpressionOperator()
-        try checkUnterminated()
         let variableList = try scanVariableList()
 
         return ExpressionComponent(expressionOperator: expressionOperator, variableList: variableList, templatePosition: expressionStartIndex)
     }
 
     private mutating func scanExpressionOperator() throws(URITemplate.Error) -> ExpressionOperator {
-        let expressionOperator: ExpressionOperator
-        if expressionOperatorCharacterSet.contains(unicodeScalars[currentIndex]) {
-            guard let `operator` = ExpressionOperator(rawValue: unicodeScalars[currentIndex]) else {
-                throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unsupported Operator")
-            }
-            expressionOperator = `operator`
-            currentIndex = unicodeScalars.index(after: currentIndex)
-        } else {
-            expressionOperator = .simple
+        guard currentIndex < unicodeScalars.endIndex,
+              expressionOperatorCharacterSet.contains(unicodeScalars[currentIndex]) else {
+            return .simple
         }
-        return expressionOperator
+
+        guard let `operator` = ExpressionOperator(rawValue: unicodeScalars[currentIndex]) else {
+            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unsupported Operator")
+        }
+        currentIndex = unicodeScalars.index(after: currentIndex)
+        return `operator`
     }
 
     private mutating func scanVariableList() throws(URITemplate.Error) -> [VariableSpec] {
@@ -87,14 +78,12 @@ struct Scanner {
         var complete = false
         while !complete {
             let variableName = try scanVariableName()
-
-            try checkUnterminated()
-
             let modifier = try scanVariableModifier()
-
-            try checkUnterminated()
-
             variableList.append(VariableSpec(name: variableName, modifier: modifier))
+
+            guard currentIndex < unicodeScalars.endIndex else {
+                throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unterminated Expression")
+            }
 
             switch unicodeScalars[currentIndex] {
             case ",":
@@ -134,6 +123,10 @@ struct Scanner {
     }
 
     private mutating func scanVariableModifier() throws(URITemplate.Error) -> VariableSpec.Modifier {
+        guard currentIndex < unicodeScalars.endIndex else {
+            return .none
+        }
+
         switch unicodeScalars[currentIndex] {
         case "*":
             currentIndex = unicodeScalars.index(after: currentIndex)
@@ -174,11 +167,19 @@ struct Scanner {
         assert(unicodeScalars[currentIndex] == "%")
 
         let startIndex = currentIndex
-        let secondIndex = unicodeScalars.index(after: startIndex)
-        let thirdIndex = unicodeScalars.index(after: secondIndex)
 
-        if !hexCharacterSet.contains(unicodeScalars[secondIndex]) ||
-            !hexCharacterSet.contains(unicodeScalars[thirdIndex]) {
+        let secondIndex = unicodeScalars.index(after: startIndex)
+        guard secondIndex < unicodeScalars.endIndex else {
+            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "% must be percent-encoded in literal")
+        }
+
+        let thirdIndex = unicodeScalars.index(after: secondIndex)
+        guard thirdIndex < unicodeScalars.endIndex else {
+            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "% must be percent-encoded in literal")
+        }
+
+        guard hexCharacterSet.contains(unicodeScalars[secondIndex]),
+              hexCharacterSet.contains(unicodeScalars[thirdIndex]) else {
             throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "% must be percent-encoded in literal")
         }
 
