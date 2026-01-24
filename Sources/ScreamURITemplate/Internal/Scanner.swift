@@ -48,26 +48,22 @@ struct Scanner {
         }
     }
 
-    private func checkUnterminated() throws(URITemplate.Error) {
-        if currentIndex == unicodeScalars.endIndex {
-            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unterminated Expression")
-        }
-    }
-
     private mutating func scanExpressionComponent() throws(URITemplate.Error) -> Component {
         assert(unicodeScalars[currentIndex] == "{")
         let expressionStartIndex = currentIndex
         currentIndex = unicodeScalars.index(after: currentIndex)
-        try checkUnterminated()
 
         let expressionOperator = try scanExpressionOperator()
-        try checkUnterminated()
         let variableList = try scanVariableList()
 
         return ExpressionComponent(expressionOperator: expressionOperator, variableList: variableList, templatePosition: expressionStartIndex)
     }
 
     private mutating func scanExpressionOperator() throws(URITemplate.Error) -> ExpressionOperator {
+        guard currentIndex < unicodeScalars.endIndex else {
+            return .simple
+        }
+
         let expressionOperator: ExpressionOperator
         if expressionOperatorCharacterSet.contains(unicodeScalars[currentIndex]) {
             guard let `operator` = ExpressionOperator(rawValue: unicodeScalars[currentIndex]) else {
@@ -87,14 +83,12 @@ struct Scanner {
         var complete = false
         while !complete {
             let variableName = try scanVariableName()
-
-            try checkUnterminated()
-
             let modifier = try scanVariableModifier()
-
-            try checkUnterminated()
-
             variableList.append(VariableSpec(name: variableName, modifier: modifier))
+
+            guard currentIndex < unicodeScalars.endIndex else {
+                throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unterminated Expression")
+            }
 
             switch unicodeScalars[currentIndex] {
             case ",":
@@ -134,6 +128,10 @@ struct Scanner {
     }
 
     private mutating func scanVariableModifier() throws(URITemplate.Error) -> VariableSpec.Modifier {
+        guard currentIndex < unicodeScalars.endIndex else {
+            return .none
+        }
+
         switch unicodeScalars[currentIndex] {
         case "*":
             currentIndex = unicodeScalars.index(after: currentIndex)
