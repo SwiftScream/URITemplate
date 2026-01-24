@@ -48,12 +48,20 @@ struct Scanner {
         }
     }
 
+    private func checkUnterminated() throws(URITemplate.Error) {
+        if currentIndex == unicodeScalars.endIndex {
+            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unterminated Expression")
+        }
+    }
+
     private mutating func scanExpressionComponent() throws(URITemplate.Error) -> Component {
         assert(unicodeScalars[currentIndex] == "{")
         let expressionStartIndex = currentIndex
         currentIndex = unicodeScalars.index(after: currentIndex)
+        try checkUnterminated()
 
         let expressionOperator = try scanExpressionOperator()
+        try checkUnterminated()
         let variableList = try scanVariableList()
 
         return ExpressionComponent(expressionOperator: expressionOperator, variableList: variableList, templatePosition: expressionStartIndex)
@@ -80,15 +88,11 @@ struct Scanner {
         while !complete {
             let variableName = try scanVariableName()
 
-            if currentIndex == unicodeScalars.endIndex {
-                throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unterminated Expression")
-            }
+            try checkUnterminated()
 
             let modifier = try scanVariableModifier()
 
-            if currentIndex == unicodeScalars.endIndex {
-                throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unterminated Expression")
-            }
+            try checkUnterminated()
 
             variableList.append(VariableSpec(name: variableName, modifier: modifier))
 

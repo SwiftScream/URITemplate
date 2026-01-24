@@ -27,6 +27,11 @@ private struct TestVariableProvider: VariableProvider {
 }
 
 class Tests: XCTestCase {
+    func testUncompleteNotCrashing() throws {
+        // Use case: the user enters a template. This should not crash.
+        XCTAssertThrowsError(try URITemplate(string: "https://api.github.com/repos/{"))
+    }
+
     func testVariableProvider() throws {
         let template: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
         let urlString = try template.process(variables: TestVariableProvider())
