@@ -174,8 +174,16 @@ struct Scanner {
         assert(unicodeScalars[currentIndex] == "%")
 
         let startIndex = currentIndex
+
         let secondIndex = unicodeScalars.index(after: startIndex)
+        guard secondIndex < unicodeScalars.endIndex else {
+            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "% must be percent-encoded in literal")
+        }
+
         let thirdIndex = unicodeScalars.index(after: secondIndex)
+        guard thirdIndex < unicodeScalars.endIndex else {
+            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "% must be percent-encoded in literal")
+        }
 
         if !hexCharacterSet.contains(unicodeScalars[secondIndex]) ||
             !hexCharacterSet.contains(unicodeScalars[thirdIndex]) {

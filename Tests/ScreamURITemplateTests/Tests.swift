@@ -32,6 +32,11 @@ class Tests: XCTestCase {
         XCTAssertThrowsError(try URITemplate(string: "https://api.github.com/repos/{"))
     }
 
+    func testIncompletePercentEncodedTriplet() throws {
+        XCTAssertThrowsError(try URITemplate(string: "https://api.github.com/repos/%"))
+        XCTAssertThrowsError(try URITemplate(string: "https://api.github.com/repos/%2"))
+    }
+
     func testVariableProvider() throws {
         let template: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
         let urlString = try template.process(variables: TestVariableProvider())
