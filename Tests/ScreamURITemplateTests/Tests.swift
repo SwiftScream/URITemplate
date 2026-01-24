@@ -27,9 +27,13 @@ private struct TestVariableProvider: VariableProvider {
 }
 
 class Tests: XCTestCase {
-    func testUncompleteNotCrashing() throws {
-        // Use case: the user enters a template. This should not crash.
+    func testUnterminatedExpression() throws {
         XCTAssertThrowsError(try URITemplate(string: "https://api.github.com/repos/{"))
+        XCTAssertThrowsError(try URITemplate(string: "https://api.github.com/repos/{owner"))
+        XCTAssertThrowsError(try URITemplate(string: "https://api.github.com/repos/{owner,"))
+        XCTAssertThrowsError(try URITemplate(string: "https://api.github.com/repos/{owner*"))
+        XCTAssertThrowsError(try URITemplate(string: "https://api.github.com/repos/{owner:"))
+        XCTAssertThrowsError(try URITemplate(string: "https://api.github.com/repos/{owner:3"))
     }
 
     func testIncompletePercentEncodedTriplet() throws {
