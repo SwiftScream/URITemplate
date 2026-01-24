@@ -183,8 +183,8 @@ struct Scanner {
             throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "% must be percent-encoded in literal")
         }
 
-        if !hexCharacterSet.contains(unicodeScalars[secondIndex]) ||
-            !hexCharacterSet.contains(unicodeScalars[thirdIndex]) {
+        guard hexCharacterSet.contains(unicodeScalars[secondIndex]),
+              hexCharacterSet.contains(unicodeScalars[thirdIndex]) else {
             throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "% must be percent-encoded in literal")
         }
 
