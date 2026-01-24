@@ -60,21 +60,16 @@ struct Scanner {
     }
 
     private mutating func scanExpressionOperator() throws(URITemplate.Error) -> ExpressionOperator {
-        guard currentIndex < unicodeScalars.endIndex else {
+        guard currentIndex < unicodeScalars.endIndex,
+              expressionOperatorCharacterSet.contains(unicodeScalars[currentIndex]) else {
             return .simple
         }
 
-        let expressionOperator: ExpressionOperator
-        if expressionOperatorCharacterSet.contains(unicodeScalars[currentIndex]) {
-            guard let `operator` = ExpressionOperator(rawValue: unicodeScalars[currentIndex]) else {
-                throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unsupported Operator")
-            }
-            expressionOperator = `operator`
-            currentIndex = unicodeScalars.index(after: currentIndex)
-        } else {
-            expressionOperator = .simple
+        guard let `operator` = ExpressionOperator(rawValue: unicodeScalars[currentIndex]) else {
+            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unsupported Operator")
         }
-        return expressionOperator
+        currentIndex = unicodeScalars.index(after: currentIndex)
+        return `operator`
     }
 
     private mutating func scanVariableList() throws(URITemplate.Error) -> [VariableSpec] {
