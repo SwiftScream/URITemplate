@@ -41,6 +41,20 @@ class Tests: XCTestCase {
         XCTAssertThrowsError(try URITemplate(string: "https://api.github.com/repos/%2"))
     }
 
+    func testNonASCIIVariableNameRejected() throws {
+        XCTAssertThrowsError(try URITemplate(string: "{é}"))
+    }
+
+    func testNonASCIIPrefixLengthDigitRejected() throws {
+        XCTAssertThrowsError(try URITemplate(string: "{var:\u{0661}}")) { error in
+            guard let templateError = error as? URITemplate.Error else {
+                XCTFail("Unexpected error type")
+                return
+            }
+            XCTAssertEqual(templateError.reason, "Prefix length not specified")
+        }
+    }
+
     func testVariableProvider() throws {
         let template: URITemplate = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
         let urlString = try template.process(variables: TestVariableProvider())
@@ -76,6 +90,18 @@ class Tests: XCTestCase {
         ]
         let urlString = try template.process(variables: variables)
         XCTAssertEqual(urlString, "https://api.example.com/SwiftScream/42/true")
+    }
+
+    func testSimpleExpansionPercentEncodesNonASCII() throws {
+        let template: URITemplate = "{value}"
+        let result = try template.process(variables: ["value": "Grüner Weg"])
+        XCTAssertEqual(result, "Gr%C3%BCner%20Weg")
+    }
+
+    func testReservedExpansionStillPercentEncodesNonASCII() throws {
+        let template: URITemplate = "{+value}"
+        let result = try template.process(variables: ["value": "/café"])
+        XCTAssertEqual(result, "/caf%C3%A9")
     }
 
     func testVariableDictionaryList() throws {
