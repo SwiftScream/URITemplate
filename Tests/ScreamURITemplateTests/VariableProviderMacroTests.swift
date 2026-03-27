@@ -75,9 +75,9 @@
                 extension A: VariableProvider {
                     subscript(_ v: String) -> VariableValue? {
                         return switch v {
-                        case "owner": owner
-                        case "repo": repo
-                        case "username": username
+                        case"owner": owner
+                        case"repo": repo
+                        case"username": username
                         default: nil
                         }
                     }
@@ -108,8 +108,8 @@
                 extension A: VariableProvider {
                     subscript(_ v: String) -> VariableValue? {
                         return switch v {
-                        case "owner": owner
-                        case "repo": repo
+                        case"owner": owner
+                        case"repo": repo
                         default: nil
                         }
                     }
@@ -134,6 +134,9 @@
                 expandedSource:
                 #"""
                 struct A {
+                    #if true
+                    @Provided
+                    #endif
                     let owner: String
                     @Provided let repo: String
                 }
@@ -141,7 +144,7 @@
                 extension A: VariableProvider {
                     subscript(_ v: String) -> VariableValue? {
                         return switch v {
-                        case "repo": repo
+                        case"repo": repo
                         default: nil
                         }
                     }
@@ -174,8 +177,8 @@
                 extension A: VariableProvider {
                     subscript(_ v: String) -> VariableValue? {
                         return switch v {
-                        case "owner": owner
-                        case "repo": repo
+                        case"owner": owner
+                        case"repo": repo
                         default: nil
                         }
                     }
