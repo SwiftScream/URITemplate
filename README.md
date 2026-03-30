@@ -10,6 +10,13 @@ A robust and performant Swift 6 implementation of [RFC6570](https://tools.ietf.o
 
 [![license](https://img.shields.io/github/license/SwiftScream/URITemplate.svg)](https://raw.githubusercontent.com/SwiftScream/URITemplate/master/LICENSE) [![GitHub release](https://img.shields.io/github/release/SwiftScream/URITemplate.svg)](https://github.com/SwiftScream/URITemplate/releases/latest)
 
+> [!NOTE]
+> Foundation now includes native URI Template support ([`URL.Template`](https://developer.apple.com/documentation/foundation/url/template)).
+>
+> Introduced in Swift Foundation 6.2; available on Apple platforms from iOS 26, macOS 26, and peers.
+>
+> If your deployment target supports this, and you're just looking to expand a template into a URL, you may prefer to use Foundation instead of this library.
+
 ## Getting Started
 
 ### Swift Package Manager
