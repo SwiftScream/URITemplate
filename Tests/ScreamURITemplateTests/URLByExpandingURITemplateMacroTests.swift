@@ -30,7 +30,7 @@
             XCTAssert(plugin.providingMacros.contains { $0 == URLByExpandingURITemplateMacro.self })
         }
 
-        func testValid() throws {
+        func testValid() {
             assertMacroExpansion(
                 #"""
                 #URLByExpandingURITemplate("https://api.github.com/repos/{owner}/{repo}/collaborators/{username}", [
@@ -47,7 +47,7 @@
                 macros: testMacros)
         }
 
-        func testInvalidTemplate() throws {
+        func testInvalidTemplate() {
             assertMacroExpansion(
                 #"""
                 #URLByExpandingURITemplate("https://api.github.com/repos/{}/{repo}/collaborators/{username}", [
@@ -70,7 +70,7 @@
                 macros: testMacros)
         }
 
-        func testInvalidURL() throws {
+        func testInvalidURL() {
             assertMacroExpansion(
                 #"""
                 #URLByExpandingURITemplate("{nope}", ["nope": ""])
@@ -85,7 +85,7 @@
                 macros: testMacros)
         }
 
-        func testMisusedTemplate() throws {
+        func testMisusedTemplate() {
             assertMacroExpansion(
                 #"""
                 let s: StaticString = "https://api.github.com/repos/{owner}"
@@ -106,7 +106,7 @@
                 macros: testMacros)
         }
 
-        func testMisusedParams() throws {
+        func testMisusedParams() {
             assertMacroExpansion(
                 #"""
                 let params: KeyValue<StaticString, StaticString> = ["owner": "SwiftScream"]
@@ -123,7 +123,7 @@
                 macros: testMacros)
         }
 
-        func testMisusedParamKey() throws {
+        func testMisusedParamKey() {
             assertMacroExpansion(
                 #"""
                 #URLByExpandingURITemplate("https://api.github.com/repos/{owner}/{repo}/collaborators/{username}", [
@@ -146,7 +146,7 @@
                 macros: testMacros)
         }
 
-        func testMisusedParamValue() throws {
+        func testMisusedParamValue() {
             assertMacroExpansion(
                 #"""
                 #URLByExpandingURITemplate("https://api.github.com/repos/{owner}/{repo}/collaborators/{username}", [

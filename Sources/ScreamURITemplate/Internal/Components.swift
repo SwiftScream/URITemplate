@@ -63,12 +63,6 @@ struct ExpressionComponent: Component {
     let variableList: [VariableSpec]
     let templatePosition: String.Index
 
-    init(expressionOperator: ExpressionOperator, variableList: [VariableSpec], templatePosition: String.Index) {
-        self.expressionOperator = expressionOperator
-        self.variableList = variableList
-        self.templatePosition = templatePosition
-    }
-
     func expand(variables: TypedVariableProvider) throws(URITemplate.Error) -> String {
         let configuration = expressionOperator.expansionConfiguration()
         do {
