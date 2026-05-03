@@ -6,7 +6,6 @@ updates:
       interval: "weekly"
       day: "friday"
       timezone: "Australia/Sydney"
-    target-branch: "develop"
 
   - package-ecosystem: "gitsubmodule"
     directory: "/"
@@ -14,7 +13,6 @@ updates:
       interval: "weekly"
       day: "friday"
       timezone: "Australia/Sydney"
-    target-branch: "develop"
 
   - package-ecosystem: "swift"
     directory: "/"
@@ -22,4 +20,3 @@ updates:
       interval: "weekly"
       day: "friday"
       timezone: "Australia/Sydney"
-    target-branch: "develop"
