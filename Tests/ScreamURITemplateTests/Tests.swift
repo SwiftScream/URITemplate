@@ -133,8 +133,8 @@ class Tests: XCTestCase {
 
     func testUUIDVariable() throws {
         let template: URITemplate = "https://api.example.com/{id}"
-        let variables: VariableDictionary = [
-            "id": UUID(uuidString: "1740A1A9-B3AD-4AE9-954B-918CEDE95285")!,
+        let variables: VariableDictionary = try [
+            "id": XCTUnwrap(UUID(uuidString: "1740A1A9-B3AD-4AE9-954B-918CEDE95285")),
         ]
         let urlString = try template.process(variables: variables)
         XCTAssertEqual(urlString, "https://api.example.com/1740A1A9-B3AD-4AE9-954B-918CEDE95285")
@@ -242,7 +242,7 @@ class Tests: XCTestCase {
     func testDecoding() throws {
         let templateString = "https://api.github.com/repos/{owner}/{repo}/collaborators/{username}"
         let jsonString = "{\"a\":\"\(templateString)\"}"
-        let jsonData = jsonString.data(using: .utf8)!
+        let jsonData = try XCTUnwrap(jsonString.data(using: .utf8))
         let object = try JSONDecoder().decode([String: URITemplate].self, from: jsonData)
         let expectedTemplate = try URITemplate(string: templateString)
         XCTAssertEqual(object["a"], expectedTemplate)

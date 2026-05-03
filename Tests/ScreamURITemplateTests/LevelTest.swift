@@ -7,7 +7,7 @@ struct LevelTest {
         "'{var}'",
         "{hello}%20{world}",
     ])
-    func templateLevel1(templateString: String) async throws {
+    func templateLevel1(templateString: String) throws {
         let template = try URITemplate(string: templateString)
         #expect(template.level == .level1, "Template level should be Level 1")
     }
@@ -20,7 +20,7 @@ struct LevelTest {
         "{#var}",
         "{a}{#b}",
     ])
-    func templateLevel2(templateString: String) async throws {
+    func templateLevel2(templateString: String) throws {
         let template = try URITemplate(string: templateString)
         #expect(template.level == .level2, "Template level should be Level 2")
     }
@@ -48,7 +48,7 @@ struct LevelTest {
         "{+a}{&x}",
         "{&x,y,empty}",
     ])
-    func templateLevel3(templateString: String) async throws {
+    func templateLevel3(templateString: String) throws {
         let template = try URITemplate(string: templateString)
         #expect(template.level == .level3, "Template level should be Level 3")
     }
@@ -63,7 +63,7 @@ struct LevelTest {
         "{a,b}{list*}",
         "{.list*}",
     ])
-    func templateLevel4(templateString: String) async throws {
+    func templateLevel4(templateString: String) throws {
         let template = try URITemplate(string: templateString)
         #expect(template.level == .level4, "Template level should be Level 4")
     }

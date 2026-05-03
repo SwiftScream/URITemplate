@@ -30,7 +30,7 @@
             XCTAssert(plugin.providingMacros.contains { $0 == VariableProviderMacro.self })
         }
 
-        func testEmpty() throws {
+        func testEmpty() {
             assertMacroExpansion(
                 #"""
                 @VariableProvider
@@ -54,7 +54,7 @@
                 macros: testMacros)
         }
 
-        func testDefaultAllProvided() throws {
+        func testDefaultAllProvided() {
             assertMacroExpansion(
                 #"""
                 @VariableProvider
@@ -87,7 +87,7 @@
                 macros: testMacros)
         }
 
-        func testExplicitlyProvided() throws {
+        func testExplicitlyProvided() {
             assertMacroExpansion(
                 #"""
                 @VariableProvider
@@ -119,7 +119,7 @@
                 macros: testMacros)
         }
 
-        func testNestedInConditionalCompilation() throws {
+        func testNestedInConditionalCompilation() {
             assertMacroExpansion(
                 #"""
                 @VariableProvider
@@ -156,7 +156,7 @@
                 macros: testMacros)
         }
 
-        func testDisambiguatedExplicitlyProvided() throws {
+        func testDisambiguatedExplicitlyProvided() {
             assertMacroExpansion(
                 #"""
                 @VariableProvider

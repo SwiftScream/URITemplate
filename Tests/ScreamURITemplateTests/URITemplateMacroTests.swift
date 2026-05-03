@@ -30,7 +30,7 @@
             XCTAssert(plugin.providingMacros.contains { $0 == URITemplateMacro.self })
         }
 
-        func testValid() throws {
+        func testValid() {
             assertMacroExpansion(
                 #"""
                 #URITemplate("https://api.github.com/repos/{owner}")
@@ -43,7 +43,7 @@
                 macros: testMacros)
         }
 
-        func testInvalid() throws {
+        func testInvalid() {
             assertMacroExpansion(
                 #"""
                 #URITemplate("https://api.github.com/repos/{}/{repo}")
@@ -58,7 +58,7 @@
                 macros: testMacros)
         }
 
-        func testMisused() throws {
+        func testMisused() {
             assertMacroExpansion(
                 #"""
                 let s: StaticString = "https://api.github.com/repos/{owner}"

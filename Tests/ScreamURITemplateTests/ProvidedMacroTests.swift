@@ -30,7 +30,7 @@
             XCTAssert(plugin.providingMacros.contains { $0 == ProvidedMacro.self })
         }
 
-        func testNoCodeGenerated() throws {
+        func testNoCodeGenerated() {
             assertMacroExpansion(
                 #"""
                 struct A {

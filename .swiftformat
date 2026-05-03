@@ -4,6 +4,7 @@
 --disable redundantReturn
 --disable andOperator
 --disable wrapMultilineStatementBraces
+--disable blankLinesBetweenImports
 
 # format options
 --closingparen same-line
