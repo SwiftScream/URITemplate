@@ -41,6 +41,18 @@ class Tests: XCTestCase {
         XCTAssertThrowsError(try URITemplate(string: "https://api.github.com/repos/%2"))
     }
 
+    func testIncompletePercentEncodedVariableName() throws {
+        for template in ["{var%}", "{var%A}"] {
+            XCTAssertThrowsError(try URITemplate(string: template)) { error in
+                guard let templateError = error as? URITemplate.Error else {
+                    XCTFail("Unexpected error type")
+                    return
+                }
+                XCTAssertEqual(templateError.reason, "% must be percent-encoded in variable name")
+            }
+        }
+    }
+
     func testNonASCIIVariableNameRejected() throws {
         XCTAssertThrowsError(try URITemplate(string: "{é}"))
     }
@@ -52,6 +64,23 @@ class Tests: XCTestCase {
                 return
             }
             XCTAssertEqual(templateError.reason, "Prefix length not specified")
+        }
+    }
+
+    func testMultibyteUnicodeLiterals() throws {
+        let literals = [
+            ("café", "caf%C3%A9"),
+            ("東京", "%E6%9D%B1%E4%BA%AC"),
+            ("😀", "%F0%9F%98%80"),
+            ("cafe\u{301}", "cafe%CC%81"),
+            ("🇦🇺", "%F0%9F%87%A6%F0%9F%87%BA"),
+        ]
+
+        for (literal, encodedLiteral) in literals {
+            let template = try URITemplate(string: "https://example.com/\(literal)/{value}")
+            let result = try template.process(variables: ["value": "expanded"])
+            XCTAssertEqual(template.description, "https://example.com/\(literal)/{value}")
+            XCTAssertEqual(result, "https://example.com/\(encodedLiteral)/expanded")
         }
     }
 
