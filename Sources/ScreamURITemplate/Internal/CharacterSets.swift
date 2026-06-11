@@ -22,8 +22,3 @@ let reservedCharacterSet = genDelimsCharacterSet.union(subDelimsCharacterSet)
 let reservedAndUnreservedCharacterSet = reservedCharacterSet.union(unreservedCharacterSet)
 let invertedLiteralCharacterSet = CharacterSet.illegalCharacters.union(CharacterSet.controlCharacters).union(CharacterSet(charactersIn: " \"%<>\\^`{|}"))
 let literalCharacterSet = invertedLiteralCharacterSet.inverted
-let hexCharacterSet = CharacterSet(charactersIn: "0123456789abcdefABCDEF")
-let varnameCharacterSet = asciiAlphanumerics.union(CharacterSet(charactersIn: "_%."))
-let invertedVarnameCharacterSet = varnameCharacterSet.inverted
-let expressionOperatorCharacterSet = CharacterSet(charactersIn: "+#./;?&=,!@|")
-let invertedDecimalDigitsCharacterSet = CharacterSet(charactersIn: "0123456789").inverted

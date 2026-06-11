@@ -14,15 +14,15 @@
 
 import Foundation
 
-enum ExpressionOperator: Unicode.Scalar {
-    case simple = "\0"
-    case reserved = "+"
-    case fragment = "#"
-    case label = "."
-    case pathSegment = "/"
-    case pathStyle = ";"
-    case query = "?"
-    case queryContinuation = "&"
+enum ExpressionOperator {
+    case simple
+    case reserved
+    case fragment
+    case label
+    case pathSegment
+    case pathStyle
+    case query
+    case queryContinuation
 
     // swiftlint:disable:next function_body_length
     func expansionConfiguration() -> ExpansionConfiguration {
