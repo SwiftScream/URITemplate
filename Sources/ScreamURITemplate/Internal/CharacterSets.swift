@@ -20,5 +20,3 @@ private let genDelimsCharacterSet = CharacterSet(charactersIn: ":/?#[]@")
 private let subDelimsCharacterSet = CharacterSet(charactersIn: "!$&'()*+,;=")
 let reservedCharacterSet = genDelimsCharacterSet.union(subDelimsCharacterSet)
 let reservedAndUnreservedCharacterSet = reservedCharacterSet.union(unreservedCharacterSet)
-let invertedLiteralCharacterSet = CharacterSet.illegalCharacters.union(CharacterSet.controlCharacters).union(CharacterSet(charactersIn: " \"%<>\\^`{|}"))
-let literalCharacterSet = invertedLiteralCharacterSet.inverted
