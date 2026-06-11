@@ -14,44 +14,40 @@
 
 import Foundation
 
-private func ~= (lhs: CharacterSet, rhs: Unicode.Scalar) -> Bool {
-    return lhs.contains(rhs)
-}
-
 struct Scanner {
     let string: String
+    let utf8: String.UTF8View
     let unicodeScalars: String.UnicodeScalarView
     var currentIndex: String.Index
 
     init(string: String) {
         self.string = string
+        utf8 = string.utf8
         unicodeScalars = string.unicodeScalars
         currentIndex = string.startIndex
     }
 
     var isComplete: Bool {
-        return currentIndex >= unicodeScalars.endIndex
+        return currentIndex >= utf8.endIndex
     }
 
     mutating func scanComponent() throws(URITemplate.Error) -> Component {
-        let nextScalar = unicodeScalars[currentIndex]
+        let nextByte = utf8[currentIndex]
 
-        switch nextScalar {
-        case "{":
+        switch nextByte {
+        case UTF8.CodeUnit.openBrace:
             return try scanExpressionComponent()
-        case "%":
+        case UTF8.CodeUnit.percent:
             return try scanPercentEncodingComponent()
-        case literalCharacterSet:
-            return try scanLiteralComponent()
         default:
-            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unexpected character")
+            return try scanLiteralComponent()
         }
     }
 
     private mutating func scanExpressionComponent() throws(URITemplate.Error) -> Component {
-        assert(unicodeScalars[currentIndex] == "{")
+        assert(utf8[currentIndex] == UTF8.CodeUnit.openBrace)
         let expressionStartIndex = currentIndex
-        currentIndex = unicodeScalars.index(after: currentIndex)
+        currentIndex = utf8.index(after: currentIndex)
 
         let expressionOperator = try scanExpressionOperator()
         let variableList = try scanVariableList()
@@ -60,16 +56,33 @@ struct Scanner {
     }
 
     private mutating func scanExpressionOperator() throws(URITemplate.Error) -> ExpressionOperator {
-        guard currentIndex < unicodeScalars.endIndex,
-              expressionOperatorCharacterSet.contains(unicodeScalars[currentIndex]) else {
+        guard currentIndex < utf8.endIndex else {
             return .simple
         }
 
-        guard let `operator` = ExpressionOperator(rawValue: unicodeScalars[currentIndex]) else {
+        let expressionOperator: ExpressionOperator
+        switch utf8[currentIndex] {
+        case UTF8.CodeUnit.plus:
+            expressionOperator = .reserved
+        case UTF8.CodeUnit.hash:
+            expressionOperator = .fragment
+        case UTF8.CodeUnit.period:
+            expressionOperator = .label
+        case UTF8.CodeUnit.slash:
+            expressionOperator = .pathSegment
+        case UTF8.CodeUnit.semicolon:
+            expressionOperator = .pathStyle
+        case UTF8.CodeUnit.questionMark:
+            expressionOperator = .query
+        case UTF8.CodeUnit.ampersand:
+            expressionOperator = .queryContinuation
+        case UTF8.CodeUnit.equals, UTF8.CodeUnit.comma, UTF8.CodeUnit.exclamation, UTF8.CodeUnit.at, UTF8.CodeUnit.pipe:
             throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unsupported Operator")
+        default:
+            return .simple
         }
-        currentIndex = unicodeScalars.index(after: currentIndex)
-        return `operator`
+        currentIndex = utf8.index(after: currentIndex)
+        return expressionOperator
     }
 
     private mutating func scanVariableList() throws(URITemplate.Error) -> [VariableSpec] {
@@ -81,15 +94,15 @@ struct Scanner {
             let modifier = try scanVariableModifier()
             variableList.append(VariableSpec(name: variableName, modifier: modifier))
 
-            guard currentIndex < unicodeScalars.endIndex else {
+            guard currentIndex < utf8.endIndex else {
                 throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unterminated Expression")
             }
 
-            switch unicodeScalars[currentIndex] {
-            case ",":
-                currentIndex = unicodeScalars.index(after: currentIndex)
-            case "}":
-                currentIndex = unicodeScalars.index(after: currentIndex)
+            switch utf8[currentIndex] {
+            case UTF8.CodeUnit.comma:
+                currentIndex = utf8.index(after: currentIndex)
+            case UTF8.CodeUnit.closeBrace:
+                currentIndex = utf8.index(after: currentIndex)
                 complete = true
             default:
                 throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unexpected Character in Expression")
@@ -100,40 +113,51 @@ struct Scanner {
     }
 
     private mutating func scanVariableName() throws(URITemplate.Error) -> Substring {
-        let endIndex = scanUpTo(characterSet: invertedVarnameCharacterSet)
+        if currentIndex < utf8.endIndex, utf8[currentIndex] == UTF8.CodeUnit.period {
+            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Variable Name Cannot Begin With '.'")
+        }
+
+        let endIndex = scanWhile { $0.isAllowedInVariableName() }
         let variableName = string[currentIndex..<endIndex]
         if variableName.isEmpty {
             throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Empty Variable Name")
-        } else if variableName.starts(with: ".") {
-            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Variable Name Cannot Begin With '.'")
         }
-        var remainingVariableName = variableName
-        while let index = remainingVariableName.firstIndex(of: "%") {
-            let secondIndex = remainingVariableName.index(after: index)
-            let thirdIndex = remainingVariableName.index(after: secondIndex)
-            if !hexCharacterSet.contains(unicodeScalars[secondIndex]) ||
-                !hexCharacterSet.contains(unicodeScalars[thirdIndex]) {
+
+        var index = currentIndex
+        while index < endIndex {
+            guard utf8[index] == UTF8.CodeUnit.percent else {
+                index = utf8.index(after: index)
+                continue
+            }
+            let firstHexIndex = utf8.index(after: index)
+            guard firstHexIndex < endIndex else {
                 throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "% must be percent-encoded in variable name")
             }
-            let nextIndex = remainingVariableName.index(after: thirdIndex)
-            remainingVariableName = remainingVariableName[nextIndex...]
+            let secondHexIndex = utf8.index(after: firstHexIndex)
+            guard secondHexIndex < endIndex,
+                  utf8[firstHexIndex].isHexDigit(),
+                  utf8[secondHexIndex].isHexDigit() else {
+                throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "% must be percent-encoded in variable name")
+            }
+            index = utf8.index(after: secondHexIndex)
         }
+
         currentIndex = endIndex
         return variableName
     }
 
     private mutating func scanVariableModifier() throws(URITemplate.Error) -> VariableSpec.Modifier {
-        guard currentIndex < unicodeScalars.endIndex else {
+        guard currentIndex < utf8.endIndex else {
             return .none
         }
 
-        switch unicodeScalars[currentIndex] {
-        case "*":
-            currentIndex = unicodeScalars.index(after: currentIndex)
+        switch utf8[currentIndex] {
+        case UTF8.CodeUnit.asterisk:
+            currentIndex = utf8.index(after: currentIndex)
             return .explode
-        case ":":
-            currentIndex = unicodeScalars.index(after: currentIndex)
-            let endIndex = scanUpTo(characterSet: invertedDecimalDigitsCharacterSet)
+        case UTF8.CodeUnit.colon:
+            currentIndex = utf8.index(after: currentIndex)
+            let endIndex = scanWhile { $0.isDecimalDigit() }
             let lengthString = string[currentIndex..<endIndex]
             if lengthString.isEmpty {
                 throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Prefix length not specified")
@@ -155,47 +179,133 @@ struct Scanner {
     }
 
     private mutating func scanLiteralComponent() throws(URITemplate.Error) -> Component {
-        assert(literalCharacterSet.contains(unicodeScalars[currentIndex]))
-
         let startIndex = currentIndex
-        let endIndex = scanUpTo(characterSet: invertedLiteralCharacterSet)
+        var endIndex = currentIndex
+        while endIndex < utf8.endIndex {
+            let byte = utf8[endIndex]
+
+            if byte.isASCII() {
+                guard byte.isAllowedInLiteral() else {
+                    break
+                }
+                endIndex = utf8.index(after: endIndex)
+            } else {
+                guard literalCharacterSet.contains(unicodeScalars[endIndex]) else {
+                    break
+                }
+                endIndex = unicodeScalars.index(after: endIndex)
+            }
+        }
         currentIndex = endIndex
+
+        if startIndex == endIndex {
+            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unexpected character")
+        }
+
         return LiteralComponent(string[startIndex..<endIndex])
     }
 
     private mutating func scanPercentEncodingComponent() throws(URITemplate.Error) -> Component {
-        assert(unicodeScalars[currentIndex] == "%")
+        assert(utf8[currentIndex] == UTF8.CodeUnit.percent)
 
         let startIndex = currentIndex
 
-        let secondIndex = unicodeScalars.index(after: startIndex)
-        guard secondIndex < unicodeScalars.endIndex else {
+        let secondIndex = utf8.index(after: startIndex)
+        guard secondIndex < utf8.endIndex else {
             throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "% must be percent-encoded in literal")
         }
 
-        let thirdIndex = unicodeScalars.index(after: secondIndex)
-        guard thirdIndex < unicodeScalars.endIndex else {
+        let thirdIndex = utf8.index(after: secondIndex)
+        guard thirdIndex < utf8.endIndex else {
             throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "% must be percent-encoded in literal")
         }
 
-        guard hexCharacterSet.contains(unicodeScalars[secondIndex]),
-              hexCharacterSet.contains(unicodeScalars[thirdIndex]) else {
+        guard utf8[secondIndex].isHexDigit(),
+              utf8[thirdIndex].isHexDigit() else {
             throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "% must be percent-encoded in literal")
         }
 
-        currentIndex = unicodeScalars.index(after: thirdIndex)
+        currentIndex = utf8.index(after: thirdIndex)
         return LiteralPercentEncodedTripletComponent(string[startIndex...thirdIndex])
     }
 
-    private func scanUpTo(characterSet: CharacterSet) -> String.Index {
+    private func scanWhile(_ predicate: (UTF8.CodeUnit) -> Bool) -> String.Index {
         var index = currentIndex
-        while index < unicodeScalars.endIndex {
-            let scalar = unicodeScalars[index]
-            if characterSet.contains(scalar) {
-                break
-            }
-            index = unicodeScalars.index(after: index)
+        while index < utf8.endIndex, predicate(utf8[index]) {
+            index = utf8.index(after: index)
         }
         return index
+    }
+}
+
+private extension UTF8.CodeUnit {
+    static let exclamation: UTF8.CodeUnit = 0x21
+    static let doubleQuote: UTF8.CodeUnit = 0x22
+    static let hash: UTF8.CodeUnit = 0x23
+    static let percent: UTF8.CodeUnit = 0x25
+    static let ampersand: UTF8.CodeUnit = 0x26
+    static let asterisk: UTF8.CodeUnit = 0x2A
+    static let plus: UTF8.CodeUnit = 0x2B
+    static let comma: UTF8.CodeUnit = 0x2C
+    static let period: UTF8.CodeUnit = 0x2E
+    static let slash: UTF8.CodeUnit = 0x2F
+    static let zero: UTF8.CodeUnit = 0x30
+    static let nine: UTF8.CodeUnit = 0x39
+    static let colon: UTF8.CodeUnit = 0x3A
+    static let semicolon: UTF8.CodeUnit = 0x3B
+    static let lessThan: UTF8.CodeUnit = 0x3C
+    static let equals: UTF8.CodeUnit = 0x3D
+    static let greaterThan: UTF8.CodeUnit = 0x3E
+    static let questionMark: UTF8.CodeUnit = 0x3F
+    static let backslash: UTF8.CodeUnit = 0x5C
+    static let caret: UTF8.CodeUnit = 0x5E
+    static let underscore: UTF8.CodeUnit = 0x5F
+    static let backtick: UTF8.CodeUnit = 0x60
+    static let openBrace: UTF8.CodeUnit = 0x7B
+    static let pipe: UTF8.CodeUnit = 0x7C
+    static let closeBrace: UTF8.CodeUnit = 0x7D
+    // swiftlint:disable identifier_name
+    static let at: UTF8.CodeUnit = 0x40
+    static let A: UTF8.CodeUnit = 0x41
+    static let F: UTF8.CodeUnit = 0x46
+    static let Z: UTF8.CodeUnit = 0x5A
+    static let a: UTF8.CodeUnit = 0x61
+    static let f: UTF8.CodeUnit = 0x66
+    static let z: UTF8.CodeUnit = 0x7A
+    // swiftlint:enable identifier_name
+
+    func isASCII() -> Bool {
+        self < 0x80
+    }
+
+    func isDecimalDigit() -> Bool {
+        self >= .zero && self <= .nine
+    }
+
+    func isHexDigit() -> Bool {
+        (self >= .zero && self <= .nine) ||
+            (self >= .A && self <= .F) ||
+            (self >= .a && self <= .f)
+    }
+
+    func isAllowedInVariableName() -> Bool {
+        (self >= .zero && self <= .nine) ||
+            (self >= .A && self <= .Z) ||
+            (self >= .a && self <= .z) ||
+            self == .underscore || self == .percent || self == .period
+    }
+
+    func isAllowedInLiteral() -> Bool {
+        (self > 0x20 && self < 0x7F) &&
+            self != .doubleQuote &&
+            self != .percent &&
+            self != .lessThan &&
+            self != .greaterThan &&
+            self != .backslash &&
+            self != .caret &&
+            self != .backtick &&
+            self != .openBrace &&
+            self != .pipe &&
+            self != .closeBrace
     }
 }
