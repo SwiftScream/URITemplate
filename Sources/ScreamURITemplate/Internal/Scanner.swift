@@ -52,7 +52,11 @@ struct Scanner {
         let expressionOperator = try scanExpressionOperator()
         let variableList = try scanVariableList()
 
-        return ExpressionComponent(expressionOperator: expressionOperator, variableList: variableList, templatePosition: expressionStartIndex)
+        return .expression(
+            ExpressionComponent(
+                expressionOperator: expressionOperator,
+                variableList: variableList,
+                templatePosition: expressionStartIndex))
     }
 
     private mutating func scanExpressionOperator() throws(URITemplate.Error) -> ExpressionOperator {
@@ -224,7 +228,7 @@ struct Scanner {
             throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unexpected character")
         }
 
-        return LiteralComponent(string[startIndex..<endIndex])
+        return .literal(LiteralComponent(string[startIndex..<endIndex]))
     }
 
     private mutating func scanPercentEncodingComponent() throws(URITemplate.Error) -> Component {
@@ -248,7 +252,7 @@ struct Scanner {
         }
 
         currentIndex = utf8.index(after: thirdIndex)
-        return LiteralPercentEncodedTripletComponent(string[startIndex...thirdIndex])
+        return .percentEncodedLiteral(LiteralPercentEncodedTripletComponent(string[startIndex...thirdIndex]))
     }
 
     private func scanWhile(_ predicate: (UTF8.CodeUnit) -> Bool) -> String.Index {

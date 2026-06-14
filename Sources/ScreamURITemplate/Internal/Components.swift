@@ -14,25 +14,42 @@
 
 import Foundation
 
-typealias ComponentBase = Sendable
+enum Component {
+    case literal(LiteralComponent)
+    case percentEncodedLiteral(LiteralPercentEncodedTripletComponent)
+    case expression(ExpressionComponent)
 
-protocol Component: ComponentBase {
-    func expand(variables: TypedVariableProvider) throws(URITemplate.Error) -> String
-    var variableNames: [String] { get }
-    var level: URITemplate.Level { get }
-}
+    func expand(variables: TypedVariableProvider) throws(URITemplate.Error) -> String {
+        switch self {
+        case let .literal(component):
+            try component.expand(variables: variables)
+        case let .percentEncodedLiteral(component):
+            try component.expand(variables: variables)
+        case let .expression(component):
+            try component.expand(variables: variables)
+        }
+    }
 
-extension Component {
     var variableNames: [String] {
-        return []
+        switch self {
+        case .literal, .percentEncodedLiteral:
+            []
+        case let .expression(component):
+            component.variableNames
+        }
     }
 
     var level: URITemplate.Level {
-        return .level1
+        switch self {
+        case .literal, .percentEncodedLiteral:
+            .level1
+        case let .expression(component):
+            component.level
+        }
     }
 }
 
-struct LiteralComponent: Component {
+struct LiteralComponent {
     let literal: Substring
     init(_ string: Substring) {
         literal = string
@@ -47,7 +64,7 @@ struct LiteralComponent: Component {
     }
 }
 
-struct LiteralPercentEncodedTripletComponent: Component {
+struct LiteralPercentEncodedTripletComponent {
     let literal: Substring
     init(_ string: Substring) {
         literal = string
@@ -58,7 +75,7 @@ struct LiteralPercentEncodedTripletComponent: Component {
     }
 }
 
-struct ExpressionComponent: Component {
+struct ExpressionComponent {
     let expressionOperator: ExpressionOperator
     let variableList: [VariableSpec]
     let templatePosition: String.Index
