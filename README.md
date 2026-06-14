@@ -67,3 +67,10 @@ struct HALObject : Codable {
 
 ## Tests
 The library is tested against the [standard test suite](https://github.com/uri-templates/uritemplate-test), as well as some additional tests for behavior specific to this implementation. It is intended to keep test coverage as high as possible.
+
+## Benchmarks
+Run the macOS and Linux benchmark executable from its separate package:
+
+```sh
+swift run --package-path Benchmarks -c release ScreamURITemplateBenchmark
+```

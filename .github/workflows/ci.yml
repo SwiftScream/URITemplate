@@ -20,6 +20,8 @@ jobs:
         submodules: recursive
     - name: Build
       run: swift build -v
+    - name: Build benchmarks
+      run: swift build -v -c release --package-path Benchmarks --product ScreamURITemplateBenchmark
     - name: Run tests
       run: swift test -v --enable-code-coverage
     - name: Prepare coverage file

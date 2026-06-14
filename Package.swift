@@ -55,8 +55,5 @@ let package = Package(
         .executableTarget(
             name: "ScreamURITemplateExample",
             dependencies: ["ScreamURITemplate", "ScreamURITemplateMacros"]),
-        .executableTarget(
-            name: "ScreamURITemplateBenchmark",
-            dependencies: ["ScreamURITemplate"]),
     ],
     swiftLanguageModes: [.v6])
