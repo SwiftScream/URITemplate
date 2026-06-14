@@ -91,6 +91,7 @@ struct Scanner {
 
     private mutating func scanVariableList() throws(URITemplate.Error) -> [VariableSpec] {
         var variableList: [VariableSpec] = []
+        variableList.reserveCapacity(4)
 
         var complete = false
         while !complete {
