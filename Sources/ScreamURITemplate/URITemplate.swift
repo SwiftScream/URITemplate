@@ -42,6 +42,7 @@ public struct URITemplate {
     /// - Throws: `URITemplate.Error` with `type = .malformedTemplate` if the string is not a valid URI Template
     public init(string: String) throws(URITemplate.Error) {
         var components: [Component] = []
+        components.reserveCapacity(max(64, min(8, string.utf8.count / 8)))
         var scanner = Scanner(string: string)
         while !scanner.isComplete {
             try components.append(scanner.scanComponent())
