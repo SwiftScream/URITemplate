@@ -26,6 +26,7 @@ private struct TestVariableProvider: VariableProvider {
     }
 }
 
+// swiftlint:disable:next type_body_length
 class Tests: XCTestCase {
     func testUnterminatedExpression() throws {
         XCTAssertThrowsError(try URITemplate(string: "https://api.github.com/repos/{"))
@@ -42,7 +43,7 @@ class Tests: XCTestCase {
     }
 
     func testIncompletePercentEncodedVariableName() throws {
-        for template in ["{var%}", "{var%A}"] {
+        for template in ["{var%", "{var%}", "{var%A}"] {
             XCTAssertThrowsError(try URITemplate(string: template)) { error in
                 guard let templateError = error as? URITemplate.Error else {
                     XCTFail("Unexpected error type")
@@ -51,6 +52,17 @@ class Tests: XCTestCase {
                 XCTAssertEqual(templateError.reason, "% must be percent-encoded in variable name")
             }
         }
+    }
+
+    func testInvalidVariableNamePeriodsRejected() throws {
+        for template in ["{x.}", "{x..y}"] {
+            XCTAssertThrowsError(try URITemplate(string: template))
+        }
+    }
+
+    func testDottedVariableNames() throws {
+        let template = try URITemplate(string: "{x.y,x.%20y}")
+        XCTAssertEqual(template.variableNames, ["x.y", "x.%20y"])
     }
 
     func testNonASCIIVariableNameRejected() throws {

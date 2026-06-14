@@ -113,37 +113,59 @@ struct Scanner {
     }
 
     private mutating func scanVariableName() throws(URITemplate.Error) -> Substring {
-        if currentIndex < utf8.endIndex, utf8[currentIndex] == UTF8.CodeUnit.period {
-            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Variable Name Cannot Begin With '.'")
-        }
-
-        let endIndex = scanWhile { $0.isAllowedInVariableName() }
-        let variableName = string[currentIndex..<endIndex]
-        if variableName.isEmpty {
-            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Empty Variable Name")
-        }
-
+        let startIndex = currentIndex
         var index = currentIndex
-        while index < endIndex {
-            guard utf8[index] == UTF8.CodeUnit.percent else {
+        var requiresVariableCharacter = true
+
+        while index < utf8.endIndex {
+            let byte = utf8[index]
+
+            if byte.isUnencodedVariableNameCharacter() {
+                requiresVariableCharacter = false
                 index = utf8.index(after: index)
                 continue
             }
-            let firstHexIndex = utf8.index(after: index)
-            guard firstHexIndex < endIndex else {
-                throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "% must be percent-encoded in variable name")
+
+            if byte == .percent {
+                let firstHexIndex = utf8.index(after: index)
+                guard firstHexIndex < utf8.endIndex else {
+                    throw URITemplate.Error(type: .malformedTemplate, position: startIndex, reason: "% must be percent-encoded in variable name")
+                }
+                let secondHexIndex = utf8.index(after: firstHexIndex)
+                guard secondHexIndex < utf8.endIndex,
+                      utf8[firstHexIndex].isHexDigit(),
+                      utf8[secondHexIndex].isHexDigit() else {
+                    throw URITemplate.Error(type: .malformedTemplate, position: startIndex, reason: "% must be percent-encoded in variable name")
+                }
+                requiresVariableCharacter = false
+                index = utf8.index(after: secondHexIndex)
+                continue
             }
-            let secondHexIndex = utf8.index(after: firstHexIndex)
-            guard secondHexIndex < endIndex,
-                  utf8[firstHexIndex].isHexDigit(),
-                  utf8[secondHexIndex].isHexDigit() else {
-                throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "% must be percent-encoded in variable name")
+
+            if byte == .period {
+                guard !requiresVariableCharacter else {
+                    if index == startIndex {
+                        throw URITemplate.Error(type: .malformedTemplate, position: index, reason: "Variable Name Cannot Begin With '.'")
+                    }
+                    throw URITemplate.Error(type: .malformedTemplate, position: index, reason: "Variable name cannot contain consecutive period characters")
+                }
+                requiresVariableCharacter = true
+                index = utf8.index(after: index)
+                continue
             }
-            index = utf8.index(after: secondHexIndex)
+
+            break
         }
 
-        currentIndex = endIndex
-        return variableName
+        if index == startIndex {
+            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Empty Variable Name")
+        }
+        if requiresVariableCharacter {
+            throw URITemplate.Error(type: .malformedTemplate, position: utf8.index(before: index), reason: "Variable name cannot end with '.'")
+        }
+
+        currentIndex = index
+        return string[startIndex..<index]
     }
 
     private mutating func scanVariableModifier() throws(URITemplate.Error) -> VariableSpec.Modifier {
@@ -288,11 +310,11 @@ private extension UTF8.CodeUnit {
             (self >= .a && self <= .f)
     }
 
-    func isAllowedInVariableName() -> Bool {
+    func isUnencodedVariableNameCharacter() -> Bool {
         (self >= .zero && self <= .nine) ||
             (self >= .A && self <= .Z) ||
             (self >= .a && self <= .z) ||
-            self == .underscore || self == .percent || self == .period
+            self == .underscore
     }
 
     func isAllowedInLiteral() -> Bool {
