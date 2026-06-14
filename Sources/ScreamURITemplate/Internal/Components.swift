@@ -16,7 +16,7 @@ import Foundation
 
 enum Component {
     case literal(LiteralComponent)
-    case percentEncodedLiteral(LiteralPercentEncodedTripletComponent)
+    case percentEncodedLiteral(LiteralPercentEncodedComponent)
     case expression(ExpressionComponent)
 
     func expand(variables: TypedVariableProvider) throws(URITemplate.Error) -> String {
@@ -64,7 +64,7 @@ struct LiteralComponent {
     }
 }
 
-struct LiteralPercentEncodedTripletComponent {
+struct LiteralPercentEncodedComponent {
     let literal: Substring
     init(_ string: Substring) {
         literal = string
