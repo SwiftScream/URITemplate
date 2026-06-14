@@ -42,6 +42,22 @@ class Tests: XCTestCase {
         XCTAssertThrowsError(try URITemplate(string: "https://api.github.com/repos/%2"))
     }
 
+    func testAdjacentPercentEncodedTriplets() throws {
+        let template = try URITemplate(string: "%20%2F%3F{value}")
+        XCTAssertEqual(try template.process(variables: ["value": "expanded"]), "%20%2F%3Fexpanded")
+    }
+
+    func testIncompleteAdjacentPercentEncodedTriplet() throws {
+        let template = "%20%"
+        XCTAssertThrowsError(try URITemplate(string: template)) { error in
+            guard let templateError = error as? URITemplate.Error else {
+                XCTFail("Unexpected error type")
+                return
+            }
+            XCTAssertEqual(templateError.position, template.index(template.startIndex, offsetBy: 3))
+        }
+    }
+
     func testIncompletePercentEncodedVariableName() throws {
         for template in ["{var%", "{var%}", "{var%A}"] {
             XCTAssertThrowsError(try URITemplate(string: template)) { error in

@@ -235,24 +235,29 @@ struct Scanner {
         assert(utf8[currentIndex] == UTF8.CodeUnit.percent)
 
         let startIndex = currentIndex
+        var endIndex = startIndex
 
-        let secondIndex = utf8.index(after: startIndex)
-        guard secondIndex < utf8.endIndex else {
-            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "% must be percent-encoded in literal")
+        while endIndex < utf8.endIndex, utf8[endIndex] == UTF8.CodeUnit.percent {
+            let secondIndex = utf8.index(after: endIndex)
+            guard secondIndex < utf8.endIndex else {
+                throw URITemplate.Error(type: .malformedTemplate, position: endIndex, reason: "% must be percent-encoded in literal")
+            }
+
+            let thirdIndex = utf8.index(after: secondIndex)
+            guard thirdIndex < utf8.endIndex else {
+                throw URITemplate.Error(type: .malformedTemplate, position: endIndex, reason: "% must be percent-encoded in literal")
+            }
+
+            guard utf8[secondIndex].isHexDigit(),
+                  utf8[thirdIndex].isHexDigit() else {
+                throw URITemplate.Error(type: .malformedTemplate, position: endIndex, reason: "% must be percent-encoded in literal")
+            }
+
+            endIndex = utf8.index(after: thirdIndex)
         }
 
-        let thirdIndex = utf8.index(after: secondIndex)
-        guard thirdIndex < utf8.endIndex else {
-            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "% must be percent-encoded in literal")
-        }
-
-        guard utf8[secondIndex].isHexDigit(),
-              utf8[thirdIndex].isHexDigit() else {
-            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "% must be percent-encoded in literal")
-        }
-
-        currentIndex = utf8.index(after: thirdIndex)
-        return .percentEncodedLiteral(LiteralPercentEncodedTripletComponent(string[startIndex...thirdIndex]))
+        currentIndex = endIndex
+        return .percentEncodedLiteral(LiteralPercentEncodedComponent(string[startIndex..<endIndex]))
     }
 
     private func scanWhile(_ predicate: (UTF8.CodeUnit) -> Bool) -> String.Index {
