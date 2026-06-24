@@ -33,6 +33,15 @@ private let benchmarks = [
     Benchmark(
         name: "long-literal",
         template: "https://example.com/" + String(repeating: "path-segment/", count: 20) + "{value}"),
+    Benchmark(
+        name: "many-components",
+        template: String(repeating: "literal-{value}", count: 10)),
+    Benchmark(
+        name: "many-variables",
+        template: "{a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t}"),
+    Benchmark(
+        name: "many-percent-triplets",
+        template: String(repeating: "%20", count: 40) + "{value}"),
 ]
 
 private let iterations = CommandLine.arguments.dropFirst().first.flatMap(Int.init) ?? 200_000
