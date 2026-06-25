@@ -77,20 +77,37 @@ struct LiteralPercentEncodedComponent {
 
 struct ExpressionComponent {
     let expressionOperator: ExpressionOperator
-    let variableList: [VariableSpec]
+    let variableList: VariableList
     let templatePosition: String.Index
 
     func expand(variables: TypedVariableProvider) throws(URITemplate.Error) -> String {
         let configuration = expressionOperator.expansionConfiguration()
-        do {
-            let expansions = try variableList.compactMap { variableSpec throws(URITemplate.Error) -> String? in
-                guard let value = variables[String(variableSpec.name)] else {
-                    return nil
-                }
-                do throws(FormatError) {
-                    return try value.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
-                } catch {
-                    throw URITemplate.Error(type: .expansionFailure, position: templatePosition, reason: "Failed expanding variable \"\(variableSpec.name)\": \(error.reason)")
+        func expansion(for variableSpec: VariableSpec) throws(URITemplate.Error) -> String? {
+            guard let value = variables[String(variableSpec.name)] else {
+                return nil
+            }
+            do throws(FormatError) {
+                return try value.formatForTemplateExpansion(variableSpec: variableSpec, expansionConfiguration: configuration)
+            } catch {
+                throw URITemplate.Error(type: .expansionFailure, position: templatePosition, reason: "Failed expanding variable \"\(variableSpec.name)\": \(error.reason)")
+            }
+        }
+
+        switch variableList {
+        case let .one(variableSpec):
+            guard let expansion = try expansion(for: variableSpec) else {
+                return ""
+            }
+            if let prefix = configuration.prefix {
+                return prefix + expansion
+            }
+            return expansion
+        case let .many(variableSpecs):
+            var expansions: [String] = []
+            expansions.reserveCapacity(variableSpecs.count)
+            for variableSpec in variableSpecs {
+                if let expansion = try expansion(for: variableSpec) {
+                    expansions.append(expansion)
                 }
             }
 
@@ -103,33 +120,43 @@ struct ExpressionComponent {
                 return prefix + joinedExpansions
             }
             return joinedExpansions
-        } catch let error as URITemplate.Error {
-            throw error
-        } catch {
-            // compactMap is not marked up for Typed Throws, the compiler therefore does not know that this is not possible
-            throw URITemplate.Error(type: .expansionFailure, position: templatePosition, reason: "Failed expanding variable: \(error.localizedDescription)")
         }
     }
 
     var variableNames: [String] {
-        return variableList.map { variableSpec in
-            return String(variableSpec.name)
+        switch variableList {
+        case let .one(variableSpec):
+            return [String(variableSpec.name)]
+        case let .many(variableSpecs):
+            return variableSpecs.map { variableSpec in
+                return String(variableSpec.name)
+            }
         }
     }
 
     var level: URITemplate.Level {
         // Check for modifiers (level 4)
-        for variableSpec in variableList {
+        switch variableList {
+        case let .one(variableSpec):
             switch variableSpec.modifier {
             case .none:
-                continue
+                break
             case .explode, .prefix:
                 return .level4
+            }
+        case let .many(variableSpecs):
+            for variableSpec in variableSpecs {
+                switch variableSpec.modifier {
+                case .none:
+                    continue
+                case .explode, .prefix:
+                    return .level4
+                }
             }
         }
 
         // Check for multiple variables (level 3)
-        if variableList.count > 1 {
+        if case .many = variableList {
             return .level3
         }
 
