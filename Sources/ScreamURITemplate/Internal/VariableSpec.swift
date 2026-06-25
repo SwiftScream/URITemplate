@@ -31,3 +31,8 @@ struct VariableSpec {
         return length
     }
 }
+
+enum VariableList {
+    case one(VariableSpec)
+    case many([VariableSpec])
+}

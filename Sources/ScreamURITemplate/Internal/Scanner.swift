@@ -89,8 +89,26 @@ struct Scanner {
         return expressionOperator
     }
 
-    private mutating func scanVariableList() throws(URITemplate.Error) -> [VariableSpec] {
-        var variableList: [VariableSpec] = []
+    private mutating func scanVariableList() throws(URITemplate.Error) -> VariableList {
+        let firstVariableName = try scanVariableName()
+        let firstModifier = try scanVariableModifier()
+        let firstVariableSpec = VariableSpec(name: firstVariableName, modifier: firstModifier)
+
+        guard currentIndex < utf8.endIndex else {
+            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unterminated Expression")
+        }
+
+        switch utf8[currentIndex] {
+        case UTF8.CodeUnit.closeBrace:
+            currentIndex = utf8.index(after: currentIndex)
+            return .one(firstVariableSpec)
+        case UTF8.CodeUnit.comma:
+            currentIndex = utf8.index(after: currentIndex)
+        default:
+            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unexpected Character in Expression")
+        }
+
+        var variableList = [firstVariableSpec]
         variableList.reserveCapacity(4)
 
         var complete = false
@@ -114,7 +132,7 @@ struct Scanner {
             }
         }
 
-        return variableList
+        return .many(variableList)
     }
 
     private mutating func scanVariableName() throws(URITemplate.Error) -> Substring {
@@ -183,26 +201,31 @@ struct Scanner {
             currentIndex = utf8.index(after: currentIndex)
             return .explode
         case UTF8.CodeUnit.colon:
-            currentIndex = utf8.index(after: currentIndex)
-            let endIndex = scanWhile { $0.isDecimalDigit() }
-            let lengthString = string[currentIndex..<endIndex]
-            if lengthString.isEmpty {
-                throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Prefix length not specified")
-            }
-            if lengthString.first == "0" {
-                throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Prefix length cannot begin with 0")
-            }
-            if lengthString.count > 4 {
-                throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Prefix modifier length too large")
-            }
-            guard let length = Int(lengthString) else {
-                throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Cannot parse prefix modifier length")
-            }
-            currentIndex = endIndex
-            return .prefix(length: length)
+            return try scanPrefixModifier()
         default:
             return .none
         }
+    }
+
+    private mutating func scanPrefixModifier() throws(URITemplate.Error) -> VariableSpec.Modifier {
+        assert(utf8[currentIndex] == UTF8.CodeUnit.colon)
+        currentIndex = utf8.index(after: currentIndex)
+        let endIndex = scanWhile { $0.isDecimalDigit() }
+        let lengthString = string[currentIndex..<endIndex]
+        if lengthString.isEmpty {
+            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Prefix length not specified")
+        }
+        if lengthString.first == "0" {
+            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Prefix length cannot begin with 0")
+        }
+        if lengthString.count > 4 {
+            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Prefix modifier length too large")
+        }
+        guard let length = Int(lengthString) else {
+            throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Cannot parse prefix modifier length")
+        }
+        currentIndex = endIndex
+        return .prefix(length: length)
     }
 
     private mutating func scanLiteralComponent() throws(URITemplate.Error) -> Component {
