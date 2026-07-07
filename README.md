@@ -74,3 +74,11 @@ Run the macOS and Linux benchmark executable from its separate package:
 ```sh
 swift run --package-path Benchmarks -c release ScreamURITemplateBenchmark
 ```
+
+By default this runs both parsing and processing benchmarks. You can run just one suite, or pass a custom iteration count:
+
+```sh
+swift run --package-path Benchmarks -c release ScreamURITemplateBenchmark parse
+swift run --package-path Benchmarks -c release ScreamURITemplateBenchmark process
+swift run --package-path Benchmarks -c release ScreamURITemplateBenchmark 50000 all
+```
