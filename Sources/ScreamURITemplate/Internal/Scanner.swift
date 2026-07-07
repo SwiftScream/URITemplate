@@ -92,7 +92,7 @@ struct Scanner {
     private mutating func scanVariableList() throws(URITemplate.Error) -> VariableList {
         let firstVariableName = try scanVariableName()
         let firstModifier = try scanVariableModifier()
-        let firstVariableSpec = VariableSpec(name: firstVariableName, modifier: firstModifier)
+        let firstVariableSpec = VariableSpec(name: String(firstVariableName), modifier: firstModifier)
 
         guard currentIndex < utf8.endIndex else {
             throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unterminated Expression")
@@ -115,7 +115,7 @@ struct Scanner {
         while !complete {
             let variableName = try scanVariableName()
             let modifier = try scanVariableModifier()
-            variableList.append(VariableSpec(name: variableName, modifier: modifier))
+            variableList.append(VariableSpec(name: String(variableName), modifier: modifier))
 
             guard currentIndex < utf8.endIndex else {
                 throw URITemplate.Error(type: .malformedTemplate, position: currentIndex, reason: "Unterminated Expression")

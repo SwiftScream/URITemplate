@@ -21,7 +21,7 @@ struct VariableSpec {
         case none
     }
 
-    let name: Substring
+    let name: String
     let modifier: Modifier
 
     func prefixLength() -> Int? {

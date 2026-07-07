@@ -83,7 +83,7 @@ struct ExpressionComponent {
     func expand(variables: TypedVariableProvider) throws(URITemplate.Error) -> String {
         let configuration = expressionOperator.expansionConfiguration()
         func expansion(for variableSpec: VariableSpec) throws(URITemplate.Error) -> String? {
-            guard let value = variables[String(variableSpec.name)] else {
+            guard let value = variables[variableSpec.name] else {
                 return nil
             }
             do throws(FormatError) {
@@ -126,10 +126,10 @@ struct ExpressionComponent {
     var variableNames: [String] {
         switch variableList {
         case let .one(variableSpec):
-            return [String(variableSpec.name)]
+            return [variableSpec.name]
         case let .many(variableSpecs):
             return variableSpecs.map { variableSpec in
-                return String(variableSpec.name)
+                return variableSpec.name
             }
         }
     }

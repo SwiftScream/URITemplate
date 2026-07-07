@@ -82,7 +82,7 @@ private extension StringProtocol {
         let encodedExpansion = try percentEncode(string: modifiedValue, withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet, allowPercentEncodedTriplets: expansionConfiguration.allowPercentEncodedTriplets)
         if expansionConfiguration.named {
             if encodedExpansion.isEmpty && expansionConfiguration.omitOrphanedEquals {
-                return String(variableSpec.name)
+                return variableSpec.name
             }
             return "\(variableSpec.name)=\(encodedExpansion)"
         }
@@ -102,7 +102,7 @@ private extension Array where Element: StringProtocol {
         let expansion = encodedExpansions.joined(separator: separator)
         if expansionConfiguration.named {
             if expansion.isEmpty && expansionConfiguration.omitOrphanedEquals {
-                return String(variableSpec.name)
+                return variableSpec.name
             }
             return "\(variableSpec.name)=\(expansion)"
         }
@@ -115,7 +115,7 @@ private extension Array where Element: StringProtocol {
             let encodedElement = try percentEncode(string: String(element), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet, allowPercentEncodedTriplets: expansionConfiguration.allowPercentEncodedTriplets)
             if expansionConfiguration.named {
                 if encodedElement.isEmpty && expansionConfiguration.omitOrphanedEquals {
-                    return String(variableSpec.name)
+                    return variableSpec.name
                 }
                 return "\(variableSpec.name)=\(encodedElement)"
             }
@@ -151,7 +151,7 @@ private extension [(key: String, value: String)] {
             let encodedKey = try percentEncode(string: String(key), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet, allowPercentEncodedTriplets: expansionConfiguration.allowPercentEncodedTriplets)
             let encodedValue = try percentEncode(string: String(value), withAllowedCharacters: expansionConfiguration.percentEncodingAllowedCharacterSet, allowPercentEncodedTriplets: expansionConfiguration.allowPercentEncodedTriplets)
             if expansionConfiguration.named && encodedValue.isEmpty && expansionConfiguration.omitOrphanedEquals {
-                return String(variableSpec.name)
+                return variableSpec.name
             }
             return "\(encodedKey)=\(encodedValue)"
         }
